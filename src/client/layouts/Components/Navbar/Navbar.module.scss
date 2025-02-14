@@ -1,0 +1,123 @@
+@use '~/_breakpoint.scss' as *;
+@use '~/global.scss' as *;
+.navbar 
+{
+    position: fixed;
+    z-index:1210;
+    width:100%;
+    background-color: transparent;
+    color:#fff;
+    height: 70px;
+    top:0;
+    left:0;
+    right:0;
+    transition: height 0.3s ease, background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    &.black
+    {
+        background-color:var(--text-black);
+    }
+    .left-navbar 
+    {
+        @include xs{
+            position: absolute;
+            left:50%;
+            transform:translateX(-50%);
+        }
+    }
+}
+.navbar-logo 
+{
+    width:100%;
+    height:auto;
+    object-fit: contain;
+}
+.nav-items
+{
+    display: flex;
+    align-items: center;
+    margin-bottom: 0;
+    color:var(--text-white);
+    
+    .nav-item 
+    {
+        margin-left:2rem;
+        height:100%;
+        display: flex;
+        align-items: center;
+        position: relative;
+        font-size: 1rem;
+        cursor: pointer;
+        // @include sm 
+        // {
+        //     font-size: 1rem;
+        // }
+        &::after 
+        {
+            content:'';
+            height:2px;
+            background-color: var(--primary-color);
+            width:0;
+            position: absolute;
+            bottom:-0.2rem;
+            left:50%;
+            transform:translateX(-50%);
+            transition: 0.2s ease;
+        }
+        &:hover::after 
+        {
+            width:100%;
+        }
+        a 
+        {
+            color:var(--text-white);
+            
+        }
+        &.white{
+            color:var(--text-white);
+            a 
+            {
+                color:var(--text-white) !important;
+            }
+        }
+        
+    }
+}
+
+.cart-button 
+{
+    position:relative;
+    margin-left:1rem;
+    display: flex;
+    align-items: center;
+    .cart-noti 
+    {
+        position: absolute;
+        top: -3px;
+        right: -1px;
+        width: 8px;
+        height: 8px;
+        border-radius: 100%;
+        background-color: var(--text-black);
+        box-shadow: 0 0 0 2px var(--text-white);
+        // transition: all .3s ease-in-out;
+        &.black 
+        {
+            background-color: var(--text-white);
+            box-shadow: 0 0 0 2px var(--text-black);
+        }
+    }
+}
+.sidebar-item_link
+{
+    width:100%;
+    border-bottom: 1px solid var(--item-border-color);
+    color:var(--text-white) !important;
+    padding:12px 0;
+    font-size: var(--fs-md);
+}
+.sidebar-item_link__child
+{
+    color:var(--text-white) !important;
+}

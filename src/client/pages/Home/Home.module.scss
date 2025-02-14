@@ -1,0 +1,95 @@
+@use '~/_breakpoint.scss' as *;
+.store-item_bg
+{
+    width:100%;
+    position: relative;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 400px;
+    &::before 
+    {
+        content:'';
+        position:absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(#000000, 0.7);
+    }
+    // &::after 
+    // {
+    //     content:'';
+    //     position: absolute;
+    //     bottom: 0;
+    //     left: 0;
+    //     width: 100%;
+    //     height: 100px;
+    //     background-image: linear-gradient(to top, #0f0f0f, rgba(#000,0));
+    // }
+    .store-item_text
+    {
+        padding-top:32px;
+        text-align:center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        color:var(--text-white);
+        position:absolute;
+        left:50%;
+        transform:translate(-50%,-20%);
+        width:100%;
+        top:20%;
+        
+    }
+    
+}
+.image-slider 
+{
+    position: relative;
+    picture 
+    {
+        &::after 
+        {
+            content:'';
+            position: absolute;
+            left: 0;
+            // width: 100%;
+            // height: 100px;
+            bottom:0;
+            background-image: linear-gradient(to top, #0f0f0f, rgba(#000,0));
+        }
+        .service-item_bg 
+        {
+            width:100%;
+            object-fit: contain;
+        }
+    }
+}
+.service-item_text
+    {
+        position:absolute;
+        bottom:0;
+        color:#fff;
+        padding:20px;
+        width:100%;
+        z-index:99;
+        user-select: none;
+        @include xs 
+        {
+            padding:10px;
+        }
+        .action 
+        {
+            width:40px;
+            height:40px;
+            border:none;
+            border-radius: 50%;
+            background-color:var(--primary-color); 
+            &:hover 
+            {
+                background-color: var(--primary-color-hover);
+            }
+        }
+    }

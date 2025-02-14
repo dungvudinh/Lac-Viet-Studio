@@ -1,0 +1,2 @@
+export const RemoveIcon = () => (<svg style={{ width:'9px', height:'9px', strokeWidth:'1.5px', verticalAlign:'-1px' }} role="presentation" viewBox="0 0 16 2"><path d="M1,1 L15,1" stroke="currentColor" fill="#111" fillRule="evenodd" strokeLinecap="square"></path></svg>)
+export const AddIcon = () => (<svg style={{ width:'9px', height:'9px', strokeWidth:'1.5px', verticalAlign:'-1px' }} role="presentation" viewBox="0 0 16 16"><g stroke="currentColor" fill="#111" fillRule="evenodd" strokeLinecap="square"><path d="M8,1 L8,15"></path><path d="M1,8 L15,8"></path></g></svg>)
