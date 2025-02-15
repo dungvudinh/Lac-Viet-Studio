@@ -1,9 +1,10 @@
+import {useState} from 'react'
 import styles from './Home.module.scss'
 import classNames from 'classnames/bind'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation, Pagination } from 'swiper/modules'
 import { Grid2 as Grid, Link, Box, Stack, Typography, Accordion, AccordionSummary, AccordionDetails, Container } from '@mui/material'
-import { KeyboardArrowRight, ArrowForward } from '@mui/icons-material'
+import { KeyboardArrowRight, ArrowForward,ExpandMore } from '@mui/icons-material'
 import PageBanner from '~/client/components/PageBanner'
 import news1 from '~/client/assets/Images/News/news1.jpeg'
 import news2 from '~/client/assets/Images/News/news2.jpeg'
@@ -124,7 +125,7 @@ function Home() {
       <PageBanner bannerItems={BANNER_ITEMS}/>
       {/* HOME MAIN CONTENT */}
       <Box sx={{ paddingBottom:'4rem', marginTop:{ md:'7rem', xs:'4rem' }, textAlign:'center' }}>
-        <Container maxWidth='xl'>
+        <Container maxWidth='lg'>
           <Typography varient='h1' fontWeight={700} fontSize={{ xs:'var(--title-fs-sm)', md:'var(--title-fs-md)' }}>
               3D Store
           </Typography>
@@ -154,16 +155,16 @@ function Home() {
           </Stack>
         </Container>
         {/* 3D SERVICE */}
-        <Container sx={{ marginTop:{ md:'7rem', xs:'4rem' }, textAlign:'center' }} maxWidth='xl'>
+        <Container sx={{ marginTop:{ md:'7rem', xs:'4rem' }, textAlign:'center' }} maxWidth='lg'>
           <Typography varient='h1' fontWeight={700} fontSize={{ xs:'var(--title-fs-sm)', md:'var(--title-fs-md)' }}>
               3D Service
           </Typography>
           <Typography varient='h6' fontSize={{ md:'var(--item-desc-fs-md)', xs:'var(--item-desc-fs-sm)' }} >
               cá nhân hoá sản phẩm theo nhu cầu của khách hàng
           </Typography>
-          <Grid container sx={{ display:'flex', flexDirection:'row' }} mt={'2rem'} spacing={2}>
+          <Grid container sx={{ display:'flex', flexDirection:{md:'row', xs:'column'} }} mt={'2rem'} spacing={2}>
             {SERVICE_ITEMS.map(serviceItem => (
-              <Grid size={6} position="relative" sx={{ cursor:'pointer' }} key={serviceItem.id}>
+              <Grid size={{md:6,xs:12}} position="relative" sx={{ cursor:'pointer' }} key={serviceItem.id}>
                 {/* <div className={cx('image-slider')}>
                   <Swiper
                     modules={[Navigation, Pagination]}
@@ -203,7 +204,7 @@ function Home() {
           </Grid>
         </Container>
         {/* SA BAN */}
-        <Container sx={{ marginTop:{ md:'7rem', xs:'4rem' }, textAlign:'center' }} maxWidth='xl'>
+        <Container sx={{ marginTop:{ md:'7rem', xs:'4rem' }, textAlign:'center' }} maxWidth='lg'>
           <Typography variant="h1" fontWeight="bold" textAlign="center" fontSize={{ md:'var(--title-fs-md)', xs:'var(--title-fs-xs)' }}marginBottom="5px">
               Mô Hình Sa Bàn
           </Typography>
@@ -236,7 +237,7 @@ function Home() {
           </Typography>
         </Box>
         {/* NEWS */}
-        {/* <News/> */}
+        <News/>
         <Container sx={{ marginTop:{ md:'7rem', xs:'4rem' }, textAlign:'center' }} maxWidth='lg'>
           <Typography variant="h1" fontSize={{ md:'var(--title-fs-md)', xs:'var(--title-fs-xs)' }} fontWeight={700}>
                 Đối tác của chúng tôi
@@ -254,5 +255,101 @@ function Home() {
     </Box>
   )
 }
-
+const News = () => {
+  const [activeNews, setActiveNews] = useState(0);
+  const handleAccordionChange = (index) => (event, isExpanded) => {
+      setActiveNews(index);
+  };
+  return (
+      <Container className={cx('news-container')} sx={{marginTop:{md:'7rem', xs:'4rem'}, textAlign:'center'}} maxWidth='lg'>
+          <Typography variant="h1" fontSize={{md:"var(--title-fs-md)", xs:'var(--title-fs-xs)'}} fontWeight={700}>
+              Tin Tức
+          </Typography>
+          <Grid container mt={'2rem'}>
+              <Grid size={{xs:12, md:6}} overflow="hidden">
+                  <Swiper
+                      modules={[Navigation, Pagination]}
+                      spaceBetween={0}
+                      slidesPerView={1}
+                      navigation
+                      pagination={{ dynamicBullets: true }}
+                      initialSlide={activeNews}
+                      onSlideChange={({activeIndex})=>setActiveNews(activeIndex)}
+                      
+                  >
+                      {NEWS_ITEMS.map((item, index) => (
+                          <SwiperSlide key={index}>
+                              <Box>
+                                  <picture>
+                                      <img src={item.image} className={cx('news-img_content')}/>
+                                  </picture>
+                                  <Box sx={{ padding: '1rem', textAlign: 'left' }} display={{xs:'block', md:'none'}}>
+                                      <Typography variant="h5" fontWeight={700} fontSize='2rem' mb={1}>
+                                          {item.title}
+                                      </Typography>
+                                      <Typography sx={{
+                                          overflow: 'hidden',
+                                          textOverflow: 'ellipsis',
+                                          lineHeight: '1.5',
+                                          display: '-webkit-box',
+                                          WebkitLineClamp: 2,
+                                          WebkitBoxOrient: 'vertical',
+                                      }}>
+                                          {item.desc}
+                                      </Typography>
+                                      <Link color="primary" underline="hover" 
+                                          sx={{ display: 'flex', alignItems: 'center', marginTop: '0.5rem' }} 
+                                          href={item.link}
+                                      >
+                                          Learn more
+                                          <KeyboardArrowRight />
+                                      </Link>
+                                  </Box>
+                              </Box>
+                          </SwiperSlide>
+                      ))}
+                  </Swiper>
+              </Grid>
+              <Grid size={6} display={{xs:'none', md:'block'}}>
+                  <Box  sx={{height:'100%', display:'flex', flexDirection:'column', justifyContent:'space-between',padding:'2rem 3rem'}}>
+                      {NEWS_ITEMS.map((item, index) => (
+                          <Accordion 
+                              key={item.id}
+                              expanded={activeNews === index}
+                              onChange={handleAccordionChange(index)}
+                              square={true} 
+                              disableGutters={true}
+                          >
+                              <AccordionSummary expandIcon={<ExpandMore fontSize="large"/>}>
+                                  <Typography variant="h5" textAlign="left" fontWeight={700} fontSize='1.5rem' 
+                                  sx={{paddingRight:'2rem' }} className={cx('news-item_title')}> 
+                                      {item.title}
+                                  </Typography>
+                              </AccordionSummary>
+                              <AccordionDetails sx={{textAlign:'left', paddingRight:'1.5rem'}}>
+                                  <Typography sx={{
+                                      overflow:'hidden', 
+                                      textOverflow:'ellipsis', 
+                                      lineHeight:'1.5', 
+                                      maxHeight:'45px', 
+                                      display:'-webkit-box', 
+                                      WebkitLineClamp:2, 
+                                      WebkitBoxOrient:'vertical',
+                                      fontSize:'0.9rem'
+                                  }}>
+                                      {item.desc}
+                                  </Typography>
+                                  <Link color="primary" underline="hover" className="mt-2" href={item.link} sx={{fontSize:'0.9rem'}}>
+                                      Learn more
+                                      <KeyboardArrowRight />
+                                  </Link>
+                              </AccordionDetails>
+                          </Accordion>
+                      ))}
+                  </Box>
+              </Grid>
+          </Grid>
+      </Container>
+  );
+};
 export default Home
