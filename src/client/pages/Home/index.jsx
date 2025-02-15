@@ -153,6 +153,7 @@ function Home() {
             }
           </Stack>
         </Container>
+        {/* 3D SERVICE */}
         <Container sx={{ marginTop:{ md:'7rem', xs:'4rem' }, textAlign:'center' }} maxWidth='xl'>
           <Typography varient='h1' fontWeight={700} fontSize={{ xs:'var(--title-fs-sm)', md:'var(--title-fs-md)' }}>
               3D Service
@@ -160,10 +161,10 @@ function Home() {
           <Typography varient='h6' fontSize={{ md:'var(--item-desc-fs-md)', xs:'var(--item-desc-fs-sm)' }} >
               cá nhân hoá sản phẩm theo nhu cầu của khách hàng
           </Typography>
-          <Stack gap={2} direction={{ md:'row', xs:'column' }} mt={'2rem'}>
+          <Grid container sx={{ display:'flex', flexDirection:'row' }} mt={'2rem'} spacing={2}>
             {SERVICE_ITEMS.map(serviceItem => (
-              <Box position="relative" sx={{ cursor:'pointer' }} key={serviceItem.id}>
-                <div className={cx('image-slider')}>
+              <Grid size={6} position="relative" sx={{ cursor:'pointer' }} key={serviceItem.id}>
+                {/* <div className={cx('image-slider')}>
                   <Swiper
                     modules={[Navigation, Pagination]}
                     spaceBetween={0}
@@ -173,20 +174,21 @@ function Home() {
                                             
                   >
                     <SwiperSlide>
-                      <picture>
-                        <img src={serviceItem.image} className={cx('service-item_bg')}/>
-                      </picture>
+                      <
                     </SwiperSlide>
                   </Swiper>
-                </div>
+                </div> */}
+                {/* <picture> */}
+                <img src={serviceItem.image} className={cx('service-item_bg')}/>
+                {/* </picture> */}
                 <div className={cx('service-item_text')}>
                   <Stack direction="row" justifyContent="space-between">
                     <Box>
-                      <Typography varient='h1' fontWeight={600} fontSize={{ md:'3rem', xs:'2rem' }}
+                      <Typography varient='h1' fontWeight={600} fontSize={{ md:'var(--item-title-fs-md)', xs:'var(--item-title-fs-xs)' }}
                         textAlign={'left'}>
                         {serviceItem.title}
                       </Typography>
-                      <Typography varient='h6' fontSize={{ md:'1.6rem', xs:'1.4rem' }}
+                      <Typography varient='h6' fontSize={{ md:'var(--item-desc-fs-md)', xs:'var(--item-desc-fs-xs)' }}
                         textAlign={'left'}>
                         {serviceItem.desc}
                       </Typography>
@@ -196,31 +198,31 @@ function Home() {
                     </button>
                   </Stack>
                 </div>
-              </Box>
+              </Grid>
             ))}
-          </Stack>
+          </Grid>
         </Container>
-        {/* architecture model 3 */}
-        <Container className={cx('news-container')} sx={{ marginTop:{ md:'100px', xs:'50px' }, textAlign:'center' }} maxWidth='xl'>
-          <Typography variant="h1" fontWeight="bold" textAlign="center" fontSize={{ md:'3.5rem', xs:'2.5rem' }}marginBottom="5px">
-                        Mô Hình Sa Bàn
+        {/* SA BAN */}
+        <Container sx={{ marginTop:{ md:'7rem', xs:'4rem' }, textAlign:'center' }} maxWidth='xl'>
+          <Typography variant="h1" fontWeight="bold" textAlign="center" fontSize={{ md:'var(--title-fs-md)', xs:'var(--title-fs-xs)' }}marginBottom="5px">
+              Mô Hình Sa Bàn
           </Typography>
-          <Typography variant="body1" textAlign="center" fontSize={{ md:'1.8rem', xs:'1.5rem' }}>
-                        Thiết kế mô hình sa bàn chi tiết, tái hiện chính xác các dự án xây dựng.
+          <Typography variant="body1" textAlign="center" fontSize={{ md:'var(--desc-fs-md)', xs:'var(--desc-fs-xs)' }}>
+                Thiết kế mô hình sa bàn chi tiết, tái hiện chính xác các dự án xây dựng.
           </Typography>
           <Stack gap={{ xs:1, md:4 }} mt={'2rem'} direction={{ xs: 'column', md: 'row' }} >
             {
               SABAN_ITEMS.map((sabanItem, index) => (
                 <div key={index} className={cx('architecture-model_item')} style={{ backgroundImage:`url(${sabanItem.image})` }}>
-                  <div className={cx('architecture-model_item__content')}>
-                    <Typography variant="h1" fontWeight="bold" textAlign="center" fontSize={{ md:'3rem', xs:'2rem' }} color="#fff"
+                  <div className={cx('architecture-model_item__text')}>
+                    <Typography variant="h1" fontWeight="bold" textAlign="center" fontSize={{ md:'var(--item-title-fs-md)', xs:'var(--item-title-fs-xs)' }}
                     >
                       {sabanItem.title}
                     </Typography>
-                    <Link to={sabanItem.path} underline="hover" fontSize={{ md:'1.6rem', xs:'1.4rem' }} sx={{ cursor:'pointer' }}>
+                    <Link to={sabanItem.path} underline="hover" fontSize={{ md:'var(--item-desc-fs-md)', xs:'var(--item-desc-fs-xs)' }} sx={{ cursor:'pointer' }}>
                       {/* Learn more */}
-                                            Tìm hiểu thêm
-                      <KeyboardArrowRight />
+                          Tìm hiểu thêm
+                      <KeyboardArrowRight sx={{ mt:'4px' }}/>
                     </Link>
                   </div>
                 </div>
@@ -228,16 +230,16 @@ function Home() {
             }
           </Stack>
         </Container>
-        <Box className={cx('slogan_bg')} marginTop={'100px'}>
-          <Typography varient='h6' fontSize={{ md:'3.5rem', xs:'2.5rem' }} fontWeight={700} position={'relative'} zIndex={'10'} maxWidth={'800px'}>
-                        Biến Ý Tưởng Của Khách Hàng Thành Hiện Thực
+        <Box className={cx('slogan_bg')} marginTop={{ md:'7rem', xs:'4rem' }} sx={{ display:'flex', justifyContent:'center' }}>
+          <Typography varient='h6' fontSize={{ md:'var(--title-fs-md)', xs:'var(--title-fs-xs)' }} fontWeight={700} position={'relative'} zIndex={'10'} maxWidth={'800px'}>
+              Biến Ý Tưởng Của Khách Hàng Thành Hiện Thực
           </Typography>
         </Box>
         {/* NEWS */}
         {/* <News/> */}
-        <Container sx={{ marginTop:{ md:'100px', xs:'50px' }, textAlign:'center' }} maxWidth='xl'>
-          <Typography variant="h1" fontSize={{ md:'3.5rem', xs:'2.5rem' }} fontWeight={700}>
-                        Đối tác của chúng tôi
+        <Container sx={{ marginTop:{ md:'7rem', xs:'4rem' }, textAlign:'center' }} maxWidth='lg'>
+          <Typography variant="h1" fontSize={{ md:'var(--title-fs-md)', xs:'var(--title-fs-xs)' }} fontWeight={700}>
+                Đối tác của chúng tôi
           </Typography>
           <Stack mt={'2rem'}>
             {
