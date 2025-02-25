@@ -49,7 +49,7 @@ const HomeFooter = () => {
             fontSize:{ xs:'1.5rem', md:'var(--title-fs-sm)' }, 
             textAlign:{ xs:'center', md:'left' }
           }}>
-                            Be the first to receive our latest product updates, newest offerings, and free product trials.
+            Be the first to receive our latest product updates, newest offerings, and free product trials.
           </Typography>
           <Box 
             paddingLeft={{ xs: 0, sm: 20 }}  
@@ -64,11 +64,11 @@ const HomeFooter = () => {
                   borderTopLeftRadius:0,
                   borderBottomLeftRadius:0
                 }}>
-                                    Sign Up
+                  Sign Up
               </Button>
             </Box>  
             <Typography variant="p" component="p" fontSize={{ md:'var(--fs-sm)' }} marginTop={1}>
-                                By signing up, you agree to Bambu Lab's <span style={{ color: '#f77919' }}>Terms of Use</span> and <span style={{ color: '#f77919' }}>Privacy Policy</span>
+                By signing up, you agree to Bambu Lab's <span style={{ color: '#f77919' }}>Terms of Use</span> and <span style={{ color: '#f77919' }}>Privacy Policy</span>
             </Typography>      
           </Box>
         </Stack>
@@ -176,7 +176,7 @@ const HomeFooter = () => {
           </Grid>
         </Box>
         <div className={cx('copyright')}>
-                        Copyright © 2024 Lac Viet Studio All Rights Reserved.
+          Copyright © 2024 Lac Viet Studio All Rights Reserved.
         </div>
       </Container>
     </Box>
@@ -185,9 +185,9 @@ const HomeFooter = () => {
 
 const StoreFooter = () => {
   return (
-    <Box bgcolor="#fff" color="linkColor" paddingTop="60px" padding="60px 30px 50px 30px" border="1px solid #ddd">
+    <Box  color="linkColor" paddingTop="60px" padding="60px 30px 50px 30px" border="1px solid #ddd">
       <Container maxWidth='lg' sx={{ padding:'0' }}>
-        <Box pb="10px" >
+        <Box pb="1rem" >
           <Stack 
             direction={{ xs: 'column', sm: 'row' }} 
             justifyContent="space-between"
@@ -203,26 +203,26 @@ const StoreFooter = () => {
             ))}
             <Box>
               <div className={cx('link-title')} style={{ color:'#111' }}>About Lac Viet Studio</div>
-              <Typography maxWidth={240} varient='body1' fontSize={'1.4rem'}>
-                                    Lac Viet Studio is a consumer tech company focusing on desktop 3D printers. Starting with the X1 series,
-                                    Lac Viet Studio builds state-of-the-art 3D printers that break the barriers between the digital and physical worlds,
-                                    bringing creativity to a whole new level.
+              <Typography maxWidth={240} varient='body1' fontSize={'var(--fs-md)'}>
+                Lac Viet Studio is a consumer tech company focusing on desktop 3D printers. Starting with the X1 series,
+                Lac Viet Studio builds state-of-the-art 3D printers that break the barriers between the digital and physical worlds,
+                bringing creativity to a whole new level.
               </Typography>
-              <ul className='d-flex justify-content-start align-items-center mt-3'>
+              <Box sx={{display:'flex', justifyContent:'flex-start', alignItems:'center', marginTop:'1rem'}}>
                 <Link underline="none" href="" sx={{ color:'#9E9E9E' }}>
                   <FacebookIcon width={25} height={25}/>
                 </Link>
                 <Link underline="none" href="" sx={{ color:'#9E9E9E', display:'flex', alignItems:'flex-end' }} ml="20px">
                   <InstagramIcon width={25} height={25}/>
                 </Link>
-              </ul>
+              </Box>
             </Box>
           </Stack>
 
                         
         </Box>
         <div className={cx('copyright', 'text-black')}>
-                        Copyright © 2024 Lac Viet Studio All Rights Reserved.
+          Copyright © 2024 Lac Viet Studio All Rights Reserved.
         </div>
       </Container>
     </Box>

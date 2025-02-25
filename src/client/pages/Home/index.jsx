@@ -123,7 +123,7 @@ function Home() {
   return ( 
     <Box className={cx('home-container')}>
       {/* HOME BANNER */}
-      <PageBanner bannerItems={BANNER_ITEMS}/>
+      <PageBanner bannerItems={BANNER_ITEMS} belongTo={'home'}/>
       {/* HOME MAIN CONTENT */}
       <Box sx={{ paddingBottom:'4rem', marginTop:{ md:'7rem', xs:'4rem' }, textAlign:'center' }}>
         <Container maxWidth='lg'>
