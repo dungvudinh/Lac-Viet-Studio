@@ -121,3 +121,24 @@
 {
     color:var(--text-white) !important;
 }
+
+//NAV STORE ITEM LINK 
+.link-item 
+{
+    display:flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    padding:20px;
+    .link-item_image img
+    {
+        width:130px;
+        height:150px;
+        object-fit: scale-down;
+    }
+    .link-item_content
+    {
+        padding:20px 0;
+        margin-left:20px;
+    }
+}

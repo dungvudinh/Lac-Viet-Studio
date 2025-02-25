@@ -22,7 +22,7 @@ function PageBanner({ bannerItems }) {
       {bannerItems.map((item) => (
         <SwiperSlide key={item.id}>
           {({ isActive }) => (
-            <BannerItem image={item.img} className={isActive ? 'active' : ''}/>
+            <BannerItem image={'https://cdn1.bambulab.com/home/banner/a1mini-pc.jpeg'} className={isActive ? 'active' : ''}/>
           )}
         </SwiperSlide>
       ))}
