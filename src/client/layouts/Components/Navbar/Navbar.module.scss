@@ -18,6 +18,19 @@
     {
         background-color:var(--text-black);
     }
+    &.white{
+        box-shadow: 0 -1px var(--nav-border-color) inset;
+        background-color: var(--text-white);
+        .nav-items
+        {
+            color:var(--text-black);    
+            a 
+            {
+                color:var(--text-black) !important;
+            }
+        }
+       
+    }
     .left-navbar 
     {
         @include xs{
@@ -26,64 +39,57 @@
             transform:translateX(-50%);
         }
     }
-}
-.navbar-logo 
-{
-    width:100%;
-    height:auto;
-    object-fit: contain;
-}
-.nav-items
-{
-    display: flex;
-    align-items: center;
-    margin-bottom: 0;
-    color:var(--text-white);
-    
-    .nav-item 
+    .navbar-logo 
     {
-        margin-left:2rem;
-        height:100%;
+        width:100%;
+        height:auto;
+        object-fit: contain;
+    }
+    .nav-items
+    {
         display: flex;
         align-items: center;
-        position: relative;
-        font-size: 1rem;
-        cursor: pointer;
-        // @include sm 
-        // {
-        //     font-size: 1rem;
-        // }
-        &::after 
+        margin-bottom: 0;
+        color:var(--text-white);
+        .nav-item 
         {
-            content:'';
-            height:2px;
-            background-color: var(--primary-color);
-            width:0;
-            position: absolute;
-            bottom:-0.2rem;
-            left:50%;
-            transform:translateX(-50%);
-            transition: 0.2s ease;
-        }
-        &:hover::after 
-        {
-            width:100%;
-        }
-        a 
-        {
-            color:var(--text-white);
-            
-        }
-        &.white{
-            color:var(--text-white);
+            margin-left:2rem;
+            height:100%;
+            display: flex;
+            align-items: center;
+            position: relative;
+            font-size: 1rem;
+            cursor: pointer;
+            // @include sm 
+            // {
+            //     font-size: 1rem;
+            // }
+            &::after 
+            {
+                content:'';
+                height:2px;
+                background-color: var(--primary-color);
+                width:0;
+                position: absolute;
+                bottom:-0.2rem;
+                left:50%;
+                transform:translateX(-50%);
+                transition: 0.2s ease;
+            }
+            &:hover::after 
+            {
+                width:100%;
+            }
             a 
             {
-                color:var(--text-white) !important;
+                color:var(--text-white);
+                
             }
         }
-        
     }
 }
+
+
 
 .cart-button 
 {

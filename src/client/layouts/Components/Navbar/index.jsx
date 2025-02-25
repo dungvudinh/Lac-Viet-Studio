@@ -37,7 +37,7 @@ const NAV_ITEMS = [
           {
             title:'Bambu Lab X1 Series', 
             desc: 'State-of-the-art Core XY 3D printer', 
-            image:'https://cdn1.bambulab.com/common/navbar-x1.png' , 
+            image:'https://cdn1.bambulab.com/common/navbar-x1.png', 
             path:''
 
           }
@@ -49,7 +49,7 @@ const NAV_ITEMS = [
           {
             title:'Bambu Lab X1 Series', 
             desc: 'State-of-the-art Core XY 3D printer', 
-            image:'https://cdn1.bambulab.com/common/navbar-x1.png' , 
+            image:'https://cdn1.bambulab.com/common/navbar-x1.png', 
             path:''
 
           },
@@ -135,18 +135,18 @@ function Navbar({ belongTo }) {
   const [isCartOpen, setIsCartOpen]= useState(false)
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   const [isNavStoreOpen, setIsNavStoreOpen] = useState(false)
-  const navBgColorRef = useRef('');
+  const navBgColorRef = useRef('')
   // EFFECT HOOKS
   useLayoutEffect(() => {
     const detectScrollView = () => {
       // document.documentElement.scrollTop > 100 ? setNavBgColor('black') : setNavBgColor('')
-      if(document.documentElement.scrollTop > 100){
+      if (document.documentElement.scrollTop > 100) {
         setNavBgColor('black')
-        navBgColorRef.current  = 'black';
+        navBgColorRef.current = 'black'
       }
-      else{
-        setNavBgColor('');
-        navBgColorRef.current = '';
+      else {
+        setNavBgColor('')
+        navBgColorRef.current = ''
       }
     }
     if (belongTo === 'home')
@@ -194,7 +194,7 @@ function Navbar({ belongTo }) {
 
           {/* NAVBAR ITEMS */}
           <Box sx={{ display:{ md:'flex', xs:'none' }, alignItems:'center', mb:0 }}>
-            <ul className={cx('nav-items', `${navBgColor}`)}>
+            <ul className={cx('nav-items')}>
               {NAV_ITEMS
               // .filter(navItem => navItem.belongTo.includes(belongTo))
                 .map((navItem, index) => (
@@ -382,20 +382,20 @@ const Sidebar = ({ isLogin, isSidebarOpen, onToggleSidebar }) => {
               </AccordionSummary>
               <AccordionDetails sx={{ padding:0, color:'white.main' }}>
                 <List sx={{ paddingLeft:'10px' }}>
-                {
-                  navItem.content.flatMap(navItemChild => 
-                    navItemChild.contentChild.map(navContentChild => ({title: navContentChild.title, path: navContentChild.path}))
-                  ).map((item, id) => (
-                    <ListItemButton key={id}>
-                      <Link to={item.path} className={cx('sidebar-item_link__child')}>
-                        <Typography sx={{ fontSize: 'var(--fs-md)' }}>{item.title}</Typography>
-                        <IconButton>
-                          <KeyboardArrowRight sx={{ color: 'var(--text-white)' }} />
-                        </IconButton>
-                      </Link>
-                    </ListItemButton>
-                  ))
-                }
+                  {
+                    navItem.content.flatMap(navItemChild => 
+                      navItemChild.contentChild.map(navContentChild => ({ title: navContentChild.title, path: navContentChild.path }))
+                    ).map((item, id) => (
+                      <ListItemButton key={id}>
+                        <Link to={item.path} className={cx('sidebar-item_link__child')}>
+                          <Typography sx={{ fontSize: 'var(--fs-md)' }}>{item.title}</Typography>
+                          <IconButton>
+                            <KeyboardArrowRight sx={{ color: 'var(--text-white)' }} />
+                          </IconButton>
+                        </Link>
+                      </ListItemButton>
+                    ))
+                  }
                   {/* {navItem.content && navItem.content.map((navItemChild, ix) => (
                     
                   ))} */}
