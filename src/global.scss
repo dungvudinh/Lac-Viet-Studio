@@ -2,6 +2,7 @@
 :root 
 {
     --primary-color:#f77919;
+    --primary-color-bg: #fde6d4;
     --text-white: #FFF;
     --text-black:#111;
     --item-border-color:hsla(0, 0%, 100%, .25);
@@ -18,6 +19,12 @@
     --item-desc-fs-md:1.3rem;
     --item-desc-fs-sm:1rem;
     --nav-border-color:#ddd;
+    --sidebar-bg-color:#202947;
+    --sidebar-text-color:#b2b8c7;   
+    --sidebar-width:15rem;
+    --navbar-bg-color:#fff;
+    --navbar-border-color:#e2e6f1;
+    --default-body-bg-color:rgb(249, 250, 252);
 }
 // $text-white: #FFF;
 // $text-black:#111;
@@ -100,6 +107,12 @@ button
     border-radius: 100%;
     background: currentColor;
 }
+.icon-bg 
+{
+    padding: 5px 5px 0px 5px;
+    background-color: var(--primary-color-bg);
+    border-radius: 50%;
+}
 .MuiAccordion-root::before
 {
     // width:91% !important;
@@ -122,7 +135,10 @@ button
 {
     box-shadow: none !important;
 }
-
+.MuiSelect-root .Mui-focused
+{
+    border-color:red !important;
+}
 .swiper-pagination-bullet {
     background-color: rgba(0, 0, 0, 0.3);  /* Change to any color you prefer */
 }

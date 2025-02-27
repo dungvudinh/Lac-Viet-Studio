@@ -170,7 +170,7 @@ function Store() {
             </Box>
             {/* SHOW CATEGORY ON MOBILE VIEW */}
             <Box display={{ xs: 'block', md: 'none' }}>
-            <Drawer
+              <Drawer
                 anchor="left"
                 open={isFilterSidebarOpen}
                 onClose={handleToggleFilterSidebar}

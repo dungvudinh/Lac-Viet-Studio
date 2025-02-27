@@ -7,6 +7,7 @@ import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import { Button, Typography } from '@mui/material'
 import { ArrowForwardIos } from '@mui/icons-material'
+import LazyLoadBackgroundImage from '~/shared/components/LazyLoadBackgroundImage'
 const cx = classNames.bind(styles)
 
 function PageBanner({ bannerItems, belongTo }) {
@@ -32,7 +33,7 @@ function PageBanner({ bannerItems, belongTo }) {
 
 const BannerItem = ({ image, className, belongTo }) => {
   return (
-    <div className={cx('hero-slide__item', `${className}`)} style={{ backgroundImage:`url(${image})`, padding:`${belongTo === 'home' ? '20rem 0' : '13rem 0'}` }}>
+    <LazyLoadBackgroundImage src={image} className={cx('hero-slide__item', `${className}`)} style={{ padding:`${belongTo === 'home' ? '20rem 0' : '13rem 0'}` }}>
       <div className={cx('hero-slide__item__content')}>
         <div className={cx('hero-slide__item__content__info')}>
           <Typography varient='h1' fontSize={{ xs:'1.5rem', md:'2.5rem' }} fontWeight='600' className={cx('title')}>Bambu Lab X1C</Typography>
@@ -60,7 +61,10 @@ const BannerItem = ({ image, className, belongTo }) => {
           </div>  
         </div>
       </div>
-    </div>
+    </LazyLoadBackgroundImage>
+    // <div className={cx('hero-slide__item', `${className}`)} style={{ backgroundImage:`url(${image})`, padding:`${belongTo === 'home' ? '20rem 0' : '13rem 0'}` }}>
+      
+  // </div>
   )
 }
 

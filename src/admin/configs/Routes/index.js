@@ -1,3 +1,7 @@
 const routes = {
-    dashboard: '/admin/dashboard',
+  dashboard: '/',
+  toy: '/store/toy',
+  decoration: '/store/decor' 
 }
+
+export default routes

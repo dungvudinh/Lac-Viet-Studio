@@ -185,7 +185,7 @@ const HomeFooter = () => {
 
 const StoreFooter = () => {
   return (
-    <Box  color="linkColor" paddingTop="60px" padding="60px 30px 50px 30px" border="1px solid #ddd">
+    <Box color="linkColor" paddingTop="60px" padding="60px 30px 50px 30px" border="1px solid #ddd">
       <Container maxWidth='lg' sx={{ padding:'0' }}>
         <Box pb="1rem" >
           <Stack 
@@ -208,7 +208,7 @@ const StoreFooter = () => {
                 Lac Viet Studio builds state-of-the-art 3D printers that break the barriers between the digital and physical worlds,
                 bringing creativity to a whole new level.
               </Typography>
-              <Box sx={{display:'flex', justifyContent:'flex-start', alignItems:'center', marginTop:'1rem'}}>
+              <Box sx={{ display:'flex', justifyContent:'flex-start', alignItems:'center', marginTop:'1rem' }}>
                 <Link underline="none" href="" sx={{ color:'#9E9E9E' }}>
                   <FacebookIcon width={25} height={25}/>
                 </Link>
