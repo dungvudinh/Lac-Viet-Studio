@@ -12,7 +12,7 @@ function ClientApp() {
           if (route.layout === null) {
             Layout = ({ children }) => <>{children}</>
           }
-          return <Route key={index} path={route.path} element={<Layout><Page /></Layout>} />
+          return <Route key={index} path={route.path} element={<Layout routePath={route.path}><Page /></Layout>} />
         })
       }
     </Routes>

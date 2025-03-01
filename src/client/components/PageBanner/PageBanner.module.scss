@@ -1,116 +1,111 @@
 @use '~/_breakpoint.scss' as *;
-.hero-slide 
-{
-    margin-bottom:3rem;
-}
-.hero-slide__item
-{
-    // padding:23rem 0;
-    // width:100%;
-    // position: relative;
-    // background-position: center;
-    // background-repeat: no-repeat;
-    // background-size: cover;
-    // height: 800px;
-    padding:20rem 0;
-    width:100%;
-    position: relative;
-    background-position-x: center;
-    background-position-y:75%;
-    background-repeat: no-repeat;
-    background-size: cover;
-    @include xs 
-    {
-        background-position-x: 50%;
-    }
-    &::before 
-    {
-        content:'';
-        position:absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(#000000, 0.6);
-    }
-    &::after 
-    {
-        content:'';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 100px;
-        background-image: linear-gradient(to top, #0f0f0f, rgba(#000,0));
-    }
-    &__content 
-    {
-        display:flex;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-        color:#fff;
-        &__info 
-        {
-            width:55%;
-            padding:0 3rem;
-            position: relative;
-            @include xs 
-            {
-                width:85%;
-                padding:0;
-            }
-            // @include tablet 
-            // {
-            //     width: 100%;
-            // }
-            // @include mobile 
-            // {
-            //     width:100%;
-            // }
-            & > * ~ * 
-            {
-                margin-top:3rem;
-            }
-            .btns 
-            {
-                display:flex;
-                flex-direction: row;
-                align-items: center;
-            }
-            .btns > *  ~ *
-            {
-                margin-left:1rem;
-            }
-            .btns, .title, .overview 
-            {
-                opacity: 0;
-                transform: translateY(-100px);
-                transition:transform  .5s ease, opacity 0.5s ease;
-            }
-        }
-        
-    }
-   
-    &.active > &__content &__content__info 
-    {
-        .btns, .overview, .title 
-        {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .title 
-        {
-            transition-delay: 0.3s, 0.3s;
-        }
-        .overview 
-        {
-            transition-delay: 0.6s, 0.6s;
-        }
-        .btns 
-        {
-            transition-delay: 0.9s, 0.9s;
 
-        }
+.hero-slide {
+  margin-bottom: 3rem;
+  
+  &__item {
+    position: relative;
+    width: 100%;
+    padding: 15rem 0;
+    background: {
+      position: center 75%;
+      repeat: no-repeat;
+      size: cover;
     }
+    
+    @include xs {
+      padding: 10rem 0;
+      background-position-x: 50%;
+    }
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      pointer-events: none;
+    }
+
+    &::before {
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 1;
+    }
+
+    &::after {
+      bottom: 0;
+      width: 100%;
+      height: 100px;
+      background-image: linear-gradient(to top, #0f0f0f 30%, transparent 100%);
+      z-index: 2;
+    }
+
+    &__content {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      z-index: 3;
+      
+      &__info {
+        width: 100%;
+        max-width: 55ch;
+        padding: 0 3rem;
+        
+        @include xs {
+          width: 85%;
+          padding: 0;
+        }
+
+        & > * ~ * {
+          margin-top: 2.5rem;
+        }
+
+        .btns {
+          display: flex;
+          gap: 1rem;
+          will-change: transform, opacity;
+        }
+
+        // Animation mixin for reusable transitions
+        @mixin fade-up {
+          opacity: 0;
+          transform: translate3d(0, 30px, 0);
+          transition: {
+            property: transform, opacity;
+            duration: 0.6s;
+            timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+          }
+        }
+
+        .title {
+          @include fade-up;
+          transition-delay: 0.2s;
+        }
+
+        .overview {
+          @include fade-up;
+          transition-delay: 0.4s;
+        }
+
+        .btns {
+          @include fade-up;
+          transition-delay: 0.6s;
+        }
+      }
+    }
+
+    &.active &__content__info {
+      .title,
+      .overview,
+      .btns {
+        opacity: 1;
+        transform: translateZ(0);
+        backface-visibility: hidden;
+      }
+    }
+  }
 }

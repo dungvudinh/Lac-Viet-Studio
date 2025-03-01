@@ -6,7 +6,7 @@
 {
     height:100%;
     border:none;
-    font-size: 1rem;
+    font-size:var(--fs-lg);
     flex:1;
     &:focus 
     {
@@ -14,7 +14,7 @@
     }
     @include xs
     {
-        font-size: 1.4rem;
+        font-size: var(--fs-md);
     }
 }
 .link-title 

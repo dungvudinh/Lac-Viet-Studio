@@ -2,6 +2,8 @@
 :root 
 {
     --primary-color:#f77919;
+    --primary-color-hover: #c26015;
+    --border-color: #ddd;
     --text-white: #FFF;
     --text-black:#111;
     --item-border-color:hsla(0, 0%, 100%, .25);
@@ -17,6 +19,7 @@
     --item-title-fs-sm:1.4rem;
     --item-desc-fs-md:1.3rem;
     --item-desc-fs-sm:1rem;
+    --nav-height:70px;
 }
 // $text-white: #FFF;
 // $text-black:#111;

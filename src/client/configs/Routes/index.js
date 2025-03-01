@@ -1,5 +1,7 @@
 const routes = {
-  home:'/' 
+  home:'/', 
+  store:'/store',
+  profileSetting:'/profile-setting'
 }
 
 export default routes

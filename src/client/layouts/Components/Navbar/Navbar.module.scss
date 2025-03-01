@@ -7,7 +7,7 @@
     width:100%;
     background-color: transparent;
     color:#fff;
-    height: 70px;
+    height: var(--nav-height);
     top:0;
     left:0;
     right:0;
@@ -17,6 +17,20 @@
     &.black
     {
         background-color:var(--text-black);
+    }
+    &.white 
+    {
+        border-bottom: 1px solid var(--border-color);
+        background-color: var(--text-white);
+        color:var(--text-black);
+        .nav-items 
+        {
+            color:var(--text-black) !important;
+            a 
+            {
+                color:var(--text-black) !important;
+            }
+        }
     }
     .left-navbar 
     {

@@ -1,8 +1,10 @@
 import { Container } from '@mui/material'
+import Navbar from '../Components/Navbar'
 
 function StoreLayout({ children }) {
   return ( 
-    <Container>
+    <Container maxWidth='true'>
+      <Navbar belongTo={'store'}/>
       {children}
     </Container>
   )

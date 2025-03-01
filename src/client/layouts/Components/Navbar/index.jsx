@@ -5,23 +5,24 @@ import styles from './Navbar.module.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { Button, Menu, MenuItem, IconButton, ListItemIcon, ListItemText, Box, ListItemButton, 
-  Drawer, Divider, Accordion, AccordionSummary, AccordionDetails, Avatar, Tooltip,
-  FormControl, Select, List, Typography,
-  Container
+  Drawer, Divider, Accordion, AccordionSummary, AccordionDetails, Tooltip,
+  FormControl, Select, List, Typography, Container, Stack
 } from '@mui/material'
-import { ExpandMore, Settings, Logout, KeyboardArrowRight, ShoppingCart,
+import { ExpandMore, Logout, KeyboardArrowRight, ShoppingCart,
   Login as LoginIcon, Close
 } from '@mui/icons-material'
 import { logo, vietnam, england } from '~/client/assets/Images'
-import { UserIcon, FireIcon } from '~/client/assets/Icons'
-import { deepOrange } from '@mui/material/colors'
+import { UserIcon, FireIcon, ProfileIcon } from '~/client/assets/Icons'
 import Cart from '~/client/components/Cart'
+import avatar from '~/shared/assets/images/avatar.png'
+
 
 const cx = classNames.bind(styles)
 //NAVBAR DATA
 const NAV_ITEMS = [
   {
     display:'3D Store', 
+    name:'store', 
     belongTo: ['home', 'store', 'product', 'profile-setting'],
     content:[
       {
@@ -62,28 +63,33 @@ const NAV_ITEMS = [
   }, 
   {
     display:'Dịch Vụ', 
+    name:'service',
     path:'/service', 
     belongTo:['home', 'store', 'product', 'profile-setting'] 
 
   }, 
   {
-    display:'Mô Hình Sa Bàn', 
+    display:'Mô Hình Sa Bàn',
+    name:'map-model', 
     path:'', 
     belongTo:['home', 'profile-setting']
   }, 
   {
     display:'Tin Tức',
+    name:'news',
     path:'/news',
     belongTo:['home', 'news', 'profile-setting']
   },
   {
     display:'Sale Cuối Năm', 
+    name:'sale',
     path:'/sale', 
     belongTo:['store', 'product'], 
     icon:({ width, height, className }) => (<FireIcon width={width} height={height} className={className}/>)
   }, 
   {
     display:'Liên hệ', 
+    name:'contact',
     path:'/contact-us', 
     contentType:'link',
     belongTo:['home', 'profile-setting']
@@ -105,10 +111,10 @@ const LANGUAGES = [
 
 const SETTING_ITEMS = [
   {
-    primary:'Profile setting', 
+    primary:'Thông tin cá nhân', 
     secondary:'', 
-    path:'/account/setting', 
-    icon:(fontSize) => <Settings fontSize={fontSize}/>
+    path:'/profile-setting', 
+    icon:(fontSize) => <ProfileIcon width={20} height={20}/>
   }, 
   {
     primary: 'Log out', 
@@ -131,7 +137,7 @@ function Navbar({ belongTo }) {
   const [isLoginDialogOpen, setIsLoginDialogOpen] = useState(false)
   const [isCartOpen, setIsCartOpen]= useState(false)
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
-
+  const [navItemContentActive, setNavItemContentActive] = useState(null)
   // EFFECT HOOKS
   useLayoutEffect(() => {
     const detectScrollView = () => {
@@ -155,6 +161,13 @@ function Navbar({ belongTo }) {
   const handleToggleSidebar = () => {
     setIsSidebarOpen(prev => !prev)
     // setNavBgColor(isSidebarOpen ? '' : 'black')
+  }
+  const handleToggleNavItemContent = (navItemName) =>
+  {
+    if (navItemContentActive === navItemName)
+      setNavItemContentActive(null)
+    else
+      setNavItemContentActive(navItemName)
   }
 
   return ( 
@@ -191,7 +204,9 @@ function Navbar({ belongTo }) {
                         {navItem.display}
                       </Link>
                       :
-                      navItem.display
+                      <span onClick={() => handleToggleNavItemContent(navItem.name)}>
+                        {navItem.display}
+                      </span>
                     }
                   </li>
                 ))
@@ -262,6 +277,7 @@ function Navbar({ belongTo }) {
       </Container>
       <Cart isCartOpen={isCartOpen} onCloseCart={() => setIsCartOpen(false)}/>
       <Sidebar isLogin={isLogin} isSidebarOpen={isSidebarOpen} onToggleSidebar={handleToggleSidebar}/>
+      <StoreContent onCloseStoreContent={() => setNavItemContentActive(null)} navItemContentActive={navItemContentActive}/>
     </Box>
   )
 }
@@ -306,10 +322,8 @@ const UserMenu = ({ navBgColor }) => {
       >
             
         <MenuItem>
-          {/* <ListItemIcon> */}
-          <Avatar sx={{ bgcolor: deepOrange[500], width: 30, height: 30, marginRight:'10px' }}>DV</Avatar>
-          {/* </ListItemIcon> */}
-          <ListItemText primary={'Dungg'} secondary={'anhkho881@gmail.com'}/>
+          <img src={avatar} alt="" width={40} height={40}/>
+          <ListItemText primary={'Dungg'} secondary={'anhkho881@gmail.com'} sx={{ marginLeft:'1rem' }}/>
         </MenuItem>
         <Divider />
         {SETTING_ITEMS.map((settingItem, index) => (
@@ -411,4 +425,108 @@ const Sidebar = ({ isLogin, isSidebarOpen, onToggleSidebar }) => {
   )
 }
 
+const StoreContent = ({ navItemContentActive, onCloseStoreContent }) => {
+  return (
+    <Drawer open={navItemContentActive === 'store'} onClose={onCloseStoreContent} anchor='top' aria-hidden="false"> 
+      <Box role="presentation" sx={{ width:'auto', marginTop:'80px', flexGrow: 1 }}>
+        <div className="container">
+          <Box sx={{ padding:'20px 0' }}>
+            <Box>
+              {}
+              <Typography sx={{ paddingBottom:'20px', fontWeight:'600', fontSize:'1.6rem' }} varient='h6'>Đồ chơi trẻ em</Typography>
+              <Divider sx={{ borderColor:'var(--link-color)' }}/>
+              <Stack padding="20px 0" direction='row' flexWrap={'wrap'} justifyContent={'space-between'}>
+                <Link to={'/'} className={cx('link-item')}>
+                  <div className={cx('link-item_image')}>
+                    <img src="https://cdn1.bambulab.com/common/navbar-x1.png"/>
+                  </div>
+                  <div className={cx('link-item_content')}>
+                    <Typography fontWeight={600} variant='h6' fontSize={'1.5rem'}>
+                                            Bambu Lab X1 Series
+                    </Typography>
+                    <Typography variant='body1' fontSize={'1.4rem'}>
+                            State-of-the-art Core XY 3D printer
+                    </Typography>
+                  </div>
+                </Link>
+                <Link to={'/'} className={cx('link-item')}>
+                  <div className={cx('link-item_image')}>
+                    <img src="https://cdn1.bambulab.com/common/navbar-x1.png"/>
+                  </div>
+                  <div className={cx('link-item_content')}>
+                    <Typography fontWeight={600} variant='h6' fontSize={'1.5rem'}>
+                      Bambu Lab X1 Series
+                    </Typography>
+                    <Typography variant='body1' fontSize={'1.4rem'}>
+                      State-of-the-art Core XY 3D printer
+                    </Typography>
+                  </div>
+                </Link>
+                <Link to={'/'} className={cx('link-item')}>
+                  <div className={cx('link-item_image')}>
+                    <img src="https://cdn1.bambulab.com/common/navbar-x1.png"/>
+                  </div>
+                  <div className={cx('link-item_content')}>
+                    <Typography fontWeight={600} variant='h6' fontSize={'1.5rem'}>
+                        Bambu Lab X1 Series
+                    </Typography>
+                    <Typography variant='body1' fontSize={'1.4rem'}>
+                        State-of-the-art Core XY 3D printer
+                    </Typography>
+                  </div>
+                </Link>
+              </Stack>
+            </Box>
+            <Box>
+              <Typography sx={{ paddingBottom:'20px', fontWeight:'600', fontSize:'1.6rem' }} varient='h6'>Đồ chơi trẻ em</Typography>
+              <Divider sx={{ borderColor:'var(--link-color)' }}/>
+              <Stack padding="20px 0" direction='row' flexWrap={'wrap'} justifyContent={'space-between'}>
+                <Link to={'/'} className={cx('link-item')}>
+                  <div className={cx('link-item_image')}>
+                    <img src="https://cdn1.bambulab.com/common/navbar-x1.png"/>
+                  </div>
+                  <div className={cx('link-item_content')}>
+                    <Typography fontWeight={600} variant='h6' fontSize={'1.5rem'}>
+                        Bambu Lab X1 Series
+                    </Typography>
+                    <Typography variant='body1' fontSize={'1.4rem'}>
+                        State-of-the-art Core XY 3D printer
+                    </Typography>
+                  </div>
+                </Link>
+                <Link to={'/'} className={cx('link-item')}>
+                  <div className={cx('link-item_image')}>
+                    <img src="https://cdn1.bambulab.com/common/navbar-x1.png"/>
+                  </div>
+                  <div className={cx('link-item_content')}>
+                    <Typography fontWeight={600} variant='h6' fontSize={'1.5rem'}>
+                        Bambu Lab X1 Series
+                    </Typography>
+                    <Typography variant='body1' fontSize={'1.4rem'}>
+                        State-of-the-art Core XY 3D printer
+                    </Typography>
+                  </div>
+                </Link>
+                <Link to={'/'} className={cx('link-item')}>
+                  <div className={cx('link-item_image')}>
+                    <img src="https://cdn1.bambulab.com/common/navbar-x1.png"/>
+                  </div>
+                  <div className={cx('link-item_content')}>
+                    <Typography fontWeight={600} variant='h6' fontSize={'1.5rem'}>
+                        Bambu Lab X1 Series
+                    </Typography>
+                    <Typography variant='body1' fontSize={'1.4rem'}>
+                        State-of-the-art Core XY 3D printer
+                    </Typography>
+                  </div>
+                </Link>
+                               
+              </Stack>
+            </Box>
+          </Box>
+        </div>
+      </Box>
+    </Drawer>
+  )
+}
 export default Navbar
