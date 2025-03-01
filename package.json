@@ -7,7 +7,7 @@
     "dev": "vite --host",
     "build": "vite build --base=./",
     "lint": "eslint --fix .",
-    "preview": "vite preview"
+    "product": "vite preview"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -15,14 +15,15 @@
     "@mui/icons-material": "^6.4.3",
     "@mui/material": "^6.4.3",
     "@mui/styled-engine-sc": "^6.4.3",
-    "@reduxjs/toolkit": "^2.5.1",
+    "apexcharts": "^4.5.0",
     "classnames": "^2.5.1",
+    "flatpickr": "^4.6.13",
     "normalize.css": "^8.0.1",
     "react": "^19.0.0",
+    "react-apexcharts": "^1.7.0",
     "react-dom": "^19.0.0",
-    "react-redux": "^9.2.0",
+    "react-flatpickr": "^3.10.13",
     "react-router-dom": "^7.1.5",
-    "redux": "^5.0.1",
     "sass": "^1.84.0",
     "styled-components": "^6.1.15",
     "swiper": "^11.2.3"

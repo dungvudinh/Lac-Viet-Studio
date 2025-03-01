@@ -6,6 +6,8 @@ import { Navigation, Pagination } from 'swiper/modules'
 import { Grid2 as Grid, Link, Box, Stack, Typography, Accordion, AccordionSummary, AccordionDetails, Container } from '@mui/material'
 import { KeyboardArrowRight, ArrowForward, ExpandMore } from '@mui/icons-material'
 import PageBanner from '~/client/components/PageBanner'
+import LazyLoadImage from '~/shared/components/LazyLoadImage'
+import LazyLoadBackgroundImage from '~/shared/components/LazyLoadBackgroundImage'
 import news1 from '~/client/assets/Images/News/news1.jpeg'
 import news2 from '~/client/assets/Images/News/news2.jpeg'
 import { homeBanner1, homeBanner2, homeBanner3, homeBanner4, homeBanner5 } from '~/client/assets/Images/Banner'
@@ -123,7 +125,7 @@ function Home() {
   return ( 
     <Box className={cx('home-container')}>
       {/* HOME BANNER */}
-      <PageBanner bannerItems={BANNER_ITEMS}/>
+      <PageBanner bannerItems={BANNER_ITEMS} belongTo={'home'}/>
       {/* HOME MAIN CONTENT */}
       <Box sx={{ paddingBottom:'4rem', marginTop:{ md:'7rem', xs:'4rem' }, textAlign:'center' }}>
         <Container maxWidth='lg'>
@@ -136,21 +138,26 @@ function Home() {
           <Stack gap={2} direction={{ md:'row', xs:'column' }} mt={'2rem'}>
             {
               STORE_ITEMS.map(storeItem => (
-                <div key={storeItem.id} style={{ backgroundImage:'url(https://cdn1.bambulab.com/home/quickLink/PC/3D-Printer.jpg)' }} className={cx('store-item_bg')}>
+                <LazyLoadBackgroundImage
+                  key={storeItem.id}
+                  src={'https://cdn1.bambulab.com/home/quickLink/PC/3D-Printer.jpg'}
+                  alt={storeItem.title}
+                  className={cx('store-item_bg')}
+                >
                   <div className={cx('store-item_text')}>
-                    <Typography variant="h1" fontWeight={600} fontSize={{ md:'var(--item-title-fs-md)', xs:'var(--item-title-fs-sm)' }}>
+                    <Typography variant="h1" fontWeight={600} fontSize={{ md: 'var(--item-title-fs-md)', xs: 'var(--item-title-fs-sm)' }}>
                       {storeItem.title}
                     </Typography>
-                    <Typography varient='h6' fontSize={{ md:'var(--item-desc-fs-md)', xs:'var(--item-desc-fs-sm)' }} padding='10px 0'>
+                    <Typography variant="h6" fontSize={{ md: 'var(--item-desc-fs-md)', xs: 'var(--item-desc-fs-sm)' }} padding="10px 0">
                       {storeItem.desc}
                     </Typography>
                     <Link color="primary" underline="hover" href={storeItem.buyPath}
-                      sx={{ cursor:'pointer', display:'flex', flexDirection:'row', justifyContent:'center' }} > 
+                      sx={{ cursor: 'pointer', display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
                       <p>Tìm hiểu thêm</p>
-                      <KeyboardArrowRight sx={{ marginTop:'2px' }}/>
+                      <KeyboardArrowRight sx={{ marginTop: '2px' }} />
                     </Link>
                   </div>
-                </div>
+                </LazyLoadBackgroundImage>
               ))
             }
           </Stack>
@@ -181,7 +188,8 @@ function Home() {
                   </Swiper>
                 </div> */}
                 {/* <picture> */}
-                <img src={'https://cdn1.bambulab.com/home/inspirations/pc/5.jpg'} className={cx('service-item_bg')}/>
+                <LazyLoadImage src={'https://cdn1.bambulab.com/home/quickLink/PC/3D-Printer.jpg'} alt={serviceItem.title} className={cx('service-item_bg')}/>
+                {/* <img src={'https://cdn1.bambulab.com/home/inspirations/pc/5.jpg'} className={cx('service-item_bg')}/> */}
                 {/* </picture> */}
                 <div className={cx('service-item_text')}>
                   <Stack direction="row" justifyContent="space-between">
@@ -215,7 +223,9 @@ function Home() {
           <Stack gap={{ xs:1, md:4 }} mt={'2rem'} direction={{ xs: 'column', md: 'row' }} >
             {
               SABAN_ITEMS.map((sabanItem, index) => (
-                <div key={index} className={cx('architecture-model_item')} style={{ backgroundImage:'url(https://cdn1.bambulab.com/home/freshStart/pc/1.jpg)' }}>
+                <LazyLoadBackgroundImage key={index}
+                  src={'https://cdn1.bambulab.com/home/freshStart/pc/1.jpg'}
+                  className={cx('architecture-model_item')}>
                   <div className={cx('architecture-model_item__text')}>
                     <Typography variant="h1" fontWeight="bold" textAlign="center" fontSize={{ md:'var(--item-title-fs-md)', xs:'var(--item-title-fs-xs)' }}
                     >
@@ -227,7 +237,10 @@ function Home() {
                       <KeyboardArrowRight sx={{ mt:'4px' }}/>
                     </Link>
                   </div>
-                </div>
+                </LazyLoadBackgroundImage>
+                // <div key={index} className={cx('architecture-model_item')} style={{ backgroundImage:'url(https://cdn1.bambulab.com/home/freshStart/pc/1.jpg)' }}>
+                 
+                // </div>
               ))
             }
           </Stack>
@@ -282,7 +295,8 @@ const News = () => {
               <SwiperSlide key={index}>
                 <Box>
                   <picture>
-                    <img src={item.image} className={cx('news-img_content')}/>
+                    {/* <img src={item.image} className={cx('news-img_content')}/> */}
+                    <LazyLoadImage src={'https://cdn1.bambulab.com/home/quickLink/PC/3D-Printer.jpg'} className={cx('news-img_content')}/>
                   </picture>
                   <Box sx={{ padding: '1rem', textAlign: 'left' }} display={{ xs:'block', md:'none' }}>
                     <Typography variant="h5" fontWeight={700} fontSize='2rem' mb={1}>
@@ -302,7 +316,7 @@ const News = () => {
                       sx={{ display: 'flex', alignItems: 'center', marginTop: '0.5rem' }} 
                       href={item.link}
                     >
-                                          Learn more
+                        Learn more
                       <KeyboardArrowRight />
                     </Link>
                   </Box>

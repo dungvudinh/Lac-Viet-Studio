@@ -21,7 +21,7 @@
 {
     padding:15px 0;
     font-weight: 600;
-    font-size: 1.6rem;
+    font-size: var(--fs-md);
     // @include mobile 
     // {
     //     font-size: 1.4rem;
@@ -31,7 +31,7 @@
 .link-type
 {
     padding:5px 0 15px;
-    font-size: 1.4rem;
+    font-size: var(--fs-md);
     // @include mobile 
     // {
     //     font-size: 1.4rem;
@@ -43,7 +43,7 @@
     {
         padding: 0px 10px;
         font-size:var(--fs-md);
-        line-height: 14px;
+        line-height: 1rem;
         height: auto;
         border-right: 1px solid #9E9E9E;
         white-space: normal;
@@ -67,7 +67,7 @@
 .copyright
 {
     padding: 10px 0px;
-    font-size: 14px;
+    font-size: var(--fs-md);
     line-height: 16px;
     margin-right: 0;
     color:#9E9E9E;
