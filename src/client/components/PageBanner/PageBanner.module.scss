@@ -1,9 +1,12 @@
 @use '~/_breakpoint.scss' as *;
-
-.hero-slide {
-  margin-bottom: 3rem;
-  
-  &__item {
+.hero-slide 
+{
+    margin-bottom:3rem;
+}
+.hero-slide__item
+{
+    // padding:13rem 0;
+    width:100%;
     position: relative;
     width: 100%;
     padding: 15rem 0;
@@ -108,4 +111,3 @@
       }
     }
   }
-}

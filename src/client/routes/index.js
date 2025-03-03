@@ -1,4 +1,4 @@
-import StoreLayout from '../layouts/StoreLayout'
+import StoreLayout from '~/client/layouts/StoreLayout'
 import routes from '~/client/configs/Routes'
 // PAGES 
 import Home from '~/client/pages/Home'
@@ -20,6 +20,4 @@ const publicRoutes = [
     component:ProfileSetting
   }
 ]
-
-
 export { publicRoutes }

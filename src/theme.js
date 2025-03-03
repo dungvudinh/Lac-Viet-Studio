@@ -40,13 +40,37 @@ const lacviet = createTheme({
     MuiButton:{
       styleOverrides:{
         root:{
-          fontSize:'1rem',
+          fontSize:'var(--fs-md)',
           textTransform: 'none',
           color:'#FFF'
           
         }
       }
+    }, 
+    MuiInputBase:{
+      styleOverrides:{
+        root:{
+          fontSize:'var(--fs-md)'
+        }
+      }
+    },
+
+    MuiMenuItem:{
+      styleOverrides:{
+        root:{
+          fontSize:'var(--fs-md)'
+        }
+      }
+    },
+    MuiFormLabel:{
+      styleOverrides:{
+        root:{
+          fontSize:'var(--fs-md)'
+        }
+      }
     }
+      
+    
   }
 })
 

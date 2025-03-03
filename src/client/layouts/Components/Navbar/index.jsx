@@ -1,18 +1,19 @@
-import { useState, createContext, useContext, useRef, useEffect, useLayoutEffect } from 'react'
+import { useState, useLayoutEffect, useRef } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import classNames from 'classnames/bind'
 import styles from './Navbar.module.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { Button, Menu, MenuItem, IconButton, ListItemIcon, ListItemText, Box, ListItemButton, 
-  Drawer, Divider, Accordion, AccordionSummary, AccordionDetails, Tooltip,
-  FormControl, Select, List, Typography, Container, Stack
+  Drawer, Divider, Accordion, AccordionSummary, AccordionDetails, Avatar, Tooltip,
+  FormControl, Select, List, Typography,
+  Container, Stack
 } from '@mui/material'
 import { ExpandMore, Logout, KeyboardArrowRight, ShoppingCart,
-  Login as LoginIcon, Close
+  Login as LoginIcon, Close, Settings
 } from '@mui/icons-material'
 import { logo, vietnam, england } from '~/client/assets/Images'
-import { UserIcon, FireIcon, ProfileIcon } from '~/client/assets/Icons'
+import { UserIcon, FireIcon } from '~/client/assets/Icons'
 import Cart from '~/client/components/Cart'
 import avatar from '~/shared/assets/images/avatar.png'
 
@@ -31,13 +32,15 @@ const NAV_ITEMS = [
           {
             title:'Bambu Lab X1 Series', 
             desc: 'State-of-the-art Core XY 3D printer', 
-            image:'https://cdn1.bambulab.com/common/navbar-x1.png' 
+            image:'https://cdn1.bambulab.com/common/navbar-x1.png', 
+            path:'/'
 
           },
           {
             title:'Bambu Lab X1 Series', 
             desc: 'State-of-the-art Core XY 3D printer', 
-            image:'https://cdn1.bambulab.com/common/navbar-x1.png' 
+            image:'https://cdn1.bambulab.com/common/navbar-x1.png', 
+            path:''
 
           }
         ]
@@ -48,14 +51,15 @@ const NAV_ITEMS = [
           {
             title:'Bambu Lab X1 Series', 
             desc: 'State-of-the-art Core XY 3D printer', 
-            image:'https://cdn1.bambulab.com/common/navbar-x1.png' 
+            image:'https://cdn1.bambulab.com/common/navbar-x1.png', 
+            path:''
 
           },
           {
             title:'Bambu Lab X1 Series', 
             desc: 'State-of-the-art Core XY 3D printer', 
-            image:'https://cdn1.bambulab.com/common/navbar-x1.png' 
-
+            image:'https://cdn1.bambulab.com/common/navbar-x1.png',
+            path:''
           }
         ]
       }
@@ -114,7 +118,7 @@ const SETTING_ITEMS = [
     primary:'Thông tin cá nhân', 
     secondary:'', 
     path:'/profile-setting', 
-    icon:(fontSize) => <ProfileIcon width={20} height={20}/>
+    icon:(fontSize) => <Settings fontSize={fontSize}/>
   }, 
   {
     primary: 'Log out', 
@@ -137,11 +141,20 @@ function Navbar({ belongTo }) {
   const [isLoginDialogOpen, setIsLoginDialogOpen] = useState(false)
   const [isCartOpen, setIsCartOpen]= useState(false)
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
-  const [navItemContentActive, setNavItemContentActive] = useState(null)
+  const [isNavStoreOpen, setIsNavStoreOpen] = useState(false)
+  const navBgColorRef = useRef('')
   // EFFECT HOOKS
   useLayoutEffect(() => {
     const detectScrollView = () => {
-      document.documentElement.scrollTop > 100 ? setNavBgColor('black') : setNavBgColor('')
+      // document.documentElement.scrollTop > 100 ? setNavBgColor('black') : setNavBgColor('')
+      if (document.documentElement.scrollTop > 100) {
+        setNavBgColor('black')
+        navBgColorRef.current = 'black'
+      }
+      else {
+        setNavBgColor('')
+        navBgColorRef.current = ''
+      }
     }
     if (belongTo === 'home')
     {
@@ -162,14 +175,10 @@ function Navbar({ belongTo }) {
     setIsSidebarOpen(prev => !prev)
     // setNavBgColor(isSidebarOpen ? '' : 'black')
   }
-  const handleToggleNavItemContent = (navItemName) =>
-  {
-    if (navItemContentActive === navItemName)
-      setNavItemContentActive(null)
-    else
-      setNavItemContentActive(navItemName)
+  const handleToggleNavStore = () => {
+    setIsNavStoreOpen(prev => !prev)
+    isNavStoreOpen ? setNavBgColor(navBgColorRef.current) : setNavBgColor('black')
   }
-
   return ( 
     <Box className={cx('navbar', `${navBgColor}`)}>
       <Container maxWidth='xl' sx={{ display:'flex', justifyContent:'space-between', alignItems:'center', position:'relative' }}>
@@ -192,7 +201,7 @@ function Navbar({ belongTo }) {
 
           {/* NAVBAR ITEMS */}
           <Box sx={{ display:{ md:'flex', xs:'none' }, alignItems:'center', mb:0 }}>
-            <ul className={cx('nav-items', `${navBgColor}`)}>
+            <ul className={cx('nav-items')}>
               {NAV_ITEMS
               // .filter(navItem => navItem.belongTo.includes(belongTo))
                 .map((navItem, index) => (
@@ -204,7 +213,7 @@ function Navbar({ belongTo }) {
                         {navItem.display}
                       </Link>
                       :
-                      <span onClick={() => handleToggleNavItemContent(navItem.name)}>
+                      <span onClick={handleToggleNavStore}>
                         {navItem.display}
                       </span>
                     }
@@ -277,7 +286,7 @@ function Navbar({ belongTo }) {
       </Container>
       <Cart isCartOpen={isCartOpen} onCloseCart={() => setIsCartOpen(false)}/>
       <Sidebar isLogin={isLogin} isSidebarOpen={isSidebarOpen} onToggleSidebar={handleToggleSidebar}/>
-      <StoreContent onCloseStoreContent={() => setNavItemContentActive(null)} navItemContentActive={navItemContentActive}/>
+      <NavStore isNavStoreOpen={isNavStoreOpen} onToggleNavStore={handleToggleNavStore}/>
     </Box>
   )
 }
@@ -367,7 +376,7 @@ const Sidebar = ({ isLogin, isSidebarOpen, onToggleSidebar }) => {
           </IconButton>
         </Box>
         {NAV_ITEMS.map((navItem, index) => (
-          navItem.content ? (
+          navItem.content && navItem.content.length > 0 ? (
             <Accordion key={index} square={true} disableGutters={true} expanded={isExpandSideItem === navItem.name} 
               onChange={handleChange(navItem.name)} sx={{ backgroundColor:'#111' }}>
               <AccordionSummary expandIcon={navItem.content && <ExpandMore color='white'/> } 
@@ -376,23 +385,27 @@ const Sidebar = ({ isLogin, isSidebarOpen, onToggleSidebar }) => {
                   {navItem.display}
                 </Typography>
               </AccordionSummary>
-              {navItem.content && (
-                <AccordionDetails sx={{ padding:0, color:'white.main' }}>
-                  <List sx={{ paddingLeft:'10px' }}>
-                    {navItem.content && navItem.content.map((navItemChild, ix) => (
-                      <ListItemButton key={ix}>
-                        <Link to={navItemChild.path} className={cx('sidebar-item_link__child')}>
-                          <Typography sx={{ fontSize:'var(--fs-md)' }}>{navItemChild.title}</Typography>
+              <AccordionDetails sx={{ padding:0, color:'white.main' }}>
+                <List sx={{ paddingLeft:'10px' }}>
+                  {
+                    navItem.content.flatMap(navItemChild => 
+                      navItemChild.contentChild.map(navContentChild => ({ title: navContentChild.title, path: navContentChild.path }))
+                    ).map((item, id) => (
+                      <ListItemButton key={id}>
+                        <Link to={item.path} className={cx('sidebar-item_link__child')}>
+                          <Typography sx={{ fontSize: 'var(--fs-md)' }}>{item.title}</Typography>
                           <IconButton>
-                            <KeyboardArrowRight sx={{ color:'var(--text-white)' }}/>
+                            <KeyboardArrowRight sx={{ color: 'var(--text-white)' }} />
                           </IconButton>
                         </Link>
                       </ListItemButton>
-                    ))}
-                                    
-                  </List>
-                </AccordionDetails>
-              )}
+                    ))
+                  }
+                  {/* {navItem.content && navItem.content.map((navItemChild, ix) => (
+                    
+                  ))} */}
+                </List>
+              </AccordionDetails>
             </Accordion>)
             :
             <ListItemButton key={index} onClick={onToggleSidebar} 
@@ -424,53 +437,51 @@ const Sidebar = ({ isLogin, isSidebarOpen, onToggleSidebar }) => {
     </Drawer>
   )
 }
-
-const StoreContent = ({ navItemContentActive, onCloseStoreContent }) => {
+const NavStore = ({ isNavStoreOpen, onToggleNavStore }) => {
   return (
-    <Drawer open={navItemContentActive === 'store'} onClose={onCloseStoreContent} anchor='top' aria-hidden="false"> 
-      <Box role="presentation" sx={{ width:'auto', marginTop:'80px', flexGrow: 1 }}>
-        <div className="container">
-          <Box sx={{ padding:'20px 0' }}>
+    <Drawer open={isNavStoreOpen} onClose={onToggleNavStore} anchor='top' aria-hidden="false"> 
+      <Box role="presentation" sx={{ width:'auto', marginTop:'6rem', flexGrow: 1 }}>
+        <Container maxWidth='lg'>
+          <Box sx={{ padding:'1rem 0' }}>
             <Box>
-              {}
-              <Typography sx={{ paddingBottom:'20px', fontWeight:'600', fontSize:'1.6rem' }} varient='h6'>Đồ chơi trẻ em</Typography>
-              <Divider sx={{ borderColor:'var(--link-color)' }}/>
-              <Stack padding="20px 0" direction='row' flexWrap={'wrap'} justifyContent={'space-between'}>
+              <Typography sx={{ paddingBottom:'1rem', fontWeight:'600', fontSize:'var(--fs-lg)' }} varient='h6'>Đồ chơi trẻ em</Typography>
+              <Divider sx={{ borderColor:'rgb(189, 189, 189)' }}/>
+              <Stack padding="1rem 0" direction='row' flexWrap={'wrap'} justifyContent={'space-between'}>
                 <Link to={'/'} className={cx('link-item')}>
                   <div className={cx('link-item_image')}>
                     <img src="https://cdn1.bambulab.com/common/navbar-x1.png"/>
                   </div>
                   <div className={cx('link-item_content')}>
-                    <Typography fontWeight={600} variant='h6' fontSize={'1.5rem'}>
-                                            Bambu Lab X1 Series
-                    </Typography>
-                    <Typography variant='body1' fontSize={'1.4rem'}>
-                            State-of-the-art Core XY 3D printer
-                    </Typography>
-                  </div>
-                </Link>
-                <Link to={'/'} className={cx('link-item')}>
-                  <div className={cx('link-item_image')}>
-                    <img src="https://cdn1.bambulab.com/common/navbar-x1.png"/>
-                  </div>
-                  <div className={cx('link-item_content')}>
-                    <Typography fontWeight={600} variant='h6' fontSize={'1.5rem'}>
-                      Bambu Lab X1 Series
-                    </Typography>
-                    <Typography variant='body1' fontSize={'1.4rem'}>
-                      State-of-the-art Core XY 3D printer
-                    </Typography>
-                  </div>
-                </Link>
-                <Link to={'/'} className={cx('link-item')}>
-                  <div className={cx('link-item_image')}>
-                    <img src="https://cdn1.bambulab.com/common/navbar-x1.png"/>
-                  </div>
-                  <div className={cx('link-item_content')}>
-                    <Typography fontWeight={600} variant='h6' fontSize={'1.5rem'}>
+                    <Typography fontWeight={600} variant='h6' fontSize={'var(--fs-md)'}>
                         Bambu Lab X1 Series
                     </Typography>
-                    <Typography variant='body1' fontSize={'1.4rem'}>
+                    <Typography variant='body1' fontSize={'var(--fs-sm)'}>
+                        State-of-the-art Core XY 3D printer
+                    </Typography>
+                  </div>
+                </Link>
+                <Link to={'/'} className={cx('link-item')}>
+                  <div className={cx('link-item_image')}>
+                    <img src="https://cdn1.bambulab.com/common/navbar-x1.png"/>
+                  </div>
+                  <div className={cx('link-item_content')}>
+                    <Typography fontWeight={600} variant='h6' fontSize={'var(--fs-md)'}>
+                        Bambu Lab X1 Series
+                    </Typography>
+                    <Typography variant='body1' fontSize={'var(--fs-sm)'}>
+                        State-of-the-art Core XY 3D printer
+                    </Typography>
+                  </div>
+                </Link>
+                <Link to={'/'} className={cx('link-item')}>
+                  <div className={cx('link-item_image')}>
+                    <img src="https://cdn1.bambulab.com/common/navbar-x1.png"/>
+                  </div>
+                  <div className={cx('link-item_content')}>
+                    <Typography fontWeight={600} variant='h6' fontSize={'var(--fs-md)'}>
+                        Bambu Lab X1 Series
+                    </Typography>
+                    <Typography variant='body1' fontSize={'var(--fs-sm)'}>
                         State-of-the-art Core XY 3D printer
                     </Typography>
                   </div>
@@ -478,18 +489,18 @@ const StoreContent = ({ navItemContentActive, onCloseStoreContent }) => {
               </Stack>
             </Box>
             <Box>
-              <Typography sx={{ paddingBottom:'20px', fontWeight:'600', fontSize:'1.6rem' }} varient='h6'>Đồ chơi trẻ em</Typography>
-              <Divider sx={{ borderColor:'var(--link-color)' }}/>
-              <Stack padding="20px 0" direction='row' flexWrap={'wrap'} justifyContent={'space-between'}>
+              <Typography sx={{ paddingBottom:'1rem', fontWeight:'600', fontSize:'var(--fs-lg)' }} varient='h6'>Đồ chơi trẻ em</Typography>
+              <Divider sx={{ borderColor:'rgb(189, 189, 189)' }}/>
+              <Stack padding="1rem 0" direction='row' flexWrap={'wrap'} justifyContent={'space-between'}>
                 <Link to={'/'} className={cx('link-item')}>
                   <div className={cx('link-item_image')}>
                     <img src="https://cdn1.bambulab.com/common/navbar-x1.png"/>
                   </div>
                   <div className={cx('link-item_content')}>
-                    <Typography fontWeight={600} variant='h6' fontSize={'1.5rem'}>
+                    <Typography fontWeight={600} variant='h6' fontSize={'var(--fs-md)'}>
                         Bambu Lab X1 Series
                     </Typography>
-                    <Typography variant='body1' fontSize={'1.4rem'}>
+                    <Typography variant='body1' fontSize={'var(--fs-sm)'}>
                         State-of-the-art Core XY 3D printer
                     </Typography>
                   </div>
@@ -499,10 +510,10 @@ const StoreContent = ({ navItemContentActive, onCloseStoreContent }) => {
                     <img src="https://cdn1.bambulab.com/common/navbar-x1.png"/>
                   </div>
                   <div className={cx('link-item_content')}>
-                    <Typography fontWeight={600} variant='h6' fontSize={'1.5rem'}>
+                    <Typography fontWeight={600} variant='h6' fontSize={'var(--fs-md)'}>
                         Bambu Lab X1 Series
                     </Typography>
-                    <Typography variant='body1' fontSize={'1.4rem'}>
+                    <Typography variant='body1' fontSize={'var(--fs-sm)'}>
                         State-of-the-art Core XY 3D printer
                     </Typography>
                   </div>
@@ -512,10 +523,10 @@ const StoreContent = ({ navItemContentActive, onCloseStoreContent }) => {
                     <img src="https://cdn1.bambulab.com/common/navbar-x1.png"/>
                   </div>
                   <div className={cx('link-item_content')}>
-                    <Typography fontWeight={600} variant='h6' fontSize={'1.5rem'}>
+                    <Typography fontWeight={600} variant='h6' fontSize={'var(--fs-md)'}>
                         Bambu Lab X1 Series
                     </Typography>
-                    <Typography variant='body1' fontSize={'1.4rem'}>
+                    <Typography variant='body1' fontSize={'var(--fs-sm)'}>
                         State-of-the-art Core XY 3D printer
                     </Typography>
                   </div>
@@ -524,7 +535,7 @@ const StoreContent = ({ navItemContentActive, onCloseStoreContent }) => {
               </Stack>
             </Box>
           </Box>
-        </div>
+        </Container>
       </Box>
     </Drawer>
   )
