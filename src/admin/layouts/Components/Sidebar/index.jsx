@@ -17,7 +17,7 @@ function Sidebar() {
         <img src={logo}/>
       </Box>
       <Typography varient='h6' sx={{ padding:'10px 16px', color:'var(--sidebar-text-color)', fontWeight:700, fontSize:'var(--fs-sm)' }}>
-                Thông tin chung
+        Thông tin chung
       </Typography>
       {/* Accordion Menu */}
       <Accordion
@@ -37,13 +37,13 @@ function Sidebar() {
           aria-controls="dashboard-content"
         >
           <DashboardIcon />
-          <Typography varient='h6' fontWeight={600} paddingLeft={'0.5rem'} fontSize={'var(--fs-md)'}>Dashboard</Typography>
+          <Typography varient='h6' fontWeight={600} paddingLeft={'0.5rem'} fontSize={'var(--fs-lg)'}>Dashboard</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <List sx={{ color:'#fff', padding:0 }}>
-            <ListItem button component={Link} to="/admin" className={cx('sidebar-item_child')}>
+            <ListItem component={Link} to="/admin" className={cx('sidebar-item_child')}>
               <HorizontalRuleOutlined fontSize='small'/>
-              <Typography fontWeight={600} fontSize='var(--fs-md)' marginLeft={'0.5rem'}>Thống Kê Bán Hàng</Typography>
+              <Typography fontWeight={600} fontSize='var(--fs-lg)' marginLeft={'0.5rem'}>Thống Kê Bán Hàng</Typography>
             </ListItem>
           </List>
         </AccordionDetails>
@@ -51,7 +51,7 @@ function Sidebar() {
 
 
       <Typography varient='h6' sx={{ padding:'10px 16px', color:'var(--sidebar-text-color)', fontWeight:700, fontSize:'var(--fs-sm)' }}>
-                Danh mục
+        Danh mục
       </Typography>
       {/* Accordion Menu */}
       <Accordion
@@ -72,17 +72,17 @@ function Sidebar() {
         >
           {/* <AppIcon /> */}
           <StoreOutlined fontSize='small'/>
-          <Typography varient='h6' fontWeight={600} paddingLeft={'0.5rem'} fontSize={'var(--fs-md)'}>Cửa Hàng</Typography>
+          <Typography varient='h6' fontWeight={600} paddingLeft={'0.5rem'} fontSize={'var(--fs-lg)'}>Cửa Hàng</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <List sx={{ color:'#fff', padding:0 }}>
-            <ListItem button component={Link} to={'/admin/store/toy'} className={cx('sidebar-item_child')}>
+            <ListItem component={Link} to={'/admin/store/toy'} className={cx('sidebar-item_child')}>
               <HorizontalRuleOutlined fontSize='small'/>
-              <Typography fontWeight={600} fontSize='var(--fs-md)' marginLeft={'10px'}>Đồ Chơi</Typography>
+              <Typography fontWeight={600} fontSize='var(--fs-lg)' marginLeft={'10px'}>Đồ Chơi</Typography>
             </ListItem>
-            <ListItem button component={Link} to={'/admin/store/decor'} className={cx('sidebar-item_child')}>
+            <ListItem component={Link} to={'/admin/store/decor'} className={cx('sidebar-item_child')}>
               <HorizontalRuleOutlined fontSize='small'/>
-              <Typography fontWeight={600} fontSize='var(--fs-md)' marginLeft={'10px'}>Đồ Decor</Typography>
+              <Typography fontWeight={600} fontSize='var(--fs-lg)' marginLeft={'10px'}>Đồ Decor</Typography>
             </ListItem>
           </List>
         </AccordionDetails>

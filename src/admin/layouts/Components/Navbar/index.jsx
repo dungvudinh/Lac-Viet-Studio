@@ -51,9 +51,20 @@ const UserMenu = () => {
   }
   return (
     <>
-      <button onClick={handleClick} style={{ border:'none', backgroundColor:'transparent' }}>
+      <Button 
+        onClick={handleClick} 
+        sx={{ 
+          minWidth: 'auto', 
+          padding: 0, 
+          border: 'none', 
+          backgroundColor: 'transparent',
+          '&:hover': {
+            backgroundColor: 'transparent'
+          }
+        }}
+      >
         <img src={defaultAvtUser} alt="" style={{ width:'2rem', height:'2rem', borderRadius:'5px' }}/>
-      </button>
+      </Button>
       <Menu
         anchorEl={anchorEl}
         open={open}

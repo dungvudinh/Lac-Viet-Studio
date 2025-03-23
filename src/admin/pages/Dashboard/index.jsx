@@ -51,7 +51,7 @@ function Dashboard({ children }) {
           />
           <Button sx={{ textTransform:'none', marginLeft:'2rem', color:'#FFF', fontSize:'1.4rem' }} variant='contained' color='primary'>
             <FilterListOutlined fontSize="small" sx={{ marginRight:'0.5rem' }}/>
-                        Lọc
+              Lọc
           </Button>
         </Box>
 
@@ -176,7 +176,7 @@ const TopSelling = () => {
         <Typography variant='h1' sx={{ fontSize:'1.6rem', fontWeight:600 }}>Sản Phẩm Bán Chạy</Typography>
                 
         <button className={cx('sort-btn')} onClick={handleClick}>
-                    Sắp Xếp Theo
+            Sắp Xếp Theo
           <KeyboardArrowDown fontSize="small"/>
         </button>
         <Menu

@@ -8,8 +8,8 @@ import lacviet from './theme.js'
 import './global.scss'
 import './_breakpoint.scss'
 import './style.scss'
-// import { Provider } from 'react-redux'
-// import { store } from '~/client/redux/store.js'
+import { Provider } from 'react-redux'
+import store from './shared/redux/store.js'
 
 
 createRoot(document.getElementById('root')).render(
@@ -17,9 +17,9 @@ createRoot(document.getElementById('root')).render(
     <ThemeProvider theme={lacviet}>
       <CssBaseline />
       <BrowserRouter>
-        {/* <Provider store={store}> */}
-        <App />
-        {/* </Provider> */}
+        <Provider store={store}>
+          <App />
+        </Provider>
       </BrowserRouter>
     </ThemeProvider>
   </StrictMode>
