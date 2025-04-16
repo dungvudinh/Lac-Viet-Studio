@@ -36,7 +36,6 @@
     "react-flatpickr": "^4.0.1",
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.1.5",
-    "rimraf": "^6.0.1",
     "sass": "^1.84.0",
     "styled-components": "^6.1.15",
     "swiper": "^11.2.3"
