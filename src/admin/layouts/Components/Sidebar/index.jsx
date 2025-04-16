@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import styles from './Sidebar.module.scss'
 import classNames from 'classnames/bind'
 import logo from '~/shared/assets/Images/logo.png'
-import { AppIcon, DashboardIcon } from '~/shared/assets/icons'
+import { AppIcon, DashboardIcon } from '~/shared/assets/Icons'
 import routes from '~/admin/configs/Routes'
 const cx = classNames.bind(styles)
 function Sidebar() {
