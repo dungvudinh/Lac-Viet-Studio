@@ -10,5 +10,14 @@ export default defineConfig({
     alias:[
       { find:'~', replacement:'/src' }
     ]
+  }, 
+  server: {
+    proxy: {
+      '/v1': {
+        target: 'https://lac-viet-studio-api.onrender.com',
+        changeOrigin:true,
+        secure:true
+      }
+    }
   }
 })
