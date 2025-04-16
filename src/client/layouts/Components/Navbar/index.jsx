@@ -15,7 +15,7 @@ import { ExpandMore, Logout, KeyboardArrowRight, ShoppingCart,
 import { logo, vietnam, england } from '~/client/assets/Images'
 import { UserIcon, FireIcon } from '~/client/assets/Icons'
 import Cart from '~/client/components/Cart'
-import avatar from '~/shared/assets/images/avatar.png'
+import avatar from '~/shared/assets/Images/avatar.png'
 
 
 const cx = classNames.bind(styles)
