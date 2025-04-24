@@ -145,10 +145,10 @@ function Home() {
                   className={cx('store-item_bg')}
                 >
                   <div className={cx('store-item_text')}>
-                    <Typography variant="h1" fontWeight={600} fontSize={{ md: 'var(--item-title-fs-md)', xs: 'var(--item-title-fs-sm)' }}>
+                    <Typography variant="h1" fontWeight={600} fontSize={{ md: 'var(--title-fs-xm)', xs: 'var(--title-fs-xs)'}}>
                       {storeItem.title}
                     </Typography>
-                    <Typography variant="h6" fontSize={{ md: 'var(--item-desc-fs-md)', xs: 'var(--item-desc-fs-sm)' }} padding="10px 0">
+                    <Typography variant="h6" fontSize={{ md: 'var(--desc-fs-md)', xs: 'var(--desc-fs-xs)' }} padding="10px 0">
                       {storeItem.desc}
                     </Typography>
                     <Link color="primary" underline="hover" href={storeItem.buyPath}
@@ -167,7 +167,7 @@ function Home() {
           <Typography varient='h1' fontWeight={700} fontSize={{ xs:'var(--title-fs-sm)', md:'var(--title-fs-md)' }}>
               3D Service
           </Typography>
-          <Typography varient='h6' fontSize={{ md:'var(--item-desc-fs-md)', xs:'var(--item-desc-fs-sm)' }} >
+          <Typography varient='h6' fontSize={{ md:'var(--desc-fs-md)', xs:'var(--desc-fs-xs)' }} >
               cá nhân hoá sản phẩm theo nhu cầu của khách hàng
           </Typography>
           <Grid container sx={{ display:'flex', flexDirection:{ md:'row', xs:'column' } }} mt={'2rem'} spacing={2}>
@@ -194,11 +194,11 @@ function Home() {
                 <div className={cx('service-item_text')}>
                   <Stack direction="row" justifyContent="space-between">
                     <Box>
-                      <Typography varient='h1' fontWeight={600} fontSize={{ md:'var(--item-title-fs-md)', xs:'var(--item-title-fs-xs)' }}
+                      <Typography varient='h1' fontWeight={600} fontSize={{ md:'var(--title-fs-xm)', xs:'var(--title-fs-xs)' }}
                         textAlign={'left'}>
                         {serviceItem.title}
                       </Typography>
-                      <Typography varient='h6' fontSize={{ md:'var(--item-desc-fs-md)', xs:'var(--item-desc-fs-xs)' }}
+                      <Typography varient='h6' fontSize={{ md:'var(--desc-fs-md)', xs:'var(--desc-fs-xs)' }}
                         textAlign={'left'}>
                         {serviceItem.desc}
                       </Typography>
@@ -227,11 +227,11 @@ function Home() {
                   src={'https://cdn1.bambulab.com/home/freshStart/pc/1.jpg'}
                   className={cx('architecture-model_item')}>
                   <div className={cx('architecture-model_item__text')}>
-                    <Typography variant="h1" fontWeight="bold" textAlign="center" fontSize={{ md:'var(--item-title-fs-md)', xs:'var(--item-title-fs-sm)' }}>
+                    <Typography variant="h1" fontWeight="bold" textAlign="center" fontSize={{ md:'var(--title-fs-xm)', xs:'var(--title-fs-xs)' }}>
                     
                       {sabanItem.title}
                     </Typography>
-                    <Link to={sabanItem.path} underline="hover" fontSize={{ md:'var(--fs-lg)', xs:'var(--item-desc-fs-xs)' }} sx={{ cursor:'pointer' }}>
+                    <Link to={sabanItem.path} underline="hover" fontSize={{ md:'var(--fs-lg)', xs:'var(--desc-fs-xs)' }} sx={{ cursor:'pointer' }}>
                       {/* Learn more */}
                           Tìm hiểu thêm
                       <KeyboardArrowRight/>

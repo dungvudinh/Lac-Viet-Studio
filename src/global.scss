@@ -8,18 +8,27 @@
     --text-white: #FFF;
     --text-black:#111;
     --item-border-color:hsla(0, 0%, 100%, .25);
+
     --fs-xs: 10px;
     --fs-sm: 12px;
     --fs-md: 14px;
     --fs-lg: 16px;
-    --title-fs-md:2.5rem;
+
+    --title-fs-xs:1.4rem; // extra small
     --title-fs-sm:1.5rem;
-    --desc-fs-md:1.2rem;
-    --desc-fs-sm:1rem;
-    --item-title-fs-md:1.8rem;
-    --item-title-fs-sm:1.4rem;
-    --item-desc-fs-md:1.3rem;
-    --item-desc-fs-sm:1rem;
+    --title-fs-xm:1.8rem; //extra medium
+    --title-fs-md:2.5rem;
+
+    --desc-fs-xs:1rem;
+    --desc-fs-sm:1.2rem;
+    --desc-fs-md:1.3rem;
+
+    // --item-title-fs-md:1.8rem;
+    // --item-title-fs-sm:1.4rem;
+
+    // --item-desc-fs-md:1.3rem;
+    // --item-desc-fs-sm:1rem;
+    
     --nav-border-color:#ddd;
     --sidebar-bg-color:#202947;
     --sidebar-text-color:#b2b8c7;   

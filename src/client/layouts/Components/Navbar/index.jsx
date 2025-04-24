@@ -16,6 +16,7 @@ import { logo, vietnam, england } from '~/client/assets/Images'
 import { UserIcon, FireIcon } from '~/client/assets/Icons'
 import Cart from '~/client/components/Cart'
 import avatar from '~/shared/assets/Images/avatar.png'
+import Login from '~/client/components/Login'
 
 
 const cx = classNames.bind(styles)
@@ -101,11 +102,11 @@ const NAV_ITEMS = [
 ]
 
 const LANGUAGES = [
-  {
-    name:'English', 
-    image: england, 
-    value:'en'
-  }, 
+  // {
+  //   name:'English', 
+  //   image: england, 
+  //   value:'en'
+  // }, 
   {
     name:'Tiếng Việt', 
     image:vietnam, 
@@ -131,13 +132,13 @@ const SETTING_ITEMS = [
 function Navbar({ belongTo }) {
   const navigate = useNavigate()
   const [navBgColor, setNavBgColor] = useState('')
-  const [currentLocale, setCurrentLocale] = useState(() => {
-    const currentLocale = localStorage.getItem('locale')
-    if (!currentLocale)
-      return navigator.language.split('-')[0]
-    return localStorage.getItem('locale')
-  })
-  const [isLogin, setIsLogin] = useState(true)
+  // const [currentLocale, setCurrentLocale] = useState(() => {
+  //   const currentLocale = localStorage.getItem('locale')
+  //   if (!currentLocale)
+  //     return navigator.language.split('-')[0]
+  //   return localStorage.getItem('locale')
+  // })
+  const [isLogin, setIsLogin] = useState(false)
   const [isLoginDialogOpen, setIsLoginDialogOpen] = useState(false)
   const [isCartOpen, setIsCartOpen]= useState(false)
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
@@ -167,10 +168,10 @@ function Navbar({ belongTo }) {
   }, [belongTo])
 
   // HANDLE FUNCTION
-  const handleChangeLanguage= (event) => {
-    setCurrentLocale(event.target.value)
-    localStorage.setItem('locale', event.target.value)
-  }
+  // const handleChangeLanguage= (event) => {
+  //   setCurrentLocale(event.target.value)
+  //   localStorage.setItem('locale', event.target.value)
+  // }
   const handleToggleSidebar = () => {
     setIsSidebarOpen(prev => !prev)
     // setNavBgColor(isSidebarOpen ? '' : 'black')
@@ -236,7 +237,7 @@ function Navbar({ belongTo }) {
               color:(navBgColor === '' || navBgColor === 'black') ? '#FFF' : '#111' 
             }}
                                     
-            size='small' value={currentLocale} onChange={handleChangeLanguage}>
+            size='small' value={'vi'}>
               {LANGUAGES.map((language, index) => (
                 <MenuItem key={index} value={language.value} sx={{ display:'flex', alignItems:'center' }}>
                   <ListItemIcon sx={{ minWidth:30, display:'flex', alignItems:'center' }}>
@@ -249,10 +250,10 @@ function Navbar({ belongTo }) {
           </FormControl>
 
           {/* NAVBAR ACTION */}
-          <Box sx={{ display:'flex', alignItems:'center', justifyContent:'space-between' }}>
+          <Box sx={{ display:'flex', alignItems:'center', justifyContent:'space-between',ml:{ md:'1rem' } }}>
             {(belongTo == 'home' || belongTo === 'profile-setting') 
               ?
-              <Button variant="contained" color='primary' size='small' sx={{ ml:{ md:'1rem' }, fontSize:{ xs:'var(--fs-md)' } }}
+              <Button variant="contained" color='primary' size='small' sx={{ fontSize:{ xs:'var(--fs-md)' } }}
                 onClick={() => navigate('/store')}>
                   Store
               </Button>
@@ -274,8 +275,10 @@ function Navbar({ belongTo }) {
                   ?
                   <UserMenu navBgColor={navBgColor}/>
                   :
-                  <Typography onClick={() => setIsLoginDialogOpen(true)} fontWeight={600} sx={{ cursor:'pointer', color:(navBgColor === '' || navBgColor === 'black') ? '#FFF' : '#111' }}>
-                      Log In
+                  <Typography onClick={() => setIsLoginDialogOpen(true)} fontWeight={600} 
+                  sx={{ cursor:'pointer', color:(navBgColor === '' || navBgColor === 'black') ? '#FFF' : '#111', 
+                  fontSize:{xs:'var(--fs-md)'}, minWidth:'5rem', ml:'1rem' }}>
+                      Đăng Nhập
                   </Typography>
               }
             </Box>
@@ -287,6 +290,7 @@ function Navbar({ belongTo }) {
       <Cart isCartOpen={isCartOpen} onCloseCart={() => setIsCartOpen(false)}/>
       <Sidebar isLogin={isLogin} isSidebarOpen={isSidebarOpen} onToggleSidebar={handleToggleSidebar}/>
       <NavStore isNavStoreOpen={isNavStoreOpen} onToggleNavStore={handleToggleNavStore}/>
+      <Login isLoginDialogOpen={isLoginDialogOpen} onCloseLoginDialog={()=>setIsLoginDialogOpen(false)}/>
     </Box>
   )
 }

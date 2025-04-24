@@ -1,0 +1,20 @@
+.login-other_text{
+    position: relative;
+}
+.login-other_text::before,
+.login-other_text::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 45px;
+    height: 0.5px;
+    background-color: rgb(137, 137, 137);
+}
+
+.login-other_text::before {
+    left: -52px;
+}
+
+.login-other_text::after {
+    right: -52px;
+}

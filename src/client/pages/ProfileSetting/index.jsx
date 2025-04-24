@@ -15,15 +15,15 @@ function ProfileSetting() {
   return ( 
     <Container sx={{ flexGrow: 1, marginTop:'var(--nav-height)', minHeight:'calc(100vh - var(--nav-height))', paddingTop:'2rem' }} maxWidth='md'>
       <Box size={7} sx={{ bgcolor:'white.main', borderRadius:'0.3rem' }}>
-        <Typography varient='h6' sx={{ fontSize:{ md:'var(--item-desc-fs-sm)', xs:'var(--item-desc-fs-sm)', padding:'1.2rem', fontWeight:700, marginBottom:0 } }}>
-                        Account Security    
+        <Typography varient='h6' sx={{ fontSize:{ md:'var(--desc-fs-sm)', xs:'var(--desc-fs-xs)', padding:'1.2rem', fontWeight:700, marginBottom:0 } }}>
+            Account Security    
         </Typography>
         <Divider /> 
         <div className={cx('profile-setting_content')} style={{ padding:'0 24px' }}>
           <List sx={{ width: '100%', bgcolor: 'background.paper', padding:0 }}>
             <ListItem secondaryAction={<ArrowForwardIos sx={{ fontSize:'1rem' }}/>} sx={{ padding:'1rem 0' }}>
               <Typography varient='h6' sx={{ fontSize:{ md:'var(--fs-md)', xs:'var(--fs-md)' }, flex:'0 0 15rem', margin:0 }}>
-                                      Change Password
+                  Change Password
               </Typography>
               {/* <PasswordHint numCharacter={5}/> */}
             </ListItem>
