@@ -10,6 +10,7 @@ export default defineConfig({
     ]
   },
   server: {
+    historyApiFallback: true,
     proxy: {
       '/v1': {
         target: 'https://lac-viet-studio-api.onrender.com',

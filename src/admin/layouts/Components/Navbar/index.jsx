@@ -7,9 +7,12 @@ import classNames from 'classnames/bind'
 import { CartIcon, RingIcon } from '~/admin/assets/Icons'
 import defaultAvtUser from '~/admin/assets/Images/defaultAvtUser.jpg'
 import { ClearOutlined, LockOutlined, LogoutOutlined, ShoppingCartOutlined } from '@mui/icons-material'
+import { logout } from '~/shared/apis/userAPI'
+import { useNavigate } from 'react-router-dom'
 const cx = classNames.bind(styles)
 
 function Navbar() {
+  console.log('navbar')
   return ( 
     <Box className={cx('navbar-container')} sx={{ position: 'fixed', top: 0, right: 0 }}>
       {/* <Box className='navbar-left'></Box> */}
@@ -41,6 +44,8 @@ function Navbar() {
 }
 
 const UserMenu = () => {
+  const navigate = useNavigate()
+  const [user, setUser] = useState(()=>JSON.parse(localStorage.getItem('user')))
   const [anchorEl, setAnchorEl] = useState(null)
   const open = Boolean(anchorEl)
   const handleClick = (event) => {
@@ -48,6 +53,26 @@ const UserMenu = () => {
   }
   const handleClose = () => {
     setAnchorEl(null)
+  }
+  const handleLogout = async ()=>
+  {
+    try 
+    {
+      const response = await logout();
+      if(response.status === 200)
+      {
+        localStorage.removeItem('accessToken')
+        localStorage.removeItem('user')
+        navigate('/login')
+        window.location.reload();
+      }
+      else 
+        console.log('Logout Fail')
+    }
+    catch(error)
+    {
+      console.log(error)
+    } 
   }
   return (
     <>
@@ -75,8 +100,8 @@ const UserMenu = () => {
       >
         <MenuItem sx={{ display:'flex', direction:'column', paddingTop:'10px', paddingBottom:'10px' }}>
           <Stack direction='column' justifyContent='center' alignItems='center'>
-            <Typography varient='p' sx={{ fontSize:'var(--fs-lg)', fontWeight:600 }}>Vu Dinh Dung</Typography>
-            <Typography varient='p' sx={{ fontSize:'var(--fs-md)', color:'var(--text-muted)' }}>anhkho881@gmail.com</Typography>
+            <Typography varient='p' sx={{ fontSize:'var(--fs-lg)', fontWeight:600 }}>{user.name}</Typography>
+            <Typography varient='p' sx={{ fontSize:'var(--fs-md)', color:'var(--text-muted)' }}>{user.email}</Typography>
           </Stack>
         </MenuItem>
         <MenuItem>
@@ -88,7 +113,7 @@ const UserMenu = () => {
           <Typography variant='h6' fontSize={'var(--fs-lg)'}>Đổi mật khẩu</Typography>
         </MenuItem>
         <Divider />
-        <MenuItem>
+        <MenuItem onClick={handleLogout}>
           <ListItemIcon>
             <span className='icon-bg'>
               <LogoutOutlined color='primary' fontSize='small' />

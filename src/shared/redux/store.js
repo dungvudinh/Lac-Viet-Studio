@@ -1,9 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
 import loadingReducer from './loadingSlice'
-
+import alertReducer from './alertSlice'
 const store = configureStore({
   reducer:{
-    loading: loadingReducer
+    loading: loadingReducer,
+    alert:alertReducer
   }
 })
 export default store

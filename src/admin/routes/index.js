@@ -2,8 +2,9 @@ import routes from '~/admin/configs/Routes'
 // PAGES 
 import Dashboard from '~/admin/pages/Dashboard'
 import Store from '~/admin/pages/Store'
-
-const publicRoutes = [
+import Login from '~/shared/pages/Login'
+import NoPermission from '~/shared/pages/NoPermission'
+const privateRoutes = [
   {
     path: routes.dashboard,
     component:Dashboard
@@ -15,7 +16,11 @@ const publicRoutes = [
   {
     path: routes.decoration,
     component:Store
+  },
+  {
+    path:routes.unauthorized, 
+    component:NoPermission
   }
 ]
 
-export { publicRoutes }
+export default privateRoutes;

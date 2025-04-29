@@ -4,7 +4,7 @@ import routes from '~/client/configs/Routes'
 import Home from '~/client/pages/Home'
 import Store from '~/client/pages/Store'
 import ProfileSetting from '~/client/pages/ProfileSetting'
-
+import Login from '~/shared/pages/Login'
 const publicRoutes = [
   {
     path: routes.home,
@@ -18,6 +18,11 @@ const publicRoutes = [
   {
     path:routes.profileSetting, 
     component:ProfileSetting
+  },
+  {
+    path:routes.login,
+    component: Login,
+    layout:null
   }
 ]
 export { publicRoutes }

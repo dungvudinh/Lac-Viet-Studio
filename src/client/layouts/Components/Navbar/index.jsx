@@ -1,4 +1,4 @@
-import { useState, useLayoutEffect, useRef } from 'react'
+import { useState, useLayoutEffect, useRef} from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import classNames from 'classnames/bind'
 import styles from './Navbar.module.scss'
@@ -10,14 +10,15 @@ import { Button, Menu, MenuItem, IconButton, ListItemIcon, ListItemText, Box, Li
   Container, Stack
 } from '@mui/material'
 import { ExpandMore, Logout, KeyboardArrowRight, ShoppingCart,
-  Login as LoginIcon, Close, Settings
+  Login as LoginIcon, Close, Settings,
+  AdminPanelSettings
 } from '@mui/icons-material'
 import { logo, vietnam, england } from '~/client/assets/Images'
 import { UserIcon, FireIcon } from '~/client/assets/Icons'
 import Cart from '~/client/components/Cart'
 import avatar from '~/shared/assets/Images/avatar.png'
 import Login from '~/client/components/Login'
-
+import { logout } from '~/shared/apis/userAPI'
 
 const cx = classNames.bind(styles)
 //NAVBAR DATA
@@ -118,13 +119,23 @@ const SETTING_ITEMS = [
   {
     primary:'Thông tin cá nhân', 
     secondary:'', 
-    path:'/profile-setting', 
+    path:'profile-setting', 
+    role:['customer', 'sale', 'admin'], 
     icon:(fontSize) => <Settings fontSize={fontSize}/>
   }, 
   {
-    primary: 'Log out', 
+    primary:'Vào trang Admin', 
     secondary:'', 
+    path:'admin', 
+    role:['sale', 'admin'],
+    icon:(fontSize) => <AdminPanelSettings fontSize={fontSize}/>
+  }, 
+  {
+    primary: 'Đăng xuất', 
+    secondary:'',
+    role:['customer','sale', 'admin'], 
     path:'logout', 
+
     icon:(fontSize) => <Logout fontSize={fontSize}/> 
   }
 ]
@@ -132,13 +143,13 @@ const SETTING_ITEMS = [
 function Navbar({ belongTo }) {
   const navigate = useNavigate()
   const [navBgColor, setNavBgColor] = useState('')
+  const [isLogin, setLogin]  = useState(!!localStorage.getItem('accessToken'))
   // const [currentLocale, setCurrentLocale] = useState(() => {
   //   const currentLocale = localStorage.getItem('locale')
   //   if (!currentLocale)
   //     return navigator.language.split('-')[0]
   //   return localStorage.getItem('locale')
   // })
-  const [isLogin, setIsLogin] = useState(false)
   const [isLoginDialogOpen, setIsLoginDialogOpen] = useState(false)
   const [isCartOpen, setIsCartOpen]= useState(false)
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
@@ -180,6 +191,7 @@ function Navbar({ belongTo }) {
     setIsNavStoreOpen(prev => !prev)
     isNavStoreOpen ? setNavBgColor(navBgColorRef.current) : setNavBgColor('black')
   }
+  
   return ( 
     <Box className={cx('navbar', `${navBgColor}`)}>
       <Container maxWidth='xl' sx={{ display:'flex', justifyContent:'space-between', alignItems:'center', position:'relative' }}>
@@ -297,6 +309,8 @@ function Navbar({ belongTo }) {
 
 
 const UserMenu = ({ navBgColor }) => {
+  const navigate = useNavigate()
+  const [user, setUser] = useState(()=>JSON.parse(localStorage.getItem('user')))
   const [anchorEl, setAnchorEl] = useState(null)
   const open = Boolean(anchorEl)
   const handleOpenMenu = (event) => {
@@ -305,6 +319,36 @@ const UserMenu = ({ navBgColor }) => {
   const handleCloseMenu = () => {
     setAnchorEl(null)
   }
+  const handleSettingClick = async (path) =>
+  {
+    handleCloseMenu()
+    if(path === 'logout')
+    {
+      try 
+      {
+        const response = await logout();
+        console.log(response)
+        if(response.status === 200)
+        {
+          localStorage.removeItem('accessToken')
+          localStorage.removeItem('user')
+          navigate('/')
+          window.location.reload();
+        }
+        else 
+          console.log('Logout Fail')
+      }
+      catch(error)
+      {
+        console.log(error)
+      } 
+    }
+    else if(path === 'admin')
+      navigate('/admin')
+  }
+  const filteredSettingItems = SETTING_ITEMS.filter(item => 
+    item.role.includes(user?.role)
+  )
   return (
     <Box ml={'1rem'}>
       <Tooltip title="Account settings" >
@@ -336,19 +380,19 @@ const UserMenu = ({ navBgColor }) => {
             
         <MenuItem>
           <img src={avatar} alt="" width={40} height={40}/>
-          <ListItemText primary={'Dungg'} secondary={'anhkho881@gmail.com'} sx={{ marginLeft:'1rem' }}/>
+          <ListItemText primary={user.name} secondary={user.email} sx={{ marginLeft:'1rem' }}/>
         </MenuItem>
         <Divider />
-        {SETTING_ITEMS.map((settingItem, index) => (
-          <MenuItem key={index} onClick={handleCloseMenu}>
-            <Link to={settingItem.path} className='d-flex flex-row align-items-center text-decoration-none text-black'>
+        {filteredSettingItems.map((settingItem, index) => (
+          <MenuItem key={index} onClick={() => handleSettingClick(settingItem.path)}>
+            <div style={{display:'flex', flexDirection:'row', alignItems:'center'}}>
               {settingItem.icon && (
                 <ListItemIcon>
                   {settingItem.icon('medium')}
                 </ListItemIcon>
               )}
               <ListItemText primary={settingItem.primary} secondary={settingItem.secondary} />
-            </Link>
+            </div>
           </MenuItem>
         ))}
       </Menu>
