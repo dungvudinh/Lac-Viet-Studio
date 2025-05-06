@@ -12,7 +12,6 @@ import { useNavigate } from 'react-router-dom'
 const cx = classNames.bind(styles)
 
 function Navbar() {
-  console.log('navbar')
   return ( 
     <Box className={cx('navbar-container')} sx={{ position: 'fixed', top: 0, right: 0 }}>
       {/* <Box className='navbar-left'></Box> */}

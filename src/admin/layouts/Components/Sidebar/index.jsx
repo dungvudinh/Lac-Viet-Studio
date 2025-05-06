@@ -1,15 +1,15 @@
 import React from 'react'
-import { Box, Accordion, AccordionSummary, AccordionDetails, List, ListItem, Typography } from '@mui/material'
-import { ExpandMore, HorizontalRuleOutlined, Store, StoreOutlined } from '@mui/icons-material'
-import { Link } from 'react-router-dom'
+import { Box, Accordion, AccordionSummary, AccordionDetails, List, ListItem, Typography, ListItemIcon, ListItemText, ListItemButton } from '@mui/material'
+import { Category, EqualizerOutlined, ExpandMore } from '@mui/icons-material'
+import { Link, useNavigate} from 'react-router-dom'
 import styles from './Sidebar.module.scss'
 import classNames from 'classnames/bind'
 import logo from '~/shared/assets/Images/logo.png'
-import { AppIcon, DashboardIcon } from '~/shared/assets/Icons'
+import { DashboardIcon } from '~/shared/assets/Icons'
 import routes from '~/admin/configs/Routes'
 const cx = classNames.bind(styles)
 function Sidebar() {
-
+  const navigate = useNavigate()
   return (
     <Box className={cx('sidebar')}>
       {/* Logo section */}
@@ -37,13 +37,16 @@ function Sidebar() {
           aria-controls="dashboard-content"
         >
           <DashboardIcon />
-          <Typography varient='h6' fontWeight={600} paddingLeft={'0.5rem'} fontSize={'var(--fs-lg)'}>Dashboard</Typography>
+          <Typography varient='h6' fontWeight={600} paddingLeft={'0.5rem'} fontSize={'var(--fs-lg)'}>Trang Chủ</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <List sx={{ color:'#fff', padding:0 }}>
             <ListItem component={Link} to="/admin" className={cx('sidebar-item_child')}>
-              <HorizontalRuleOutlined fontSize='small'/>
-              <Typography fontWeight={600} fontSize='var(--fs-lg)' marginLeft={'0.5rem'}>Thống Kê Bán Hàng</Typography>
+              {/* <HorizontalRuleOutlined fontSize='small'/> */}
+              <Typography fontWeight={600} fontSize='var(--fs-md)' marginLeft={'0.5rem'} sx={{display:'flex', alignItems:'center'}}>
+                <EqualizerOutlined fontSize='small' sx={{mr:1}}/>
+                Thống Kê Bán Hàng
+                </Typography>
             </ListItem>
           </List>
         </AccordionDetails>
@@ -54,39 +57,10 @@ function Sidebar() {
         Danh mục
       </Typography>
       {/* Accordion Menu */}
-      <Accordion
-        sx={{ 
-          backgroundColor:'transparent', 
-          color:'#fff',
-          '&.Mui-expanded':{ margin:0 },
-          '&::after': {
-            content: 'none'
-          },
-          '&::before': {
-            content: 'none'
-          }
-        }}>
-        <AccordionSummary
-          expandIcon={<ExpandMore sx={{ color:'white.main' }}/>}
-          aria-controls="dashboard-content"
-        >
-          {/* <AppIcon /> */}
-          <StoreOutlined fontSize='small'/>
-          <Typography varient='h6' fontWeight={600} paddingLeft={'0.5rem'} fontSize={'var(--fs-lg)'}>Cửa Hàng</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <List sx={{ color:'#fff', padding:0 }}>
-            <ListItem component={Link} to={'/admin/store/toy'} className={cx('sidebar-item_child')}>
-              <HorizontalRuleOutlined fontSize='small'/>
-              <Typography fontWeight={600} fontSize='var(--fs-lg)' marginLeft={'10px'}>Đồ Chơi</Typography>
-            </ListItem>
-            <ListItem component={Link} to={'/admin/store/decor'} className={cx('sidebar-item_child')}>
-              <HorizontalRuleOutlined fontSize='small'/>
-              <Typography fontWeight={600} fontSize='var(--fs-lg)' marginLeft={'10px'}>Đồ Decor</Typography>
-            </ListItem>
-          </List>
-        </AccordionDetails>
-      </Accordion>
+      <ListItemButton sx={{fontWeight:600}} onClick={()=>navigate('/admin/product-catalogs')}>
+        <Category  sx={{mr:1}}/>
+        Quản lý sản phẩm
+      </ListItemButton>
     </Box>
   )
 }

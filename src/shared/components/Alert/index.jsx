@@ -1,13 +1,15 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { setOpenAlert } from '~/shared/redux/alertSlice';
+
+// import { setOpenAlert } from '~/shared/redux/alertSlice';
+import { setOpenAlert } from "~/redux/features/shared/slices/alertSlice"
 import {IconButton, Collapse, Alert} from '@mui/material';
 import { Close } from '@mui/icons-material';
 function CustomAlert()
 {
     const dispatch = useDispatch()
-    const {isOpenAlert,status, message} = useSelector(state => state.alert)
+    const {isOpenAlert, status, message} = useSelector(state => state.sharedAlert)
     useEffect(() => {
         if (isOpenAlert) {
             const timer = setTimeout(() => {

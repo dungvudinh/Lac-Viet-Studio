@@ -9,8 +9,9 @@ import './global.scss'
 import './_breakpoint.scss'
 import './style.scss'
 import { Provider } from 'react-redux'
-import store from './shared/redux/store.js'
-
+// import store from './shared/redux/store.js'
+import store from './redux/store.js'
+import './shared/i18n'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

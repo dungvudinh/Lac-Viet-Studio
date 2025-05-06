@@ -3,7 +3,7 @@ import axiosClient from "~/shared/configs/axios";
 
 export const login = async (email, password) => 
 {
-    const response = await axiosClient.post('/v1/user/login', {email, password})
+    const response = await axiosClient.post('/v1/user/login', {email, password}, {withCredentials:true})
     localStorage.setItem('accessToken', response.data.result.accessToken)
     localStorage.setItem('user', JSON.stringify(response.data.result.user))
 }

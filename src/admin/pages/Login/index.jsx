@@ -6,8 +6,8 @@ import { VisibilityOffOutlined, VisibilityOutlined } from '@mui/icons-material';
 import { FacebookIcon, GoogleIcon } from '~/client/assets/Icons';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { setLoading } from '~/shared/redux/loadingSlice';
-import { setOpenAlert, setAlertMessage, setAlertStatus } from '~/shared/redux/alertSlice';
+import { setLoading } from '~/redux/features/shared/slices/loadingSlice';
+import { setOpenAlert, setAlertStatus, setAlertMessage } from "~/redux/features/shared/slices/alertSlice"
 import { login } from '~/shared/apis/userAPI';
 import validator from 'validator';
 

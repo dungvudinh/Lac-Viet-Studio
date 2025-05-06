@@ -1,4 +1,4 @@
-import { createTheme, darken } from '@mui/material/styles'
+import { createTheme } from '@mui/material/styles'
 import './_breakpoint.scss'
 const lacviet = createTheme({
   palette:{
@@ -22,19 +22,6 @@ const lacviet = createTheme({
   },
   typography:{
     fontFamily:'Manrope, sans-serif'
-    // fontSm:{
-    //   fontSize:12
-    // }, 
-    // fontMd:{
-    //   fontSize:14
-    // }, 
-    // fontExMd:{
-    //   fontSize:16
-    // },
-    // fontLg:{
-    //   fontSize:18
-    // }
-    
   },
   components:{
     MuiButton:{
@@ -50,7 +37,7 @@ const lacviet = createTheme({
     MuiInputBase:{
       styleOverrides:{
         root:{
-          fontSize:'var(--fs-md)'
+          fontSize:'var(--fs-lg)'
         }
       }
     },

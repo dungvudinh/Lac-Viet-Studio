@@ -18,7 +18,7 @@ axiosClient.interceptors.response.use(
       config.headers.Authorization = `Bearer ${token}`
     return config;
   },
-  (response) => response.data, // Automatically return only the data
+  // (response) => response.data, // Automatically return only the data
   async (error) => {
     const originalRequest = error.config
     if(error.response?.status === 401 && !originalRequest._retry)
@@ -30,5 +30,6 @@ axiosClient.interceptors.response.use(
     return Promise.reject(error) // Return only the error message
   }
 )
+
 
 export default axiosClient

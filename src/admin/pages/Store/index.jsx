@@ -1,17 +1,51 @@
 import { useEffect, useState } from 'react'
 import { Box, Button, Stack, Typography, Select, MenuItem, 
   TextField, Table, TableContainer, TableHead, TableRow, TableCell, TableBody, Paper, Dialog, DialogTitle, DialogContent, DialogActions, Grid2 as Grid, 
-  IconButton } from '@mui/material'
-import { Add, ArrowForwardOutlined, BorderColor, Delete } from '@mui/icons-material'
-import { fetchGetAllProductAPI, fetchCreateProductAPI } from '~/admin/apis/productAPI'
+  IconButton, 
+  ButtonGroup} from '@mui/material'
+import { Add, ArrowForwardOutlined, BorderColor, Delete, DeleteOutline, ModeEditOutline, MoreHoriz } from '@mui/icons-material'
 import styles from './Store.module.scss'
 import classNames from 'classnames/bind'
 import { useDispatch } from 'react-redux'
-import { setLoading } from '~/shared/redux/loadingSlice'
+import { setLoading } from '~/redux/features/shared/slices/loadingSlice'
 import Loading from '~/shared/components/Loading'
-
+import CustomTable from '~/admin/components/CustomTable'
 
 const cx = classNames.bind(styles)
+const columns = [
+  {
+    accessorKey: 'name',
+    header: 'Tên Danh Mục',
+    cell: info => info.getValue(),
+  },
+  {
+    accessorKey: 'totalProduct',
+    header: 'Số Lượng Sản Phẩm',
+    cell: info => info.getValue(),
+  },
+  {
+    header:()=><Typography fontWeight={600}>Thao Tác</Typography>, 
+    id:'action',
+    classNames:'d-flex justify-content-start',
+    cell:({row})=>(
+      <div>
+        <ButtonGroup variant='contained'>
+          <Button  size='small' sx={{backgroundColor:'#1976d2'}} >
+            <ModeEditOutline fontSize='small'/>
+          </Button>
+          <Button  size='small' sx={{backgroundColor:'#d32f2f'}}>
+            <DeleteOutline fontSize='small'/>
+          </Button>
+          <Button size='small'  sx={{backgroundColor:'#42a5f5'}}>
+            <MoreHoriz fontSize='small'/>
+          </Button>
+        </ButtonGroup>
+        
+    </div>
+    )
+  }
+]
+
 function Store() {
   const [age, setAge] = useState('')
   const [listProduct, setListProduct] = useState([])
@@ -21,16 +55,17 @@ function Store() {
   useEffect(() =>
   {
     dispatch(setLoading(true))
-    fetchGetAllProductAPI()
-      .then(res => {
-        setListProduct(res)
-        dispatch(setLoading(false))
-      })
-      .catch(error => {
-        //handle error
-        setError(error)
-        dispatch(setLoading(false))
-      })
+    // fetchGetAllProductAPI()
+    //   .then(res => {
+    //     console.log(res)
+    //     setListProduct(res.data)
+    //     dispatch(setLoading(false))
+    //   })
+    //   .catch(error => {
+    //     //handle error
+    //     setError(error)
+    //     dispatch(setLoading(false))
+    //   })
   }, [])
   const handleChange = (event) => {
     setAge(event.target.value)
@@ -80,7 +115,8 @@ function Store() {
       </Box>
       {/* CONTENT */}
       <Box sx={{ backgroundColor:'var(--text-white)', borderRadius:'0.5rem', marginTop:'1rem' }}>
-        <ProductList listProduct={listProduct}/>
+        {/* <ProductList listProduct={listProduct}/> */}
+        <CustomTable data={listProduct} columns={columns}/>
       </Box>
       
       {/* Add Product Popup */}
@@ -90,53 +126,53 @@ function Store() {
   )
 }
 
-const ProductList = ({ listProduct }) => {
-  return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Sản Phẩm</TableCell>
+// const ProductList = ({ listProduct }) => {
+//   return (
+//     <TableContainer component={Paper}>
+//       <Table sx={{ minWidth: 650 }} aria-label="simple table">
+//         <TableHead>
+//           <TableRow>
+//             <TableCell>Sản Phẩm</TableCell>
             
-            <TableCell align="center">Hình Ảnh</TableCell>
-            <TableCell align="center">Giá Niêm Yết</TableCell>
-            <TableCell align="center">Giá bán</TableCell>
-            <TableCell align="center">Độ Tuổi</TableCell>
-            <TableCell align="center">Trạng Thái</TableCell>
-            <TableCell align="center">Hành Động</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {listProduct.length > 0 && listProduct.map((product) => (
-            <TableRow
-              key={product._id}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">
-                {product.name}
-              </TableCell>
-              <TableCell align="center">
-                <img src={product.image} style={{ width:'100px' }}/>
-              </TableCell>
-              <TableCell align="center">{product.listedPrice}</TableCell>
-              <TableCell align="center">{product.sellingPrice}</TableCell>
-              <TableCell align="center">{product.age}</TableCell>
-              <TableCell align="center">Đang niêm yết</TableCell>
-              <TableCell align="center" sx={{ width:'8rem' }}>
-                <IconButton size='small' sx={{ mr:'0.5rem' }}>
-                  <BorderColor fontSize='small'/>
-                </IconButton>
-                <IconButton size='small'>
-                  <Delete fontSize='small'/>
-                </IconButton>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
-  )
-}
+//             <TableCell align="center">Hình Ảnh</TableCell>
+//             <TableCell align="center">Giá Niêm Yết</TableCell>
+//             <TableCell align="center">Giá bán</TableCell>
+//             <TableCell align="center">Độ Tuổi</TableCell>
+//             <TableCell align="center">Trạng Thái</TableCell>
+//             <TableCell align="center">Hành Động</TableCell>
+//           </TableRow>
+//         </TableHead>
+//         <TableBody>
+//           {listProduct.length > 0 && listProduct.map((product) => (
+//             <TableRow
+//               key={product._id}
+//               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+//             >
+//               <TableCell component="th" scope="row">
+//                 {product.name}
+//               </TableCell>
+//               <TableCell align="center">
+//                 <img src={product.image} style={{ width:'100px' }}/>
+//               </TableCell>
+//               <TableCell align="center">{product.listedPrice}</TableCell>
+//               <TableCell align="center">{product.sellingPrice}</TableCell>
+//               <TableCell align="center">{product.age}</TableCell>
+//               <TableCell align="center">Đang niêm yết</TableCell>
+//               <TableCell align="center" sx={{ width:'8rem' }}>
+//                 <IconButton size='small' sx={{ mr:'0.5rem' }}>
+//                   <BorderColor fontSize='small'/>
+//                 </IconButton>
+//                 <IconButton size='small'>
+//                   <Delete fontSize='small'/>
+//                 </IconButton>
+//               </TableCell>
+//             </TableRow>
+//           ))}
+//         </TableBody>
+//       </Table>
+//     </TableContainer>
+//   )
+// }
 
 const AddProductPopup = ({ onClose }) => {
   const [formData, setFormData] = useState({
@@ -169,11 +205,12 @@ const AddProductPopup = ({ onClose }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    console.log(formData)
     try 
     {
-      await fetchCreateProductAPI(formData)
-      await fetchGetAllProductAPI()
-      onClose()
+      // await fetchCreateProductAPI(formData)
+      // await fetchGetAllProductAPI()
+      // onClose()
     }
     catch (error)
     {
