@@ -204,7 +204,6 @@ const CreateNew = ({open, onClose})=>
           }
         </Button>
       </DialogActions>
-      <Alert/>
     </Dialog>
   )
 }
