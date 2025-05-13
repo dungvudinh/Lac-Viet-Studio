@@ -1,24 +1,50 @@
 import { useLocation, Navigate } from "react-router-dom";
 import { jwtDecode } from 'jwt-decode';
-
+import { setLoading } from "~/redux/features/shared/slices/loadingSlice";
+import { useEffect, useState} from "react";
+import { checkSession } from "~/shared/apis/userAPI";
+import Loading from "~/shared/pages/Loading";
 function ProtectedRoute({ children }) {
     const location = useLocation();
+    const [isLoading, setIsLoading] = useState(true)
+    const [isSessionValid,setIsSessionValid] = useState(false)
     const accessToken = localStorage.getItem("accessToken");
-    if (!accessToken) {
+    useEffect(()=>
+    {
+      async function verifySession()
+      {
+        if(accessToken)
+        {
+          const isValid = await checkSession();
+          setIsSessionValid(isValid)
+          setIsLoading(false)
+        }
+        else 
+        setIsLoading(false)
+      }
+      verifySession()
+    },[accessToken])
+    if(isLoading)
+      return <Loading />
+    if (!accessToken && !isSessionValid) {
         // Redirect to login if not authenticated
         return <Navigate to="/login" replace state={{ from: location }} />;
     }
-    else 
+    try 
     {
       const decoded = jwtDecode(accessToken);
-      const userRole = decoded.role
-      if(userRole === 'admin' || userRole === 'sale')
-        return children
-      else 
-        <Navigate to='/unauthorized' replace/>
+      const userRole = decoded.role;
+      if (userRole === 'admin' || userRole === 'sale') {
+          return children;
+      } else {
+          return <Navigate to="/unauthorized" replace />;
+      }
     }
-    // If authenticated, render children
-    return children;
+    catch(error)
+    {
+      console.error('Lỗi giải mã access token:', error)
+      return <Navigate to="/login" replace state={{ from: location }} />;
+    }
 }
 
 export default ProtectedRoute;

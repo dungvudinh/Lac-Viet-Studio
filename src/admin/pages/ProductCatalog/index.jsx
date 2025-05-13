@@ -115,7 +115,6 @@ const CreateNew = ({open, onClose})=>
 {
   const dispatch = useDispatch()
   const alert = useAlert()
-  const [name, setName] = useState('')
   const [isValidateName, setValidateName] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
   const {catalog} = useSelector(state=>state.adminProductCatalog)
@@ -164,8 +163,6 @@ const CreateNew = ({open, onClose})=>
   {
     setValidateName(false)
     setErrorMessage('')
-    console.log(e.target.value)
-    // setName(e.target.value)
     dispatch(setCatalog({...catalog, [e.target.name]:e.target.value}))
   }
   const handleCancel = ()=>

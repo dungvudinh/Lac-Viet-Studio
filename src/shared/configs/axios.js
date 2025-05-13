@@ -24,8 +24,21 @@ axiosClient.interceptors.response.use(
     if(error.response?.status === 401 && !originalRequest._retry)
     {
       originalRequest._retry = true 
-      await refreshToken()
-      return axiosClient(originalRequest)
+      try 
+      {
+        await refreshToken()
+        return axiosClient(originalRequest)
+
+      }
+      catch(refreshError)
+      {
+        if(refreshError.response?.status === 401)
+        {
+          localStorage.removeItem('accessToken')
+          localStorage.removeItem('user')
+        }
+        return Promise.reject(refreshError);
+      }
     }
     return Promise.reject(error) // Return only the error message
   }
