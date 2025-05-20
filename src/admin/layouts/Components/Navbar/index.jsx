@@ -44,7 +44,7 @@ function Navbar() {
 
 const UserMenu = () => {
   const navigate = useNavigate()
-  const [user, setUser] = useState(()=>JSON.parse(localStorage.getItem('user')))
+  const [user, setUser] = useState(() => JSON.parse(localStorage.getItem('user')))
   const [anchorEl, setAnchorEl] = useState(null)
   const open = Boolean(anchorEl)
   const handleClick = (event) => {
@@ -53,22 +53,22 @@ const UserMenu = () => {
   const handleClose = () => {
     setAnchorEl(null)
   }
-  const handleLogout = async ()=>
+  const handleLogout = async () =>
   {
     try 
     {
-      const response = await logout();
-      if(response.status === 200)
+      const response = await logout()
+      if (response.status === 200)
       {
         localStorage.removeItem('accessToken')
         localStorage.removeItem('user')
         navigate('/login')
-        window.location.reload();
+        window.location.reload()
       }
       else 
         console.log('Logout Fail')
     }
-    catch(error)
+    catch (error)
     {
       console.log(error)
     } 

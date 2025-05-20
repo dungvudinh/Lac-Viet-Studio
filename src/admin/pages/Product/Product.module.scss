@@ -139,6 +139,45 @@
     &:last-child {
         margin-bottom: 0;
     }
+    .image-slot {
+        transition: all 0.3s ease;
+        cursor: pointer;
+        .slot-overlay 
+        {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.2); /* Màu đen với độ mờ */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        &:hover {
+            border-color: #1976d2;
+            .slot-overlay
+            {
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+        
+    }
+    &.error 
+    {
+        .image-slot 
+        {
+            border-color: red;
+            &:hover 
+            {
+                border-color:red;
+            }
+        }
+    }
 }
 
 .preview-container {
@@ -161,11 +200,5 @@
     flex-direction: column;
 }
 
-.image-slot {
-    transition: all 0.3s ease;
-    
-    &:hover {
-        border-color: #1976d2;
-    }
-}
+
     

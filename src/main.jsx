@@ -9,10 +9,12 @@ import './global.scss'
 import './_breakpoint.scss'
 import './style.scss'
 import { Provider } from 'react-redux'
-// import store from './shared/redux/store.js'
 import store from './redux/store.js'
 import './shared/i18n'
-
+import 'swiper/css'
+import 'swiper/css/navigation'
+import 'swiper/css/pagination'
+import 'swiper/css/effect-coverflow'
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <ThemeProvider theme={lacviet}>

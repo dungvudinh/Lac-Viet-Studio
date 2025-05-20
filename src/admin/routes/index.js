@@ -33,4 +33,4 @@ const privateRoutes = [
   }
 ]
 
-export default privateRoutes;
+export default privateRoutes

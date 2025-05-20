@@ -11,21 +11,21 @@ const productCatalogSlice = createSlice({
     error: null
   }, 
   reducers:{
-    setCatalog:(state, action)=>{
+    setCatalog:(state, action) => {
       state.catalog = action.payload
     },
     //clear data when unmounting
     resetProductCatalogState: (state) => {
-      state.catalogs = [];
-      state.loading = false;
-      state.error = null;
-    },
+      state.catalogs = []
+      state.loading = false
+      state.error = null
+    }
   },
   extraReducers:(builder) => {
     createAsyncReducer(builder, fetchProductCatalogs, 'catalogs')
-  }, 
+  } 
   
 })
 
-export const {setCatalog,resetProductCatalogState} = productCatalogSlice.actions;
+export const { setCatalog, resetProductCatalogState } = productCatalogSlice.actions
 export default productCatalogSlice.reducer

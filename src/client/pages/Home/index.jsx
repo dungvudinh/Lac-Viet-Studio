@@ -145,7 +145,7 @@ function Home() {
                   className={cx('store-item_bg')}
                 >
                   <div className={cx('store-item_text')}>
-                    <Typography variant="h1" fontWeight={600} fontSize={{ md: 'var(--title-fs-xm)', xs: 'var(--title-fs-xs)'}}>
+                    <Typography variant="h1" fontWeight={600} fontSize={{ md: 'var(--title-fs-xm)', xs: 'var(--title-fs-xs)' }}>
                       {storeItem.title}
                     </Typography>
                     <Typography variant="h6" fontSize={{ md: 'var(--desc-fs-md)', xs: 'var(--desc-fs-xs)' }} padding="10px 0">

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import styles from './Store.module.scss'
 import classNames from 'classnames/bind'
@@ -6,7 +6,11 @@ import { Box, Container, Typography, TextField, InputAdornment, IconButton, Butt
   ListItemIcon, Checkbox, Grid2 as Grid, Drawer, Pagination } from '@mui/material'
 import { Search, Sort, Tune, Check, Close, KeyboardDoubleArrowRight, Clear } from '@mui/icons-material'
 import PageBanner from '~/client/components/PageBanner'
-
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchProducts } from '~/redux/features/client/thunks/productThunk'
+import { resetProductState } from '~/redux/features/client/slices/productSlice'
+import { setLoading } from '~/redux/features/shared/slices/loadingSlice'
+import { formatCurrency } from '~/shared/utils/formatCurrency'
 const cx = classNames.bind(styles)
 
 const STORE_SIDEBAR_ITEMS = [
@@ -128,6 +132,8 @@ const BANNER_ITEMS = [
 ]
 
 function Store() {
+  const dispatch = useDispatch()
+  const {products} = useSelector(state=> state.clientProduct)
   const [currentSortId, setCurrentSortId]= useState(1)
   const [isFilterSidebarOpen, setIsFilterSidebarOpen] = useState(false)
   const [filter, setFilter] = useState({
@@ -139,7 +145,14 @@ function Store() {
   const itemsPerPage = 8
   const totalItems = 50
   const totalPages = Math.ceil(totalItems / itemsPerPage)
-
+  useEffect(()=>
+  {
+    dispatch(setLoading(true))
+    dispatch(fetchProducts('test'))
+    dispatch(setLoading(false))
+    return ()=>resetProductState()
+  }, [])
+  console.log(products)
   const handlePageChange = (event, value) => {
     setPage(value)
   }  
@@ -210,18 +223,18 @@ function Store() {
           <Grid size={{ md:9, xs:12 }}>
             <div className={cx('product-grid')}>
               <Grid container spacing={3}>
-                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((item, index) => (
+                {products.length > 0 && products.map((item, index) => (
                   <Grid size={{ md:4, xs:6 }} key={index}>
                     <Link className={cx('product-item')} to={'/product-detail/1'}>
                       <div className={cx('image-container')}>
                         <img 
-                          src="https://store.bblcdn.com/s1/default/84be8e60e0f244d0b77a73b1f7b09ff9.png__op__resize,m_lfit,w_640__op__format,f_auto__op__quality,q_80"
+                          src={item.images[0].url}
                           alt="Product"
                         />
                       </div>
-                      <h3 className={cx('product-name')}>Bambu Lab A1 mini 3D Printer {item}</h3>
-                      <h3 className={cx('product-price')}>From $199.00 USD 
-                        <span className={cx('product-old_price')}>$299.00 USD</span>
+                      <h3 className={cx('product-name')}>{item.name}</h3>
+                      <h3 className={cx('product-price')}>Từ {formatCurrency(item.sellingPrice)}đ
+                        <span className={cx('product-old_price')}>{formatCurrency(item.listedPrice)}đ</span>
                       </h3>
                     </Link>
                   </Grid>

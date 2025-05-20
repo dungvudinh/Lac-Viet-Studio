@@ -1,249 +1,362 @@
-import { useState,useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 import styles from './Product.module.scss'
-import classNames from "classnames/bind";
-import { Box, Stack,Button,TextField, Typography,ButtonGroup, Dialog, DialogTitle, DialogContent,DialogActions, Grid2 as Grid, IconButton } from "@mui/material";
-import { Add,ModeEditOutline, DeleteOutline, Clear, CloudUpload } from "@mui/icons-material";
-import Navigation from "~/admin/components/Navigation";
-import CustomTable from "~/admin/components/CustomTable";
-import { useDispatch, useSelector } from "react-redux";
-import { setLoading } from "~/redux/features/shared/slices/loadingSlice";
-import confirmAlert from "~/shared/utils/confirmAlert";
-import { fetchProducts } from "~/redux/features/admin/thunks/productThunk";
-import { resetProductState, setProduct } from "~/redux/features/admin/slices/productSlice";
-import { useAlert } from "~/shared/utils/alert";
-import { fetchCreateProductAPI, fetchDeleteProductAPI, fetchUpdateProductAPI } from "~/admin/apis/productAPI";
+import classNames from 'classnames/bind'
+import { Box, Stack, Button, TextField, Typography, ButtonGroup, Dialog, DialogTitle, DialogContent, DialogActions, Grid2 as Grid, IconButton } from '@mui/material'
+import { Add, ModeEditOutline, DeleteOutline, ArrowBack, ArrowForward, Bookmark } from '@mui/icons-material'
+// import Navigation from "~/admin/components/Navigation";
+import CustomTable from '~/admin/components/CustomTable'
+import { useDispatch, useSelector } from 'react-redux'
+import { setLoading } from '~/redux/features/shared/slices/loadingSlice'
+import confirmAlert from '~/shared/utils/confirmAlert'
+import { fetchProducts } from '~/redux/features/admin/thunks/productThunk'
+import { resetProductState, setProduct, resetProduct } from '~/redux/features/admin/slices/productSlice'
+import { useAlert } from '~/shared/utils/alert'
+import { fetchCreateProductAPI, fetchDeleteProductAPI, fetchUpdateProductAPI } from '~/admin/apis/productAPI'
+import ImageStack from '~/admin/components/ImageStack'
+import imageCompression from 'browser-image-compression'
+import Backdrop from '~/shared/components/Backdrop'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { Navigation, EffectCoverflow } from 'swiper/modules'
+import { setBackdrop } from '~/redux/features/shared/slices/backdropSlice'
+import {formatCurrency, removeCurrencyFormat} from '~/shared/utils/formatCurrency'
 
 const cx = classNames.bind(styles)
 function Product()
 {
-    const dispatch = useDispatch()
-    const {catalogSlug} = useParams()
-    const alert = useAlert()
-    const {products} = useSelector(state=>state.adminProduct)
-    const [openCreateNew, setOpenCreateNew] = useState(false)
-    useEffect(() =>
+  const dispatch = useDispatch()
+  const { catalogSlug } = useParams()
+  const alert = useAlert()
+  const { products } = useSelector(state => state.adminProduct)
+  const [openCreateNew, setOpenCreateNew] = useState(false)
+  const [imagesPerProduct, setImagesPerProduct] = useState([])    
+    
+  useEffect(() =>
+  {
+    dispatch(setLoading(true))
+    dispatch(fetchProducts(catalogSlug))
+    dispatch(setLoading(false))
+    return () => dispatch(resetProductState()) // clear data when unmounting
+  }, [])
+  const handleDelete = async (_id) =>
+  {
+    const isConfirmed = await confirmAlert()
+    if (isConfirmed)
     {
-        dispatch(setLoading(true))
+      dispatch(setLoading(true))
+      try 
+      {
+        const res = await fetchDeleteProductAPI(catalogSlug, _id)          
+        alert('success', res.data.msg)
         dispatch(fetchProducts(catalogSlug))
         dispatch(setLoading(false))
-        return ()=> dispatch(resetProductState()) // clear data when unmounting
-      }, [])
-    const handleDelete = async (_id)=>
-    {
-        const isConfirmed = await confirmAlert();
-        if(isConfirmed)
-        {
-          dispatch(setLoading(true))
-          try 
-          {
-            const res = await fetchDeleteProductAPI(_id)          
-            alert('success', res.data.msg)
-            dispatch(fetchProducts())
-            dispatch(setLoading(false))
-          }
-          catch(error)
-          {
-            dispatch(setLoading(false));
-            if (error.response && error.response.data && error.response.data.msg) {
-              alert('error', error.response.data.msg)
-            } else {
-              alert('error', 'Có lỗi xảy ra, vui lòng thử lại')
-            }
-          }
+      }
+      catch (error)
+      {
+        dispatch(setLoading(false))
+        if (error.response && error.response.data && error.response.data.msg) {
+          alert('error', error.response.data.msg)
+        } else {
+          alert('error', 'Có lỗi xảy ra, vui lòng thử lại')
         }
+      }
     }
-    const handleUpdate = async (data)=>
+  }
+  const handleUpdate = async (data) =>
+  {
+    dispatch(setProduct(data))
+    setOpenCreateNew(true)
+  }
+  const handleCreateNew = async () =>
+  {
+    setOpenCreateNew(true)
+    dispatch(resetProduct())
+  }
+  const handleOpenSetPrimaryImg = (images) =>
+  {
+    dispatch(setBackdrop(true))
+    setImagesPerProduct(images)
+
+  }
+  const columns = [
     {
-      dispatch(setProduct(data))
-      setOpenCreateNew(true)
-    }
-    const handleCreateNew = async ()=>
+      accessorKey: 'name',
+      header: 'Tên Sản Phẩm',
+      cell: info => info.getValue()
+    },
     {
-      setOpenCreateNew(true)
-      dispatch(setProduct({}))
-    }
-    const columns = [
-        {
-          accessorKey: 'name',
-          header: 'Tên Sản Phẩm',
-          cell: info => info.getValue(),
-        },
-        {
-        accessorKey: 'image',
-        header: 'Hình Ảnh',
-        cell: info => info.getValue(),
-        },
-        {
-        accessorKey: 'listedPrice',
-        header: 'Giá Niêm Yết',
-        cell: info => info.getValue(),
-        },
-        {
-        accessorKey: 'sellingPrice',
-        header: 'Giá Bán',
-        cell: info => info.getValue(),
-        },
-        {
-          header:()=><Typography fontWeight={600}>Thao Tác</Typography>, 
-          id:'action',
-          classNames:'d-flex justify-content-start',
-          cell:({row})=>(
-            <div>
-              <ButtonGroup variant='contained'>
-                <Button  size='small' sx={{backgroundColor:'#1976d2'}} onClick={()=>handleUpdate(row.original)}>
-                  <ModeEditOutline fontSize='small'/>
-                </Button>
-                <Button  size='small' sx={{backgroundColor:'#d32f2f'}} onClick={()=>handleDelete(row.original._id)}>
-                  <DeleteOutline fontSize='small'/>
-                </Button>
-              </ButtonGroup>
+      accessorKey: 'images',
+      header: 'Hình Ảnh',
+      classNames:'d-flex justify-content-center',
+      cell: info => <ImageStack images={info.getValue()} onOpenSetPrimaryImg={handleOpenSetPrimaryImg}/>
+    },
+    {
+      accessorKey: 'listedPrice',
+      header: 'Giá Niêm Yết',
+      cell: info => `${formatCurrency(info.getValue())}đ`
+    },
+    {
+      accessorKey: 'sellingPrice',
+      header: 'Giá Bán',
+      cell: info => `${formatCurrency(info.getValue())}đ`
+    },
+    {
+      header:() => <Typography fontWeight={600}>Thao Tác</Typography>, 
+      id:'action',
+      classNames:'d-flex justify-content-start',
+      cell:({ row }) => (
+        <div>
+          <ButtonGroup variant='contained'>
+            <Button size='small' sx={{ backgroundColor:'#1976d2' }} onClick={() => handleUpdate(row.original)}>
+              <ModeEditOutline fontSize='small'/>
+            </Button>
+            <Button size='small' sx={{ backgroundColor:'#d32f2f' }} onClick={() => handleDelete(row.original._id)}>
+              <DeleteOutline fontSize='small'/>
+            </Button>
+          </ButtonGroup>
               
-          </div>
-          )
-        }
-    ]
-    return (
-        <Box>
-            <Navigation />
-            <Box sx={{ padding:'1rem', backgroundColor:'var(--text-white)', borderRadius:'0.5rem',
-                display:'flex', justifyContent:'space-between', alignItems:'center', direction:'row' }}>
-                <Stack direction={'row'} sx={{ minWidth:'20rem' }} justifyContent={'space-between'} alignItems={'center'}>
-                    <TextField variant='standard' label="Tìm kiếm" sx={{ flex:1, marginRight:'1rem' }}/>
-                    <Button variant='contained' size='small'>Tìm kiếm</Button>
-                </Stack>
-                <Button variant="contained" size="small" onClick={handleCreateNew}>
-                    <Add fontSize="small"/>
+        </div>
+      )
+    }
+  ]
+  return (
+    <Box>
+      {/* <Navigation /> */}
+      <Box sx={{ padding:'1rem', backgroundColor:'var(--text-white)', borderRadius:'0.5rem',
+        display:'flex', justifyContent:'space-between', alignItems:'center', direction:'row' }}>
+        <Stack direction={'row'} sx={{ minWidth:'20rem' }} justifyContent={'space-between'} alignItems={'center'}>
+          <TextField variant='standard' label="Tìm kiếm" sx={{ flex:1, marginRight:'1rem' }}/>
+          <Button variant='contained' size='small'>Tìm kiếm</Button>
+        </Stack>
+        <Button variant="contained" size="small" onClick={handleCreateNew}>
+          <Add fontSize="small"/>
                     Thêm Mới
-                </Button>
-            </Box>
-            <CustomTable  data={products} columns={columns}/>
-            <CreateNew open={openCreateNew} onClose={()=>setOpenCreateNew(false)}/>
-        </Box>
-    )
+        </Button>
+      </Box>
+      <CustomTable data={products} columns={columns}/>
+            
+      <CreateNew open={openCreateNew} onClose={() => setOpenCreateNew(false)}/>
+      <Backdrop>
+        <div style={{ position: 'relative', width: '100%', textAlign:'center' }}>
+          <button className="swiper-button-prev" style={{ color:'var(--primary-color)' }} onClick={e => e.stopPropagation()}></button>
+          <button className="swiper-button-next" style={{ color:'var(--primary-color)' }} onClick={e => e.stopPropagation()}></button>
+          <Swiper
+            effect="coverflow"
+            grabCursor={true}
+            centeredSlides={true}
+            coverflowEffect={{
+              rotate: 20,
+              stretch: 0,
+              depth: 20,
+              modifier: 1
+            }}
+            modules={[EffectCoverflow, Navigation]}
+            navigation={{
+              prevEl: '.swiper-button-prev',
+              nextEl: '.swiper-button-next'
+            }}
+            slidesPerView={3}
+            spaceBetween={30}
+            initialSlide={0}
+          >
+            {imagesPerProduct.length > 0 && imagesPerProduct.map((image, index) => (
+              <SwiperSlide onClick={(event) => event.stopPropagation()} key={index} style={{ height:'300px' }}>
+                {products.length > 0 && (
+                  <img src={image.url} style={{ width:'100%', height:'100%', objectFit:'contains' }}/>
+                )}
+              </SwiperSlide>
+            ))}
+          </Swiper>
+          <Button variant="contained" sx={{ marginTop:'1rem' }} onClick={e => e.stopPropagation()}>
+                Đặt làm hình đại diện sản phẩm
+          </Button>
+        </div>
+      </Backdrop>
+    </Box>
+  )
 }
-const CreateNew = ({open, onClose})=>
+const CreateNew = ({ open, onClose }) =>
 {
   const dispatch = useDispatch()
   const alert = useAlert()
-  const {catalogSlug} = useParams();
-  const [product, setProduct] = useState({
-    name: '',
-    images: [],
-    listedPrice: '',
-    sellingPrice: '',
-    age: ''
-  })
-  const [imageSlots, setImageSlots] = useState([
-    { id: 1, image: null, preview: null }
-  ]);
-  const [errorMessages, setErrorMessages] = useState({
-    name: '', 
-    listedPrice:'', 
-    sellingPrice:'',
-    age: '', 
-    images: ''
-  })
+  const { catalogSlug } = useParams()
+  const { product } = useSelector(state => state.adminProduct)
+  const [imageSlots, setImageSlots] = useState([])
+  const [errorMessages, setErrorMessages] = useState({})
   useEffect(() => {
+    if (product && product.images)
+    {
+      const existingImages = product.images.map((image, index) => ({
+        id: index +1, 
+        publicId: image.publicId,
+        image: null, 
+        preview: image.url, 
+        isRepresentative: image.isRepresentative
+      }))
+      setImageSlots([...existingImages, { id:existingImages.length + 1, publicId: null, image: null, preview: null }])
+    }
+    else 
+      setImageSlots([{ id:1, publicId: null, image: null, preview: null }])
     return () => {
       imageSlots.forEach(slot => {
         if (slot.preview) {
-          URL.revokeObjectURL(slot.preview);
+          URL.revokeObjectURL(slot.preview)
         }
-      });
-    };
-  }, []);
+      })
+    }
+  }, [open])
+  
   const handleInputChange = (e) => {
-    const { name, value } = e.target
-    setErrorMessages({...errorMessages, [name]:''})
-    setProduct(prev => ({
-      ...prev,
-      [name]: value
-    }))
+    let { name, value } = e.target
+    setErrorMessages({ ...errorMessages, [name]:'' })
+    if(name === 'sellingPrice' || name === 'listedPrice')
+      value = removeCurrencyFormat(value)
+    dispatch(setProduct({ ...product, [name]:value }))
   }
 
-  const handleSlotImageChange = (slotId, file) => {
+  const handleSlotImageChange = async (slotId, file) => {
     if (file) {
-      const preview = URL.createObjectURL(file);
-      const updatedSlots = imageSlots.map(slot => 
-        slot.id === slotId 
-          ? { ...slot, image: file, preview } 
-          : slot
-      );
-      setProduct({...product, images: updatedSlots.map(slot=>slot.image)})
-      setImageSlots([...updatedSlots, {id:imageSlots.length +1, image: null, preview:null}])
-
-    }
-  };
-
-  const handleRemoveSlotImage = (slotId) => {
-    setImageSlots(prev => {
-      // Remove the image from the slot
-      const updatedSlots = prev.map(slot => {
-        if (slot.id === slotId) {
-          if (slot.preview) {
-            URL.revokeObjectURL(slot.preview);
-          }
-          return { ...slot, image: null, preview: null };
+      try 
+      {
+        dispatch(setLoading(true))
+        const options = {
+          maxSizeMB: 1, // Max file size
+          maxWidthOrHeight: 1920, // Max dimension
+          useWebWorker: true // For non-blocking compression
         }
-        return slot;
-      });
+        const compressedFile = await imageCompression(file, options)
+        const preview = URL.createObjectURL(compressedFile)
+        const updatedSlots = imageSlots.map(slot => 
+          slot.id === slotId 
+            ? { ...slot, image: compressedFile, preview } 
+            : slot
+        )
+        if (updatedSlots.length > 0)
+          setErrorMessages({ ...errorMessages, images:'' })
+        
+        setImageSlots([...updatedSlots, { id:imageSlots[imageSlots.length - 1].id + 1, publicId: null, image: null, preview: null }])
+        console.log([...updatedSlots, { id:imageSlots[imageSlots.length - 1].id + 1, publicId: null, image: null, preview: null }])
+        dispatch(setLoading(false))
 
-      // Filter out empty slots except the last one
-      const filledSlots = updatedSlots.filter(slot => slot.image || slot.preview);
-      const emptySlots = updatedSlots.filter(slot => !slot.image && !slot.preview);
-      
-      // If there are multiple empty slots, keep only one at the end
-      if (emptySlots.length > 1) {
-        return [...filledSlots, emptySlots[0]];
       }
-      return updatedSlots;
-    });
-  };
-  const validateData = (e) =>
-  {
-    const fieldName = e.target.name; 
-    const value = e.target.value;
-    var errorMessage = ''
-    if(!value)
-    {
-      if(fieldName === 'name')
-        errorMessage = 'Vui lòng nhập tên sản phẩm'
-      else if(fieldName === 'listedPrice')
-        errorMessage = 'Vui lòng nhập giá niêm yết'
-      else if(fieldName === 'sellingPrice')
-        errorMessage = 'Vui lòng nhập giá bán'
-      else if(fieldName === 'age')
-        errorMessage = 'Vui lòng nhập độ tuổi'
-      else 
-        errorMessage = 'Vui lòng nhập hình ảnh'
-      setErrorMessages({...errorMessages, [fieldName]: errorMessage})
-      return;
+      catch (error)
+      {
+        console.log('Compression error:', error)
+      }
     }
+  }
+  const handleRemoveSlotImage = (slotId) => {
+    const updatedSlots = imageSlots.filter(slot => {
+      if (slot.id === slotId) 
+        URL.revokeObjectURL(slot.preview)
+      return slot.id !==slotId
+    })
+    if (updatedSlots.length < 2)
+      setErrorMessages({ ...errorMessages, image:'Vui lòng thêm hình ảnh' })
+    else
+      setImageSlots(updatedSlots)
+  }
+  const validateData = (object, fieldName = null) => {
+    let errors = {}
+  
+    // Kiểm tra tất cả các trường nếu không chỉ định fieldName
+    const fieldsToCheck = fieldName ? [fieldName] : ['name', 'listedPrice', 'sellingPrice', 'age']
+  
+    fieldsToCheck.forEach((field) => {
+      const value = object[field]
+      if (!value || (Array.isArray(value) && value.length === 0)) {
+        switch (field) {
+        case 'name':
+          errors.name = 'Vui lòng nhập tên sản phẩm'
+          break
+        case 'listedPrice':
+          errors.listedPrice = 'Vui lòng nhập giá niêm yết'
+          break
+        case 'sellingPrice':
+          errors.sellingPrice = 'Vui lòng nhập giá bán'
+          break
+        case 'age':
+          errors.age = 'Vui lòng nhập độ tuổi'
+          break
+        default:
+          errors[field] = 'Trường này không được để trống'
+        }
+      }
+    })
+  
+    return errors
+  }
+  const handleBlur = (e) => {
+    const fieldName = e.target.name
+    const value = e.target.value
+    const errors = validateData({ [fieldName]: value }, fieldName)
+    setErrorMessages((prevErrors) => ({
+      ...prevErrors,
+      ...errors
+    }))
   }
   const handleSubmit = async (e) => {
     e.preventDefault()
+    var errors = validateData(product)
+    if (imageSlots.length < 2)
+      errors.images = 'Vui lòng thêm hình ảnh'
+    // else if(!imageSlots.some(slot=>slot.isRepresentative === true))
+    //   errors.images = 'Vui lòng đặt ảnh đại diện cho sản phẩm'
+
+    if (Object.keys(errors).length > 0) {
+      setErrorMessages(errors)
+      return
+    }
+    setErrorMessages({})
     try 
     {
       dispatch(setLoading(true))
+      var response
       const formData = new FormData()
       formData.append('name', product.name)
       formData.append('listedPrice', product.listedPrice)
       formData.append('sellingPrice', product.sellingPrice)
       formData.append('age', product.age)
-      formData.append('catalogSlug', catalogSlug)
-      Array.from(product.images).forEach(image=>{
-        formData.append('images', image)
-      })
-      const response = await fetchCreateProductAPI(catalogSlug, formData)
+      if (product._id)
+      {
+        //update 
+        //filter in product images stored in database was removed by user action
+        const images = []
+        const imageDeletedIds = []
+        imageSlots.forEach(imageSlot =>
+        {
+          if (imageSlot.image instanceof Blob)
+            images.push(imageSlot.image)
+        })
+        product.images.forEach(productImage => {
+          const isExist = imageSlots.some(imageSlot => imageSlot.publicId === productImage.publicId)
+          if (!isExist) {
+            // Image exists in product.images but not in imageSlots, hence deleted
+            imageDeletedIds.push({ publicId: productImage.publicId })
+          }
+        })
+        images.forEach(image => {
+          formData.append('images', image)
+        })
+        formData.append('imageDeletedIds', JSON.stringify(imageDeletedIds))
+        response = await fetchUpdateProductAPI(catalogSlug, product._id, formData)
+      }
+      else 
+      {
+        imageSlots.forEach(imageSlot => {
+          formData.append('images', imageSlot.image)
+        })
+        response = await fetchCreateProductAPI(catalogSlug, formData)
+      }
       alert('success', response.data.msg)
       dispatch(fetchProducts(catalogSlug))
       dispatch(setLoading(false))
       onClose()
+      setImageSlots([{ id:1, publicId: null, image:null, preview:null }])
     }
     catch (error)
     {
-      dispatch(setLoading(false));
+      dispatch(setLoading(false))
       if (error.response && error.response.data && error.response.data.msg) {
         alert('error', error.response.data.msg)
       } else {
@@ -251,7 +364,14 @@ const CreateNew = ({open, onClose})=>
       }
     }
   }
-
+  const handleSetAvatar = (id)=>
+  {
+    setImageSlots(prev=> prev.map(slot=> slot.isRepresentative ? {...slot, isRepresentative:false} : slot).map(slot=> slot.id === id ? {...slot, isRepresentative: true} : slot))
+  }
+  const handleCancel = () =>
+  {
+    onClose()
+  }
   return (
     <Dialog 
       open={open} 
@@ -259,52 +379,52 @@ const CreateNew = ({open, onClose})=>
       maxWidth="sm"
       fullWidth
     >
-      <DialogTitle>Thêm Sản Phẩm Mới</DialogTitle>
+      <DialogTitle>{product._id ? 'Cập nhập sản phẩm' : 'Tạo mới sản phẩm'}</DialogTitle>
       <DialogContent>
         <Box component="form" onSubmit={handleSubmit} sx={{ mt: 2 }}>
           {/* Product Details Section */}
           <div className={cx('form-section')}>
             <Typography variant="subtitle1" gutterBottom>Thông tin sản phẩm</Typography>
             <Grid container spacing={2} direction={'column'}>
-              <Grid item>
+              <Grid >
                 <TextField
                   fullWidth
                   label="Tên sản phẩm"
                   name="name"
                   value={product.name}
                   onChange={handleInputChange}
-                  onBlur={validateData}
-                  error={errorMessages.name !== ''}
+                  onBlur={handleBlur}
+                  error={!!errorMessages.name && errorMessages.name !== ''}
                   helperText={errorMessages.name}
                 />
               </Grid>
-              <Grid item>
+              <Grid>
                 <TextField
                   fullWidth
                   label="Giá niêm yết"
                   name="listedPrice"
-                  type="number"
-                  value={product.listedPrice}
+                  type="text"
+                  value={formatCurrency(product.listedPrice)}
                   onChange={handleInputChange}
-                  onBlur={validateData}
-                  error={errorMessages.listedPrice !== ''}
+                  onBlur={handleBlur}
+                  error={!!errorMessages.listedPrice && errorMessages.listedPrice !== ''}
                   helperText={errorMessages.listedPrice}
                 />
               </Grid>
-              <Grid item>
+              <Grid>
                 <TextField
                   fullWidth
                   label="Giá bán"
                   name="sellingPrice"
-                  type="number"
-                  value={product.sellingPrice}
+                  type="text"
+                  value={formatCurrency(product.sellingPrice)}
                   onChange={handleInputChange}
-                  onBlur={validateData}
-                  error={errorMessages.sellingPrice !== ''}
+                  onBlur={handleBlur}
+                  error={!!errorMessages.sellingPrice && errorMessages.sellingPrice !== ''}
                   helperText={errorMessages.sellingPrice}
                 />
               </Grid>
-              <Grid item>
+              <Grid>
                 <TextField
                   fullWidth
                   label="Độ tuổi"
@@ -312,8 +432,8 @@ const CreateNew = ({open, onClose})=>
                   name="age"
                   value={product.age}
                   onChange={handleInputChange}
-                  onBlur={validateData}
-                  error={errorMessages.age !== ''}
+                  onBlur={handleBlur}
+                  error={!!errorMessages.age && errorMessages.age !== ''}
                   helperText={errorMessages.age}
                 />
               </Grid>
@@ -321,21 +441,21 @@ const CreateNew = ({open, onClose})=>
           </div>
 
           {/* Image Slots Section */}
-          <div className={cx('form-section')}>
+          <div className={cx('form-section', { error: errorMessages.images && errorMessages.images !== '' })}>
             <Typography variant="subtitle1" gutterBottom>Hình ảnh sản phẩm</Typography>
-            <Grid container spacing={2}>
+            <Grid container spacing={2} display={'flex'} flexDirection={'row'}>
               {imageSlots.map((slot, index) => (
-                <Grid item xs={3} key={slot.id}>
+                <Grid size={4} key={slot.id}>
                   <Box 
-                    className={cx('image-slot')}
+                    className={cx('image-slot', { isRepresentative: slot.isRepresentative })}
                     sx={{ 
                       position: 'relative',
                       aspectRatio: '1',
-                      border: '2px dashed #D32F2F',
+                      border: `2px dashed #CCC`,
                       borderRadius: '4px',
                       overflow: 'hidden', 
-                      width:'100px',
-                      height:'100px'
+                      width:'100%',
+                      height:'100%'
                     }}
                   >
                     {slot.preview ? (
@@ -350,12 +470,13 @@ const CreateNew = ({open, onClose})=>
                             
                           }}
                         />
-                        <Button
+                        <IconButton
                           size="small"
                           color="error"
                           onClick={() => handleRemoveSlotImage(slot.id)}
                           sx={{
                             position: 'absolute',
+                            zIndex:'10',
                             top: 4,
                             right: 4,
                             minWidth: 'auto',
@@ -365,9 +486,16 @@ const CreateNew = ({open, onClose})=>
                               backgroundColor: '#ffebee'
                             }
                           }}
+                          onBlur={() => {}}
                         >
-                          <DeleteOutline fontSize="small" />
-                        </Button>
+                          <DeleteOutline fontSize="small" sx={{ width:'1rem', height:'1rem' }}/>
+                        </IconButton>
+                        {slot.isRepresentative && <Bookmark  sx={{position:'absolute', left:0, top:0,color:'#FFCB34'}} />}
+                        {!slot.isRepresentative && 
+                        <div className={cx('slot-overlay')}>
+                          <Button variant='contained' size='small' onClick={()=>handleSetAvatar(slot.id)}>Đặt avatar</Button>
+                        </div>
+                        }
                       </>
                     ) : (
                       <Button
@@ -385,8 +513,8 @@ const CreateNew = ({open, onClose})=>
                           }
                         }}
                       >
-                        <Add fontSize="large" sx={{color:'#D32F2F'}}/>
-                        <Typography variant="caption" color="red">Thêm ảnh</Typography>
+                        <Add fontSize="large" sx={{ color:errorMessages.images && errorMessages.images !== '' ? 'red' : '' }}/>
+                        <Typography variant="caption" color={errorMessages.images && errorMessages.images !=='' ? 'red' : ''}>Thêm ảnh</Typography>
                         <input
                           type="file"
                           accept="image/*"
@@ -400,15 +528,17 @@ const CreateNew = ({open, onClose})=>
                 </Grid>
               ))}
             </Grid>
-            <Typography color="red" fontSize={'var(--fs-sm)'} sx={{margin:'3px 14px 0'}}> Vui lòng thêm hình ảnh sản phẩm </Typography>
+            {errorMessages.images && errorMessages.images !== '' && (
+              <Typography color={'red'} fontSize={'var(--fs-sm)'} sx={{ margin:'3px 14px 0' }}>{errorMessages.images}</Typography>
+            )}
           </div>
         </Box>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose} variant="outlined">Hủy</Button>
+        <Button onClick={handleCancel} variant="outlined">Hủy</Button>
         <Button variant="contained" onClick={handleSubmit}>Lưu</Button>
       </DialogActions>
     </Dialog>
   )
 }
-export default Product;
+export default Product

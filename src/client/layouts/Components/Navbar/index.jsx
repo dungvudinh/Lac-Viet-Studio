@@ -1,4 +1,4 @@
-import { useState, useLayoutEffect, useRef} from 'react'
+import { useState, useLayoutEffect, useRef } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import classNames from 'classnames/bind'
 import styles from './Navbar.module.scss'
@@ -133,7 +133,7 @@ const SETTING_ITEMS = [
   {
     primary: 'Đăng xuất', 
     secondary:'',
-    role:['customer','sale', 'admin'], 
+    role:['customer', 'sale', 'admin'], 
     path:'logout', 
 
     icon:(fontSize) => <Logout fontSize={fontSize}/> 
@@ -143,7 +143,7 @@ const SETTING_ITEMS = [
 function Navbar({ belongTo }) {
   const navigate = useNavigate()
   const [navBgColor, setNavBgColor] = useState('')
-  const [isLogin, setLogin]  = useState(!!localStorage.getItem('accessToken'))
+  const [isLogin, setLogin] = useState(!!localStorage.getItem('accessToken'))
   // const [currentLocale, setCurrentLocale] = useState(() => {
   //   const currentLocale = localStorage.getItem('locale')
   //   if (!currentLocale)
@@ -262,7 +262,7 @@ function Navbar({ belongTo }) {
           </FormControl>
 
           {/* NAVBAR ACTION */}
-          <Box sx={{ display:'flex', alignItems:'center', justifyContent:'space-between',ml:{ md:'1rem' } }}>
+          <Box sx={{ display:'flex', alignItems:'center', justifyContent:'space-between', ml:{ md:'1rem' } }}>
             {(belongTo == 'home' || belongTo === 'profile-setting') 
               ?
               <Button variant="contained" color='primary' size='small' sx={{ fontSize:{ xs:'var(--fs-md)' } }}
@@ -288,8 +288,8 @@ function Navbar({ belongTo }) {
                   <UserMenu navBgColor={navBgColor}/>
                   :
                   <Typography onClick={() => setIsLoginDialogOpen(true)} fontWeight={600} 
-                  sx={{ cursor:'pointer', color:(navBgColor === '' || navBgColor === 'black') ? '#FFF' : '#111', 
-                  fontSize:{xs:'var(--fs-md)'}, minWidth:'5rem', ml:'1rem' }}>
+                    sx={{ cursor:'pointer', color:(navBgColor === '' || navBgColor === 'black') ? '#FFF' : '#111', 
+                      fontSize:{ xs:'var(--fs-md)' }, minWidth:'5rem', ml:'1rem' }}>
                       Đăng Nhập
                   </Typography>
               }
@@ -302,7 +302,7 @@ function Navbar({ belongTo }) {
       <Cart isCartOpen={isCartOpen} onCloseCart={() => setIsCartOpen(false)}/>
       <Sidebar isLogin={isLogin} isSidebarOpen={isSidebarOpen} onToggleSidebar={handleToggleSidebar}/>
       <NavStore isNavStoreOpen={isNavStoreOpen} onToggleNavStore={handleToggleNavStore}/>
-      <Login isLoginDialogOpen={isLoginDialogOpen} onCloseLoginDialog={()=>setIsLoginDialogOpen(false)}/>
+      <Login isLoginDialogOpen={isLoginDialogOpen} onCloseLoginDialog={() => setIsLoginDialogOpen(false)}/>
     </Box>
   )
 }
@@ -310,7 +310,7 @@ function Navbar({ belongTo }) {
 
 const UserMenu = ({ navBgColor }) => {
   const navigate = useNavigate()
-  const [user, setUser] = useState(()=>JSON.parse(localStorage.getItem('user')))
+  const [user, setUser] = useState(() => JSON.parse(localStorage.getItem('user')))
   const [anchorEl, setAnchorEl] = useState(null)
   const open = Boolean(anchorEl)
   const handleOpenMenu = (event) => {
@@ -322,28 +322,28 @@ const UserMenu = ({ navBgColor }) => {
   const handleSettingClick = async (path) =>
   {
     handleCloseMenu()
-    if(path === 'logout')
+    if (path === 'logout')
     {
       try 
       {
-        const response = await logout();
+        const response = await logout()
         console.log(response)
-        if(response.status === 200)
+        if (response.status === 200)
         {
           localStorage.removeItem('accessToken')
           localStorage.removeItem('user')
           navigate('/')
-          window.location.reload();
+          window.location.reload()
         }
         else 
           console.log('Logout Fail')
       }
-      catch(error)
+      catch (error)
       {
         console.log(error)
       } 
     }
-    else if(path === 'admin')
+    else if (path === 'admin')
       navigate('/admin')
   }
   const filteredSettingItems = SETTING_ITEMS.filter(item => 
@@ -385,7 +385,7 @@ const UserMenu = ({ navBgColor }) => {
         <Divider />
         {filteredSettingItems.map((settingItem, index) => (
           <MenuItem key={index} onClick={() => handleSettingClick(settingItem.path)}>
-            <div style={{display:'flex', flexDirection:'row', alignItems:'center'}}>
+            <div style={{ display:'flex', flexDirection:'row', alignItems:'center' }}>
               {settingItem.icon && (
                 <ListItemIcon>
                   {settingItem.icon('medium')}

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Box, Button, Stack, Typography, Select, MenuItem, 
   TextField, Table, TableContainer, TableHead, TableRow, TableCell, TableBody, Paper, Dialog, DialogTitle, DialogContent, DialogActions, Grid2 as Grid, 
   IconButton, 
-  ButtonGroup} from '@mui/material'
+  ButtonGroup } from '@mui/material'
 import { Add, ArrowForwardOutlined, BorderColor, Delete, DeleteOutline, ModeEditOutline, MoreHoriz } from '@mui/icons-material'
 import styles from './Store.module.scss'
 import classNames from 'classnames/bind'
@@ -16,32 +16,32 @@ const columns = [
   {
     accessorKey: 'name',
     header: 'Tên Danh Mục',
-    cell: info => info.getValue(),
+    cell: info => info.getValue()
   },
   {
     accessorKey: 'totalProduct',
     header: 'Số Lượng Sản Phẩm',
-    cell: info => info.getValue(),
+    cell: info => info.getValue()
   },
   {
-    header:()=><Typography fontWeight={600}>Thao Tác</Typography>, 
+    header:() => <Typography fontWeight={600}>Thao Tác</Typography>, 
     id:'action',
     classNames:'d-flex justify-content-start',
-    cell:({row})=>(
+    cell:({ row }) => (
       <div>
         <ButtonGroup variant='contained'>
-          <Button  size='small' sx={{backgroundColor:'#1976d2'}} >
+          <Button size='small' sx={{ backgroundColor:'#1976d2' }} >
             <ModeEditOutline fontSize='small'/>
           </Button>
-          <Button  size='small' sx={{backgroundColor:'#d32f2f'}}>
+          <Button size='small' sx={{ backgroundColor:'#d32f2f' }}>
             <DeleteOutline fontSize='small'/>
           </Button>
-          <Button size='small'  sx={{backgroundColor:'#42a5f5'}}>
+          <Button size='small' sx={{ backgroundColor:'#42a5f5' }}>
             <MoreHoriz fontSize='small'/>
           </Button>
         </ButtonGroup>
         
-    </div>
+      </div>
     )
   }
 ]

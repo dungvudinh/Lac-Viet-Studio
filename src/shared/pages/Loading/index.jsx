@@ -1,5 +1,5 @@
-import React from 'react';
-import { Box, CircularProgress, Typography } from '@mui/material';
+import React from 'react'
+import { Box, CircularProgress, Typography } from '@mui/material'
 
 const Loading = () => {
   return (
@@ -18,7 +18,7 @@ const Loading = () => {
         Đang tải...
       </Typography>
     </Box>
-  );
-};
+  )
+}
 
-export default Loading;
+export default Loading

@@ -15,7 +15,7 @@ export default defineConfig({
       '/v1': {
         target: 'https://lac-viet-studio-api.onrender.com',
         changeOrigin: true,
-        secure: true,
+        secure: true
       }
     }
   }

@@ -7,6 +7,7 @@
     "Create product successfully":"Tạo sản phẩm thành công", 
     "Delete product catalog successfully":"Xóa danh mục sản phẩm thành công", 
     "Delete failed, product catalog not found":"Xóa thất bại, danh mục sản phẩm không tồn tại", 
-    "Update product catalog successfully":"Cập nhập danh mục sản phẩm thành công"
-
+    "Update product catalog successfully":"Cập nhập danh mục sản phẩm thành công",
+    "Update product successfully":"Cập nhập sản phẩm thành công",
+    "Delete product successfully":"Xóa sản phẩm thành công"
 }
