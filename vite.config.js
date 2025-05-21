@@ -12,13 +12,13 @@ export default defineConfig({
     ]
   },
   server: {
-    historyApiFallback: true,
     proxy: {
-      '/v1': {
-        target: 'https://lac-viet-studio-api.onrender.com',
+      '/api': {
+        target: 'http://localhost:8080',
         changeOrigin: true,
-        secure: true
+        rewrite: path => path.replace(/^\/api/, '')
       }
     }
   }
+  
 })

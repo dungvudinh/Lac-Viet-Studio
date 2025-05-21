@@ -1,2 +1,3 @@
-export const API_ROOT = 'https://lac-viet-studio-api.onrender.com'
 // export const API_ROOT= 'http://localhost:8080'
+export const API_ROOT = import.meta.env.VITE_API_ROOT;
+
