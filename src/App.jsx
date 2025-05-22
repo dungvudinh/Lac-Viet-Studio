@@ -1,13 +1,26 @@
 import { Routes, Route } from 'react-router-dom'
-import ClientApp from '~/client/ClientApp'
-import AdminApp from '~/admin/AdminApp'
+import { publicRoutes } from '~/routes'
+import MainLayout from './layouts/MainLayout'
+import CustomAlert from '~/components/Alert'
+import Loading from './components/Loading'
 function App() {
-  return (
-    <Routes>
-      <Route path='/*' element={<ClientApp/>}/>
-      <Route path='/admin/*' element={<AdminApp/>}/>
-      <Route path='*' element={<h1>404 NOT FOUND</h1>}/>
-    </Routes>
+  return ( 
+    <>
+      <Routes>
+        {
+          publicRoutes.map((route, index) => {
+            const Page = route.component
+            let Layout = route.layout || MainLayout
+            if (route.layout === null) {
+              Layout = ({ children }) => <>{children}</>
+            }
+            return <Route key={index} path={route.path} element={<Layout routePath={route.path}><Page /></Layout>} />
+          })
+        }
+      </Routes>
+      <CustomAlert />
+      <Loading />
+    </>
   )
 }
 

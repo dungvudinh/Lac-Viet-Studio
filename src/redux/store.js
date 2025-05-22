@@ -1,21 +1,15 @@
 import { configureStore } from '@reduxjs/toolkit'
-import productReducer from './features/admin/slices/productSlice'
-import productCatalogReducer from './features/admin/slices/productCatalogSlice'
-import loadingReducer from './features/shared/slices/loadingSlice'
-import alertReducer from './features/shared/slices/alertSlice'
-import backdropReducer from './features/shared/slices/backdropSlice'
-import clientProductReducer from './features/client/slices/productSlice'
+
+import loadingReducer from './features/slices/loadingSlice'
+import alertReducer from './features/slices/alertSlice'
+import backdropReducer from './features/slices/backdropSlice'
+import productReducer from './features/slices/productSlice'
 const store = configureStore({
   reducer:{
-    //admin
-    adminProduct: productReducer,
-    adminProductCatalog: productCatalogReducer,
-    //client
-    clientProduct: clientProductReducer,
-    //shared
-    sharedLoading:loadingReducer,
-    sharedAlert:alertReducer,
-    sharedBackdrop:backdropReducer
+    product: productReducer,
+    loading:loadingReducer,
+    alert:alertReducer,
+    backdrop:backdropReducer
   }
 })
 export default store
