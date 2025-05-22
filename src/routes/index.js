@@ -1,5 +1,5 @@
 import StoreLayout from '~/layouts/StoreLayout'
-import routes from '~/configs/Routes'
+import routes from '~/configs/routes.js'
 // PAGES 
 import Home from '~/pages/Home'
 import Store from '~/pages/Store'
