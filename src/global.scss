@@ -1,8 +1,8 @@
-
 :root 
 {
     --primary-color:#f77919;
     --primary-color-bg: #fde6d4;
+    --primary-color-bg-2: rgb(249, 115, 22, 0.2);
     --primary-color-hover: #c26015;
     --border-color: #ddd;
     --text-white: #FFF;
@@ -151,11 +151,11 @@ button
 {
     border-color:red !important;
 }
-.MuiButton-outlined
-{
-    color:#111 !important;
-    border:1px solid #111 !important;
-}
+// .MuiButton-outlined
+// {
+//     color:#111 !important;
+//     border:1px solid #111 !important;
+// }
 .swiper-pagination-bullet {
     background-color: rgba(0, 0, 0, 0.3);  /* Change to any color you prefer */
 }

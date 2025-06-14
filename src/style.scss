@@ -66,3 +66,31 @@ $spacer: 1rem;
 .pb-3 { padding-bottom: $spacer !important; }
 .pb-4 { padding-bottom: $spacer * 1.5 !important; }
 .pb-5 { padding-bottom: $spacer * 3 !important; }
+
+.d-flex {display: flex;}
+.flex-row{flex-direction: row;}
+.flex-column{flex-direction: column;}
+.justify-center {justify-content: center;}
+.justify-start {justify-content: flex-start;}
+.justify-end {justify-content: flex-end;}
+.justify-between{justify-content: space-between;}
+.items-center{align-items: center;}
+.items-start{align-items: flex-start;}
+.items-end {align-items: flex-end;}
+.text-center{text-align: center;}
+.bg-gradient 
+{
+    background:linear-gradient(to right,#f97316, #dc2626 );
+}
+.color-gradient 
+{
+    background:linear-gradient(to right,#f97316, #dc2626 );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.hover-scale-101{transform: scale(1.05);}
+.hover-scale-101{transform: scale(1.05);}
+.hover-scale-101{transform: scale(1.05);}
+.hover-scale-101{transform: scale(1.05);}
+.hover-scale-101{transform: scale(1.05);}

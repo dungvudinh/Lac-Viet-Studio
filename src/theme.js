@@ -29,8 +29,10 @@ const lacviet = createTheme({
         root:{
           fontSize:'var(--fs-md)',
           textTransform: 'none',
-          color:'#FFF'
-          
+          color:'#FFF' 
+        },
+        outlined:{
+          borderColor:'var(--text-white)'
         }
       }
     }, 
@@ -55,9 +57,7 @@ const lacviet = createTheme({
           fontSize:'var(--fs-md)'
         }
       }
-    }
-      
-    
+    },
   }
 })
 
