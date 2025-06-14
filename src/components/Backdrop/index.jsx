@@ -5,7 +5,7 @@ import { setBackdrop } from '~/redux/features/shared/slices/backdropSlice'
 function BackdropCustom({ children })
 {
   const dispatch = useDispatch()
-  const { isOpen } = useSelector(state => state.sharedBackdrop)
+  const { isOpen } = useSelector(state => state.backdrop)
   return (
     <Backdrop open={isOpen} sx={{ zIndex:1211 }} onClick={() => dispatch(setBackdrop(false))}>
       {children}

@@ -72,14 +72,22 @@ const NAV_ITEMS = [
     name:'outstanding-product',
     path:'/outstanding-product', 
     belongTo:['home', 'store', 'product', 'profile-setting'] 
-
   }, 
+<<<<<<< HEAD
   // {
   //   display:'Mô Hình Sa Bàn',
   //   name:'map-model', 
   //   path:'', 
   //   belongTo:['home', 'profile-setting']
   // }, 
+=======
+  {
+    display:'Khám Phá Sản Phẩm',
+    name: 'Discover Product', 
+    path:'/discover-product', 
+    belongTo:['home', 'profile-setting']
+  },
+>>>>>>> 538b3e74b8f37a6da9d2b91d5d95644d7f71f7dc
   {
     display:'Tin Tức',
     name:'news',

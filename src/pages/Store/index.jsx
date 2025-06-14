@@ -133,7 +133,7 @@ const BANNER_ITEMS = [
 
 function Store() {
   const dispatch = useDispatch()
-  const {products} = useSelector(state=> state.clientProduct)
+  const {products} = useSelector(state=> state.product)
   const [currentSortId, setCurrentSortId]= useState(1)
   const [isFilterSidebarOpen, setIsFilterSidebarOpen] = useState(false)
   const [filter, setFilter] = useState({
@@ -152,7 +152,6 @@ function Store() {
     dispatch(setLoading(false))
     return ()=>resetProductState()
   }, [])
-  console.log(products)
   const handlePageChange = (event, value) => {
     setPage(value)
   }  
