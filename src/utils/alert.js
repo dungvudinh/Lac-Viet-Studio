@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
-import { setOpenAlert, setAlertStatus, setAlertMessage } from '~/redux/features/shared/slices/alertSlice'
+import { setToggleAlert, setAlertStatus, setAlertMessage } from '~/redux/features/shared/slices/alertSlice'
 
 export const useAlert = () => {
   const dispatch = useDispatch()
@@ -9,6 +9,6 @@ export const useAlert = () => {
     const translatedMessage = t(message)
     dispatch(setAlertStatus(status))
     dispatch(setAlertMessage(translatedMessage))
-    dispatch(setOpenAlert(true))
+    dispatch(setToggleAlert(true))
   }
 }

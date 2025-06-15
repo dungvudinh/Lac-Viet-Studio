@@ -5,14 +5,14 @@ import Button from '@mui/material/Button'
 import { styled } from '@mui/material/styles'
 import { Dialog, DialogTitle, DialogContent, IconButton, Typography, TextField, Box, InputAdornment, Checkbox, Link } from '@mui/material'
 import { VisibilityOffOutlined, VisibilityOutlined } from '@mui/icons-material'
-import { FacebookIcon, GoogleIcon } from '~/client/assets/Icons'
+import { FacebookIcon, GoogleIcon } from '~/assets/Icons'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 // import { setLoading } from '~/shared/redux/loadingSlice'
-import { setLoading } from '~/redux/features/shared/slices/loadingSlice'
-// import { setOpenAlert,setAlertMessage,setAlertStatus} from '~/shared/redux/alertSlice';
-import { setOpenAlert, setAlertMessage, setAlertStatus } from '~/redux/features/shared/slices/alertSlice'
-import { login } from '~/shared/apis/userAPI'
+import { setLoading } from '~/redux/features//slices/loadingSlice'
+// import { setToggleAlert,setAlertMessage,setAlertStatus} from '~/shared/redux/alertSlice';
+import { setToggleAlert, setAlertMessage, setAlertStatus } from '~/redux/features/slices/alertSlice'
+import { login } from '~/apis/userAPI'
 import validator from 'validator'
 
 const cx = classNames.bind(styles)
@@ -56,7 +56,7 @@ function Login({ isLoginDialogOpen, onCloseLoginDialog }) {
     try 
     {
       await login(account.email, account.password)
-      dispatch(setOpenAlert(true))
+      dispatch(setToggleAlert(true))
       dispatch(setAlertStatus('success'))
       dispatch(setAlertMessage('Đăng nhập thành công'))
       dispatch(setLoading(false))

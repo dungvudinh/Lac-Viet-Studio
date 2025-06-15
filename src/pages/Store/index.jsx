@@ -133,7 +133,7 @@ const BANNER_ITEMS = [
 
 function Store() {
   const dispatch = useDispatch()
-  const {products} = useSelector(state=> state.product)
+  const { products } = useSelector(state => state.product)
   const [currentSortId, setCurrentSortId]= useState(1)
   const [isFilterSidebarOpen, setIsFilterSidebarOpen] = useState(false)
   const [filter, setFilter] = useState({
@@ -145,12 +145,12 @@ function Store() {
   const itemsPerPage = 8
   const totalItems = 50
   const totalPages = Math.ceil(totalItems / itemsPerPage)
-  useEffect(()=>
+  useEffect(() =>
   {
     dispatch(setLoading(true))
     dispatch(fetchProducts('test'))
     dispatch(setLoading(false))
-    return ()=>resetProductState()
+    return () => resetProductState()
   }, [])
   const handlePageChange = (event, value) => {
     setPage(value)

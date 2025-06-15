@@ -3,12 +3,12 @@ import styles from './Login.module.scss'
 import classNames from 'classnames/bind'
 import { Typography, TextField, Box, InputAdornment, Checkbox, IconButton, Button } from '@mui/material'
 import { VisibilityOffOutlined, VisibilityOutlined } from '@mui/icons-material'
-import { FacebookIcon, GoogleIcon } from '~/client/assets/Icons'
+import { FacebookIcon, GoogleIcon } from '~/assets/Icons'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { setLoading } from '~/redux/features/shared/slices/loadingSlice'
-import { setOpenAlert, setAlertStatus, setAlertMessage } from '~/redux/features/shared/slices/alertSlice'
-import { login } from '~/shared/apis/userAPI'
+import { setLoading } from '~/redux/features/slices/loadingSlice'
+import { setToggleAlert, setAlertStatus, setAlertMessage } from '~/redux/features/slices/alertSlice'
+import { login } from '~/apis/userAPI'
 import validator from 'validator'
 
 const cx = classNames.bind(styles)
@@ -42,7 +42,7 @@ function Login()
     dispatch(setLoading(true))
     try {
       await login(account.email, account.password)
-      dispatch(setOpenAlert(true))
+      dispatch(setToggleAlert(true))
       dispatch(setAlertStatus('success'))
       dispatch(setAlertMessage('Đăng nhập thành công'))
       dispatch(setLoading(false))

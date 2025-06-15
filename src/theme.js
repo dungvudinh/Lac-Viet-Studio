@@ -57,7 +57,7 @@ const lacviet = createTheme({
           fontSize:'var(--fs-md)'
         }
       }
-    },
+    }
   }
 })
 

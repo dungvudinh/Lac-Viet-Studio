@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 
-// import { setOpenAlert } from '~/shared/redux/alertSlice';
+// import { setToggleAlert } from '~/shared/redux/alertSlice';
 import { setToggleAlert } from '~/redux/features/slices/alertSlice'
 import { IconButton, Collapse, Alert } from '@mui/material'
 import { Close } from '@mui/icons-material'

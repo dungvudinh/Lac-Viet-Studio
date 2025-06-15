@@ -18,7 +18,7 @@ const publicRoutes = [
   }, 
   {
     path: routes.outstandingProduct,
-    component: OutstandingProduct,
+    component: OutstandingProduct
   },
   {
     path:routes.profileSetting, 

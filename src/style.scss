@@ -89,8 +89,32 @@ $spacer: 1rem;
     background-clip: text;
     -webkit-text-fill-color: transparent;
 }
-.hover-scale-101{transform: scale(1.05);}
-.hover-scale-101{transform: scale(1.05);}
-.hover-scale-101{transform: scale(1.05);}
-.hover-scale-101{transform: scale(1.05);}
-.hover-scale-101{transform: scale(1.05);}
+.hover-scale-101
+{
+    transition:all 0.2s ease-in-out;
+    &:hover 
+    {
+        transform: scale(1.05);
+    }
+}
+.hover-scale-11{
+    transition:all 0.2s ease-in-out;
+    &:hover 
+    {
+        transform: scale(1.1);
+    }
+}
+.hover-scale-115{
+    transition:all 0.2s ease-in-out;
+    &:hover 
+    {
+        transform: scale(1.15);
+    }
+}
+// .hover-scale-101{transform: scale(1.05);}
+// .hover-scale-101{transform: scale(1.05);}
+//COLOR 
+.primary-color 
+{
+    color:var(--primary-color);
+}

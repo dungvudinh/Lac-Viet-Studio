@@ -43,20 +43,20 @@ const BannerItem = ({ item, buttons, className, belongTo }) => {
           </Typography>
           <div className={cx('btns')}>
             {
-              buttons.map(button=>{
-                if(button.type ==='primary')
+              buttons.map(button => {
+                if (button.type ==='primary')
                 {
                   return (
                     <Button variant="contained" color='primary'
                       sx={{ color:'var(text-white)', textTransform:'none', fontSize:{ md:'var(--fs-lg)', xs:'var(--fs-md)' }, display:'flex', 
                         alignItems:'center', padding:'0.5rem 1.5rem'
-                      }} className={cx('primary-btn bg-gradient')}>
+                      }} className={cx('primary-btn', ' bg-gradient')}>
                       <p>{button.title}</p>
                       <ArrowRight className='ml-2'/>
                     </Button>
                   )
                 }
-                else if(button.type === 'secondary')
+                else if (button.type === 'secondary')
                 {
                   return (
                     <Button variant="outlined" className={cx('secondary-btn')}
@@ -66,7 +66,7 @@ const BannerItem = ({ item, buttons, className, belongTo }) => {
                         display:'flex', 
                         alignItems:'center',
                         padding:'0.5rem 1.5rem',
-                        fontSize:{ md:'var(--fs-lg)', xs:'var(--fs-md)' },
+                        fontSize:{ md:'var(--fs-lg)', xs:'var(--fs-md)' }
                       }}>
                       <p>{button.title}</p>
                       <ArrowRight className='ml-2'/>

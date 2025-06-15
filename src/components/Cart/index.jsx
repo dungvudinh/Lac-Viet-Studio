@@ -2,7 +2,7 @@ import { useState } from 'react'
 import classNames from 'classnames/bind'
 import styles from './Cart.module.scss'
 import { Drawer, Box, Typography, IconButton, List, ListItem, ListItemAvatar, Stack, Link, Skeleton } from '@mui/material'
-import {Close } from '@mui/icons-material'
+import { Close } from '@mui/icons-material'
 import { RemoveIcon, AddIcon } from '~/assets/Icons'
 
 const cx = classNames.bind(styles)
