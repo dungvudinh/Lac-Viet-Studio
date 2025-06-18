@@ -88,6 +88,19 @@ const NEWS_ITEMS = [
   }
 ]
 
+const BANNER = {
+  buttons:[
+    { title:'Buy now', type:'primary' }, 
+    { title:'Learn more', type:'secondary' }
+  ],
+  items:[
+    {bgUrl:homeBanner1, title: 'TEST 1', desc:'Lorem ipsum dolor sit amet' },
+    {bgUrl:homeBanner2, title:'TEST 2', desc:'Lorem ipsum dolor sit amet'}, 
+    {bgUrl:homeBanner3, title:'TEST 3', desc:'Lorem ipsum dolor sit amet'}, 
+    {bgUrl:homeBanner4, title:'TEST 4', desc:'Lorem ipsum dolor sit amet'}, 
+    {bgUrl:homeBanner5, title:'TEST 5',desc: 'Lorem ipsum dolor sit amet'}
+  ]
+}
 const BANNER_ITEMS = [
   { id:1, img:homeBanner1 },
   { id:2, img:homeBanner2 },
@@ -125,7 +138,7 @@ function Home() {
   return ( 
     <Box className={cx('home-container')}>
       {/* HOME BANNER */}
-      <PageBanner bannerItems={BANNER_ITEMS} belongTo={'home'}/>
+      <PageBanner banner={BANNER} belongTo={'home'}/>
       {/* HOME MAIN CONTENT */}
       <Box sx={{ paddingBottom:'4rem', marginTop:{ md:'7rem', xs:'4rem' }, textAlign:'center' }}>
         <Container maxWidth='xl'>

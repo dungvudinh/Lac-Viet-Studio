@@ -43,11 +43,11 @@ const BannerItem = ({ item, buttons, className, belongTo }) => {
           </Typography>
           <div className={cx('btns')}>
             {
-              buttons.map(button => {
+              buttons.map((button, index) => {
                 if (button.type ==='primary')
                 {
                   return (
-                    <Button variant="contained" color='primary'
+                    <Button variant="contained" color='primary' key={index}
                       sx={{ color:'var(text-white)', textTransform:'none', fontSize:{ md:'var(--fs-lg)', xs:'var(--fs-md)' }, display:'flex', 
                         alignItems:'center', padding:'0.5rem 1.5rem'
                       }} className={cx('primary-btn', ' bg-gradient')}>
@@ -59,7 +59,7 @@ const BannerItem = ({ item, buttons, className, belongTo }) => {
                 else if (button.type === 'secondary')
                 {
                   return (
-                    <Button variant="outlined" className={cx('secondary-btn')}
+                    <Button variant="outlined" className={cx('secondary-btn')} key={index}
                       sx={{ 
                         color:'var(--text-white)',
                         textTransform:'none',

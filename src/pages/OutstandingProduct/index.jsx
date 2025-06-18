@@ -1,9 +1,10 @@
+import { useState } from 'react'
 import classNames from 'classnames/bind'
 import styles from './OutstandingProduct.module.scss'
-import { Box, Typography, Container, Stack, Grid2 as Grid} from '@mui/material'
+import { Box, Typography, Container, Stack, Grid2 as Grid, Chip} from '@mui/material'
 import PageBanner from '~/components/PageBanner'
 import { homeBanner1 } from '~/assets/Images/Banner'
-import { Zap, Users, Box as BoxIcon } from 'lucide-react'
+import { Zap, Users, Box as BoxIcon, Funnel } from 'lucide-react'
 const cx = classNames.bind(styles)
 const BANNER = {
   buttons:[
@@ -23,8 +24,30 @@ const OUTSTANDING_NUMBERS = [
   { icon: Users, label: 'Happy Clients', value: '200+' },
   { icon:BoxIcon, label: 'Categories', value: '15+' }
 ]
+const CATEGORIES = [
+  {label:'All'}, 
+  {label:'Architecture'}, 
+  {label:'3D Printing'}, 
+  {label:'Simulation'}, 
+  {label:'Gaming'}, 
+  {label:'Medical'}, 
+  {label:'Automotive'}, 
+  {label:'Industrial'},
+  {label:'Industrial'},
+  {label:'Industrial'},
+  {label:'Industrial'},
+  {label:'Industrial'},
+  {label:'Industrial'},
+  {label:'Industrial'},
+
+]
 function OutstandingProduct()
 {
+  const [currentCategoryId, setCurrentCategoryId] = useState(0);
+  const handleFilterCategory = ()=>
+  {
+
+  }
   return (
     <Box className={cx('outstanding-product_container')}>
       {/* HOME BANNER */}
@@ -62,18 +85,70 @@ function OutstandingProduct()
               </Stack>
             </Container>
             {/* INNOVATION */}
-           <Grid container spacing={2} sx={{width:'100%', marginTop:'4rem'}}>
+           <Grid container spacing={4} sx={{width:'100%', marginTop:'4rem'}} maxWidth={'lg'}>
             <Grid size={6}>
-                <Typography variant='h3' sx={{fontSize:{md:'var(--title-fs-xmd)'}, fontWeight:700}}>
+                <Typography variant='h3' sx={{fontSize:{md:'var(--title-fs-sm)'}, fontWeight:700, textAlign:'left'}}>
                     Innovation Through Technology
+                </Typography>
+                <Typography variant='subtitle1' sx={{textAlign:'left', marginTop:'1rem', fontSize:{md:'var(--fs-lg)'}, fontWeight:500}}>
+                    We specialize in creating stunning architectural visualizations, precision 3D-printed prototypes, 
+                and complex technical simulations that help our clients visualize, test, and perfect their ideas 
+                before bringing them to life.
+                </Typography>
+                <Typography variant='subtitle1' sx={{textAlign:'left', marginTop:'1rem', fontSize:{md:'var(--fs-lg)'}, fontWeight:500}}>
+                Our state-of-the-art technology combined with creative expertise ensures that every project 
+                we undertake exceeds expectations and sets new standards in the industry.
                 </Typography>
             </Grid>
             <Grid size={6}>
-
+                <Box sx={{border:'1px solid rgb(255,255,255,0.1)', height:'100%', borderRadius:'1rem', backgroundColor:'var(--primary-color-bg-2)', 
+                    padding:'2rem'
+                }}>
+                    <Typography variant='h2' sx={{fontWeight:700, fontSize:{md:'var(--title-fs-md)'}, color:'var(--primary-color)'}}>
+                        3+ 
+                    </Typography>
+                    <Typography variant='subtitle1' sx={{fontWeight:600, fontSize:{md:'var(--desc-fs-xs)'}}}>
+                        Years of Exeperience
+                    </Typography>
+                    <Typography variant='body1' 
+                    sx={{width:'100%', height:'2px', background:'linear-gradient(to right, transparent, #ff9f43, transparent)', marginTop:'1rem'}}>
+                    </Typography>
+                    <Typography variant='subtitle2' sx={{marginTop:'1rem', fontSize:{md:'var(--fs-lg)'},fontWeight:500}}>
+                    Trusted by leading companies worldwide for innovative 3D solutions and exceptional quality.
+                    </Typography>
+                </Box>
             </Grid>
            </Grid>
-          </Box>
-                    
+          </Box> 
+           {/* FEATURED PROJECTS */}
+           <Box className='mt-5 d-flex flex-column items-center'>
+           <Typography variant='h1' fontWeight={700} className='d-flex justify-center items-center'
+              fontSize={{ xs:'var(--title-fs-sm)', md:'var(--title-fs-md)' }} textAlign={'center'}>
+                Featured
+              <Typography variant='body1' className='ml-2 color-gradient'
+                sx={{ fontWeight:700, fontSize:{ xs:'var(--title-fs-sm)', md:'var(--title-fs-md)' } }}>
+                    Projects
+              </Typography>
+            </Typography>
+            <Typography varient='h6' className='mt-2' fontSize={{ xs:'var(--desc-fs-sm)', md:'var(--desc-fs-md)' }} sx={{ maxWidth:'50rem' }}>
+            Explore our diverse portfolio of groundbreaking 3D projects that showcase innovation, 
+            precision, and technical excellence across multiple industries.
+            </Typography>
+           </Box>
+           {/* FILTER */}
+                
+            <Box className='mt-5 d-flex flex-row' >
+              <Typography variant='body1'  className='d-flex flex-row items-center' sx={{fontWeight:600, marginRight:'1rem',minWidth:'100px'}}>
+                <Funnel className='mr-2'/>
+                Filter by:
+              </Typography>
+              <Box sx={{overflowX:'auto', whiteSpace:'nowrap', width:'100%'}} className='d-flex flex-row flex-1'>
+              {CATEGORIES.map((category, index)=>(
+                <Chip key={index} variant='outlined' label={category.label} 
+                sx={{color:'var(--text-white)', fontWeight:700, marginLeft:'1rem', fontSize:{md:'var(--fs-lg)'}, flexShrink:0}} onClick={(id)=>handleFilterCategory(id)}/>
+              ))}
+              </Box>
+            </Box>
         </Container>
       </Box>
     </Box>

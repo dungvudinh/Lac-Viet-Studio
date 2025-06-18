@@ -130,7 +130,19 @@ const BANNER_ITEMS = [
     img: 'https://store.bblcdn.com/s2/default/1bae02a6322f4c3b920dfcba71fa0dd7/PC_X1E-tuya.jpg__op__resize,m_lfit,w_3840__op__format,f_auto__op__quality,q_80'
   }
 ]
-
+const BANNER = {
+  buttons:[
+    { title:'Buy now', type:'primary' }, 
+    { title:'Learn more', type:'secondary' }
+  ],
+  items:[
+    {bgUrl:'https://store.bblcdn.com/s2/default/1bae02a6322f4c3b920dfcba71fa0dd7/PC_X1E-tuya.jpg__op__resize,m_lfit,w_3840__op__format,f_auto__op__quality,q_80', title: 'TEST 1', desc:'Lorem ipsum dolor sit amet' },
+    {bgUrl:'https://store.bblcdn.com/s2/default/1bae02a6322f4c3b920dfcba71fa0dd7/PC_X1E-tuya.jpg__op__resize,m_lfit,w_3840__op__format,f_auto__op__quality,q_80', title:'TEST 2', desc:'Lorem ipsum dolor sit amet'}, 
+    {bgUrl:'https://store.bblcdn.com/s2/default/1bae02a6322f4c3b920dfcba71fa0dd7/PC_X1E-tuya.jpg__op__resize,m_lfit,w_3840__op__format,f_auto__op__quality,q_80', title:'TEST 3', desc:'Lorem ipsum dolor sit amet'}, 
+    {bgUrl:'https://store.bblcdn.com/s2/default/1bae02a6322f4c3b920dfcba71fa0dd7/PC_X1E-tuya.jpg__op__resize,m_lfit,w_3840__op__format,f_auto__op__quality,q_80', title:'TEST 4', desc:'Lorem ipsum dolor sit amet'}, 
+    {bgUrl:'https://store.bblcdn.com/s2/default/1bae02a6322f4c3b920dfcba71fa0dd7/PC_X1E-tuya.jpg__op__resize,m_lfit,w_3840__op__format,f_auto__op__quality,q_80', title:'TEST 5',desc: 'Lorem ipsum dolor sit amet'}
+  ]
+}
 function Store() {
   const dispatch = useDispatch()
   const { products } = useSelector(state => state.product)
@@ -160,7 +172,7 @@ function Store() {
   const handleToggleFilterSidebar = () => setIsFilterSidebarOpen(prev => !prev)
   return ( 
     <Box className={cx('store-container')}>
-      <PageBanner bannerItems={BANNER_ITEMS} belongTo={'store'}/>
+      <PageBanner banner={BANNER} belongTo={'store'}/>
       <Container maxWidth='lg' className='mt-5'>
         <Typography varient='h1' sx={{ fontSize:{ md:'var(--title-fs-md)', xs:'var(--title-fs-sm)' }, fontWeight:700, textAlign:'center', marginBottom:'2rem' }}>
           3D Store
