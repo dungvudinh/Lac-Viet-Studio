@@ -5,6 +5,8 @@ import { Box, Typography, Container, Stack, Grid2 as Grid, Chip} from '@mui/mate
 import PageBanner from '~/components/PageBanner'
 import { homeBanner1 } from '~/assets/Images/Banner'
 import { Zap, Users, Box as BoxIcon, Funnel } from 'lucide-react'
+import { SwiperSlide, Swiper } from 'swiper/react'
+import { Navigation, Pagination, Autoplay } from 'swiper/modules'
 const cx = classNames.bind(styles)
 const BANNER = {
   buttons:[
@@ -25,28 +27,21 @@ const OUTSTANDING_NUMBERS = [
   { icon:BoxIcon, label: 'Categories', value: '15+' }
 ]
 const CATEGORIES = [
-  {label:'All'}, 
-  {label:'Architecture'}, 
-  {label:'3D Printing'}, 
-  {label:'Simulation'}, 
-  {label:'Gaming'}, 
-  {label:'Medical'}, 
-  {label:'Automotive'}, 
-  {label:'Industrial'},
-  {label:'Industrial'},
-  {label:'Industrial'},
-  {label:'Industrial'},
-  {label:'Industrial'},
-  {label:'Industrial'},
-  {label:'Industrial'},
-
+  {id:1,label:'All'}, 
+  {id:2, label:'Architecture'}, 
+  {id:3, label:'3D Printing'}, 
+  {id:4, label:'Simulation'}, 
+  {id:5, label:'Gaming'}, 
+  {id:6, label:'Medical'}, 
+  {id:7, label:'Automotive'}, 
+  {id:8, label:'Industrial'},
 ]
 function OutstandingProduct()
 {
   const [currentCategoryId, setCurrentCategoryId] = useState(0);
-  const handleFilterCategory = ()=>
+  const handleFilterCategory = (id)=>
   {
-
+    setCurrentCategoryId(id)
   }
   return (
     <Box className={cx('outstanding-product_container')}>
@@ -56,7 +51,7 @@ function OutstandingProduct()
       <Box>
         <Container maxWidth='xl'>
           {/* ABOUT */}
-          <Box className='d-flex justify-center flex-column items-center text-center mt-2'>
+          <Box className='d-flex justify-center flex-column items-center text-center mt-5'>
             <Typography variant='h1' fontWeight={700} className='d-flex justify-center items-center'
               fontSize={{ xs:'var(--title-fs-sm)', md:'var(--title-fs-md)' }} textAlign={'center'}>
                 Crafting the 
@@ -121,7 +116,7 @@ function OutstandingProduct()
            </Grid>
           </Box> 
            {/* FEATURED PROJECTS */}
-           <Box className='mt-5 d-flex flex-column items-center'>
+           <Box className='d-flex flex-column items-center' sx={{marginTop:'10rem'}}>
            <Typography variant='h1' fontWeight={700} className='d-flex justify-center items-center'
               fontSize={{ xs:'var(--title-fs-sm)', md:'var(--title-fs-md)' }} textAlign={'center'}>
                 Featured
@@ -136,19 +131,33 @@ function OutstandingProduct()
             </Typography>
            </Box>
            {/* FILTER */}
-                
             <Box className='mt-5 d-flex flex-row' >
               <Typography variant='body1'  className='d-flex flex-row items-center' sx={{fontWeight:600, marginRight:'1rem',minWidth:'100px'}}>
                 <Funnel className='mr-2'/>
                 Filter by:
               </Typography>
-              <Box sx={{overflowX:'auto', whiteSpace:'nowrap', width:'100%'}} className='d-flex flex-row flex-1'>
-              {CATEGORIES.map((category, index)=>(
-                <Chip key={index} variant='outlined' label={category.label} 
-                sx={{color:'var(--text-white)', fontWeight:700, marginLeft:'1rem', fontSize:{md:'var(--fs-lg)'}, flexShrink:0}} onClick={(id)=>handleFilterCategory(id)}/>
-              ))}
+              <Box className='flex-1' sx={{width:'calc(100% - 100px)'}}>
+              <Swiper className='mySwiper' 
+              smodules={[Navigation, Pagination]}
+              spaceBetween={0}
+              slidesPerView={12}
+              >
+                {CATEGORIES.map((category)=>(
+                  <SwiperSlide className='w-auto'>
+                    <Chip key={category.id} variant='outlined' label={category.label} className={cx({active: currentCategoryId === category.id})}
+                    sx={{color:'var(--text-white)', fontWeight:700, marginLeft:'1rem', fontSize:{md:'var(--fs-lg)'}, flexShrink:0, transition:'all 0.5s ease-in-out'}} onClick={()=>handleFilterCategory(category.id)}/>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
               </Box>
             </Box>
+            {/* GRID */}
+            <Grid container spacing={2} mt={4}>
+              <Grid size={3} sx={{backgroundColor:'#FFF', height:'30rem', borderRadius:'1rem'}}>
+                GRID 1
+              </Grid>
+              
+            </Grid>
         </Container>
       </Box>
     </Box>

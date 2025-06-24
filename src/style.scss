@@ -67,6 +67,11 @@ $spacer: 1rem;
 .pb-4 { padding-bottom: $spacer * 1.5 !important; }
 .pb-5 { padding-bottom: $spacer * 3 !important; }
 
+.w-auto
+{
+    width: auto !important;
+}
+
 .d-flex {display: flex;}
 .flex-row{flex-direction: row;}
 .flex-column{flex-direction: column;}
@@ -121,6 +126,11 @@ $spacer: 1rem;
     {
         background:linear-gradient(to right,#f97316, #dc2626 );
     }
+}
+.active
+{
+    background:linear-gradient(to right,#f97316, #dc2626 );
+    border-color: transparent;
 }
 //COLOR 
 .primary-color 
