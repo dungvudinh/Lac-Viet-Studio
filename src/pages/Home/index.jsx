@@ -94,11 +94,11 @@ const BANNER = {
     { title:'Learn more', type:'secondary' }
   ],
   items:[
-    {bgUrl:homeBanner1, title: 'TEST 1', desc:'Lorem ipsum dolor sit amet' },
-    {bgUrl:homeBanner2, title:'TEST 2', desc:'Lorem ipsum dolor sit amet'}, 
-    {bgUrl:homeBanner3, title:'TEST 3', desc:'Lorem ipsum dolor sit amet'}, 
-    {bgUrl:homeBanner4, title:'TEST 4', desc:'Lorem ipsum dolor sit amet'}, 
-    {bgUrl:homeBanner5, title:'TEST 5',desc: 'Lorem ipsum dolor sit amet'}
+    { bgUrl:homeBanner1, title: 'TEST 1', desc:'Lorem ipsum dolor sit amet' },
+    { bgUrl:homeBanner2, title:'TEST 2', desc:'Lorem ipsum dolor sit amet' }, 
+    { bgUrl:homeBanner3, title:'TEST 3', desc:'Lorem ipsum dolor sit amet' }, 
+    { bgUrl:homeBanner4, title:'TEST 4', desc:'Lorem ipsum dolor sit amet' }, 
+    { bgUrl:homeBanner5, title:'TEST 5', desc: 'Lorem ipsum dolor sit amet' }
   ]
 }
 const BANNER_ITEMS = [

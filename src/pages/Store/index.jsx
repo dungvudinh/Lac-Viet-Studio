@@ -136,11 +136,11 @@ const BANNER = {
     { title:'Learn more', type:'secondary' }
   ],
   items:[
-    {bgUrl:'https://store.bblcdn.com/s2/default/1bae02a6322f4c3b920dfcba71fa0dd7/PC_X1E-tuya.jpg__op__resize,m_lfit,w_3840__op__format,f_auto__op__quality,q_80', title: 'TEST 1', desc:'Lorem ipsum dolor sit amet' },
-    {bgUrl:'https://store.bblcdn.com/s2/default/1bae02a6322f4c3b920dfcba71fa0dd7/PC_X1E-tuya.jpg__op__resize,m_lfit,w_3840__op__format,f_auto__op__quality,q_80', title:'TEST 2', desc:'Lorem ipsum dolor sit amet'}, 
-    {bgUrl:'https://store.bblcdn.com/s2/default/1bae02a6322f4c3b920dfcba71fa0dd7/PC_X1E-tuya.jpg__op__resize,m_lfit,w_3840__op__format,f_auto__op__quality,q_80', title:'TEST 3', desc:'Lorem ipsum dolor sit amet'}, 
-    {bgUrl:'https://store.bblcdn.com/s2/default/1bae02a6322f4c3b920dfcba71fa0dd7/PC_X1E-tuya.jpg__op__resize,m_lfit,w_3840__op__format,f_auto__op__quality,q_80', title:'TEST 4', desc:'Lorem ipsum dolor sit amet'}, 
-    {bgUrl:'https://store.bblcdn.com/s2/default/1bae02a6322f4c3b920dfcba71fa0dd7/PC_X1E-tuya.jpg__op__resize,m_lfit,w_3840__op__format,f_auto__op__quality,q_80', title:'TEST 5',desc: 'Lorem ipsum dolor sit amet'}
+    { bgUrl:'https://store.bblcdn.com/s2/default/1bae02a6322f4c3b920dfcba71fa0dd7/PC_X1E-tuya.jpg__op__resize,m_lfit,w_3840__op__format,f_auto__op__quality,q_80', title: 'TEST 1', desc:'Lorem ipsum dolor sit amet' },
+    { bgUrl:'https://store.bblcdn.com/s2/default/1bae02a6322f4c3b920dfcba71fa0dd7/PC_X1E-tuya.jpg__op__resize,m_lfit,w_3840__op__format,f_auto__op__quality,q_80', title:'TEST 2', desc:'Lorem ipsum dolor sit amet' }, 
+    { bgUrl:'https://store.bblcdn.com/s2/default/1bae02a6322f4c3b920dfcba71fa0dd7/PC_X1E-tuya.jpg__op__resize,m_lfit,w_3840__op__format,f_auto__op__quality,q_80', title:'TEST 3', desc:'Lorem ipsum dolor sit amet' }, 
+    { bgUrl:'https://store.bblcdn.com/s2/default/1bae02a6322f4c3b920dfcba71fa0dd7/PC_X1E-tuya.jpg__op__resize,m_lfit,w_3840__op__format,f_auto__op__quality,q_80', title:'TEST 4', desc:'Lorem ipsum dolor sit amet' }, 
+    { bgUrl:'https://store.bblcdn.com/s2/default/1bae02a6322f4c3b920dfcba71fa0dd7/PC_X1E-tuya.jpg__op__resize,m_lfit,w_3840__op__format,f_auto__op__quality,q_80', title:'TEST 5', desc: 'Lorem ipsum dolor sit amet' }
   ]
 }
 function Store() {
