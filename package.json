@@ -26,6 +26,7 @@
     "axios": "^1.8.2",
     "browser-image-compression": "^2.0.2",
     "classnames": "^2.5.1",
+    "embla-carousel-react": "^8.6.0",
     "eslint": "^9.20.1",
     "eslint-plugin-react": "^7.37.4",
     "eslint-plugin-react-hooks": "^5.1.0",

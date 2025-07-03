@@ -1,13 +1,17 @@
 import { useState } from 'react'
 import classNames from 'classnames/bind'
 import styles from './OutstandingProduct.module.scss'
-import { Box, Typography, Container, Stack, Grid2 as Grid, Chip } from '@mui/material'
+import { Box, Typography, Container, Stack, Grid2 as Grid, Chip, IconButton, Backdrop } from '@mui/material'
 import PageBanner from '~/components/PageBanner'
 import { homeBanner1 } from '~/assets/Images/Banner'
-import { Zap, Users, Box as BoxIcon, Funnel } from 'lucide-react'
+import { Zap, Users, Box as BoxIcon, Funnel, Eye } from 'lucide-react'
 import { SwiperSlide, Swiper } from 'swiper/react'
 import { Navigation, Pagination } from 'swiper/modules'
 import serviceItem2 from '~/assets/Images/serviceItem2.jpg'
+import EmblaCarousel from '~/components/EmblaCarousel'
+import BackdropCustom from '~/components/Backdrop'
+import { useDispatch } from 'react-redux'
+import { setBackdrop } from '~/redux/features/slices/backdropSlice'
 const cx = classNames.bind(styles)
 const BANNER = {
   buttons:[
@@ -16,10 +20,6 @@ const BANNER = {
   ],
   items:[
     { bgUrl:homeBanner1, title: 'TEST 1', desc:'Lorem ipsum dolor sit amet' } 
-    // {bgUrl:homeBanner2, title:'TEST 2', desc:'Lorem ipsum dolor sit amet'}, 
-    // {bgUrl:homeBanner3, title:'TEST 3', desc:'Lorem ipsum dolor sit amet'}, 
-    // {bgUrl:homeBanner4, title:'TEST 4', desc:'Lorem ipsum dolor sit amet'}, 
-    // {bgUrl:homeBanner5, title:'TEST 5',desc: 'Lorem ipsum dolor sit amet'}
   ]
 }
 const OUTSTANDING_NUMBERS = [
@@ -37,12 +37,54 @@ const CATEGORIES = [
   { id:7, label:'Automotive' }, 
   { id:8, label:'Industrial' }
 ]
+const OPTIONS ={loop:true,startIndex:0};
+const SLIDE_PER_VIEW = 3;
+const SLIDES = [
+  {name:'test 1'},
+  {name:'test 2'},
+  {name:'test 3'},
+  {name:'test 4'},
+  {name:'test 5'},
+  {name:'test 6'},
+  {name:'test 7'},
+]
+const GRID_ITEMS = [
+  {
+    image:serviceItem2,
+    summary:'ARCHITECTURE',
+    title:'Modern Skyscraper Model',
+    desc:'Detailed architectural visualization of a 40-story commercial building with intricate facade details.'
+  },
+  {
+    image:serviceItem2,
+    summary:'ARCHITECTURE',
+    title:'Modern Skyscraper Model',
+    desc:'Detailed architectural visualization of a 40-story commercial building with intricate facade details.'
+  },
+  {
+    image:serviceItem2,
+    summary:'ARCHITECTURE',
+    title:'Modern Skyscraper Model',
+    desc:'Detailed architectural visualization of a 40-story commercial building with intricate facade details.'
+  },
+  {
+    image:serviceItem2,
+    summary:'ARCHITECTURE',
+    title:'Modern Skyscraper Model',
+    desc:'Detailed architectural visualization of a 40-story commercial building with intricate facade details.'
+  }
+]
 function OutstandingProduct()
 {
+  const dispatch = useDispatch()
   const [currentCategoryId, setCurrentCategoryId] = useState(0)
   const handleFilterCategory = (id) =>
   {
     setCurrentCategoryId(id)
+  }
+  const handleOpenImageSlider = ()=>
+  {
+    dispatch(setBackdrop(true))
   }
   return (
     <Box className={cx('outstanding-product_container')}>
@@ -144,8 +186,8 @@ function OutstandingProduct()
                 slidesPerView={12}
               >
                 {CATEGORIES.map((category) => (
-                  <SwiperSlide className='w-auto'>
-                    <Chip key={category.id} variant='outlined' label={category.label} className={cx({ active: currentCategoryId === category.id })}
+                  <SwiperSlide className='w-auto' key={category.id}>
+                    <Chip variant='outlined' label={category.label} className={cx({ active: currentCategoryId === category.id })}
                       sx={{ color:'var(--text-white)', fontWeight:700, marginLeft:'1rem', fontSize:{ md:'var(--fs-lg)' }, flexShrink:0, transition:'all 0.5s ease-in-out' }} onClick={() => handleFilterCategory(category.id)}/>
                   </SwiperSlide>
                 ))}
@@ -154,26 +196,38 @@ function OutstandingProduct()
           </Box>
           {/* GRID */}
           <Grid container spacing={2} mt={4}>
-            <Grid size={3} sx={{ backgroundColor:'#FFF', height:'28rem', borderRadius:'1rem',overflow:'hidden' }}>
-                <Box sx={{height:'60%', width:'100%'}}>
+            {GRID_ITEMS.map((item, index) => (
+              <Grid size={3} className={cx('grid-item')}
+            sx={{ backgroundColor:'rgba(17,24,39,0.5)', height:'26rem', borderRadius:'1rem',overflow:'hidden',border:'1px solid rgba(255,255,255,0.1)',cursor:'pointer'}}>
+                <Box sx={{height:'60%', width:'100%', overflow:'hidden', position:'relative'}}>
                   <img src={serviceItem2} className='w-100 h-100'/>
+                  <Box className={cx('see-detail')} sx={{transform:'translateX(-50%)'}}>
+                    <IconButton onClick={handleOpenImageSlider}
+                    sx={{backgroundColor:'var(--primary-color)', padding:'0.5rem', '&:hover':{backgroundColor:'var(--primary-color-hover)'}}}>
+                      <Eye color='var(--text-white)'/>
+                    </IconButton>
+                  </Box>
                 </Box>
-                <Box sx={{height:'40%', color:'var(--text-black)', padding:'1rem'}}>
-                  <Typography variant='h6' >
+                <Box sx={{height:'40%', color:'var(--text-white)', padding:'1rem'}} className='d-flex flex-column justify-around'>
+                  <Typography variant='h6' sx={{fontSize:{md:'var(--fs-lg)'}, fontWeight:700, color:'var(--primary-color)'}}>
                     ARCHITECTURE
                   </Typography>
-                  <Typography variant='h5' >
-                    ARCHITECTURE
+                  <Typography variant='h5' sx={{fontSize:{md: 'var(--desc-fs-md)'}, fontWeight:700}}>
+                  Modern Skyscraper Model
                   </Typography>
-                  <Typography variant='body1' >
-                    ARCHITECTURE
+                  <Typography variant='body1' sx={{fontSize:{md:'var(--fs-md)'}, fontWeight:600, color:'rgba(156,163,175, 1)'}} >
+                  Detailed architectural visualization of a 40-story commercial building with intricate facade details.
                   </Typography>
                 </Box>
-            </Grid>
-              
+              </Grid>    
+            ))}
           </Grid>
         </Container>
       </Box>
+      <BackdropCustom>
+        <EmblaCarousel slides={SLIDES} options={OPTIONS}  slidesPerView={SLIDE_PER_VIEW}/>
+      </BackdropCustom>
+      {/* </Backdrop> */}
     </Box>
   )
 }

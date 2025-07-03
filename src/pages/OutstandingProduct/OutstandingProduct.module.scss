@@ -3,3 +3,33 @@
     background-color: var(--text-black);
     color:var(--text-white);
 }
+.grid-item
+{
+    transition: all 0.5s ease;
+    img 
+    {
+        transition: all 0.5s ease;
+    }
+    &:hover  
+    {
+        border-color: var(--primary-color);
+        img
+        {
+            transform: scale(1.1);
+        }
+        .see-detail
+        {
+            visibility: visible;
+            opacity: 1;
+        }
+    }
+    .see-detail
+    {
+        position: absolute;
+        top:50%;
+        left:50%;
+        visibility: hidden;
+        opacity: 0;
+        transition: all 0.5s ease;
+    }
+}

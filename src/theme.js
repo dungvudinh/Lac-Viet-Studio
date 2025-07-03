@@ -18,7 +18,6 @@ const lacviet = createTheme({
     white:{
       main:'#FFF'
     } 
-
   },
   typography:{
     fontFamily:'Manrope, sans-serif'
@@ -43,7 +42,6 @@ const lacviet = createTheme({
         }
       }
     },
-
     MuiMenuItem:{
       styleOverrides:{
         root:{
@@ -55,6 +53,13 @@ const lacviet = createTheme({
       styleOverrides:{
         root:{
           fontSize:'var(--fs-md)'
+        }
+      }
+    },
+    MuiIconButton:{
+      styleOverrides:{
+        root:{
+          
         }
       }
     }
