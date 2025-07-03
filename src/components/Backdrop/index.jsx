@@ -7,9 +7,9 @@ function BackdropCustom({ children })
 {
   const dispatch = useDispatch()
   const { isOpen } = useSelector(state => state.backdrop)
-  useEffect(()=>
+  useEffect(() =>
   {
-    if(isOpen)
+    if (isOpen)
       document.body.classList.add('disable-scroll')
     else
       document.body.classList.remove('disable-scroll')

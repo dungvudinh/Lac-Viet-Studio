@@ -31,7 +31,7 @@ const EmblaCarousel = (props) => {
 
   const setTweenNodes = useCallback((emblaApi) => {
     tweenNodes.current = emblaApi.slideNodes().map((slideNode) => {
-      return slideNode.querySelector('.embla__slide__number')
+      return slideNode.querySelector('.embla__slide__content')
     })
   }, [])
 
@@ -98,8 +98,8 @@ const EmblaCarousel = (props) => {
         <div className="embla__container">
           {slides.map((index) => (
             <div className="embla__slide" key={index}>
-              <div className="embla__slide__number">
-                <img src='src/assets/Images/saban3.jpg' style={{width:'100%', height:'100%'}}/>
+              <div className="embla__slide__content">
+                <img src='src/assets/Images/saban3.jpg' style={{ width:'100%', height:'100%', borderRadius:'1.8rem' }}/>
               </div>
             </div>
           ))}
@@ -108,8 +108,8 @@ const EmblaCarousel = (props) => {
 
       <div className="embla__controls">
         <div className="embla__buttons">
-          <PrevButton onClick={e=>{e.stopPropagation();onPrevButtonClick()}} disabled={prevBtnDisabled} />
-          <NextButton onClick={e=>{e.stopPropagation();onNextButtonClick()}} disabled={nextBtnDisabled} />
+          <PrevButton onClick={e => {e.stopPropagation();onPrevButtonClick()}} disabled={prevBtnDisabled} />
+          <NextButton onClick={e => {e.stopPropagation();onNextButtonClick()}} disabled={nextBtnDisabled} />
         </div>
 
         <div className="embla__dots">
@@ -121,7 +121,7 @@ const EmblaCarousel = (props) => {
                 index === selectedIndex ? ' embla__dot--selected' : ''
               )}
             >
-                <Dot color='var(--primary-color)' width={50} height={50} scale={1.5}/>
+              <Dot color='var(--primary-color)' width={50} height={50} scale={1.5}/>
             </DotButton>
           ))}
         </div>
@@ -133,7 +133,7 @@ const EmblaCarousel = (props) => {
 export default EmblaCarousel
 
 
-const PrevNextButtons = ()=>
+const PrevNextButtons = () =>
 {
 
 }

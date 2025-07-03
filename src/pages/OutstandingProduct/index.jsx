@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import classNames from 'classnames/bind'
 import styles from './OutstandingProduct.module.scss'
-import { Box, Typography, Container, Stack, Grid2 as Grid, Chip, IconButton, Backdrop } from '@mui/material'
+import { Box, Typography, Container, Stack, Grid2 as Grid, Chip, IconButton, Button } from '@mui/material'
 import PageBanner from '~/components/PageBanner'
 import { homeBanner1 } from '~/assets/Images/Banner'
 import { Zap, Users, Box as BoxIcon, Funnel, Eye } from 'lucide-react'
@@ -37,16 +37,16 @@ const CATEGORIES = [
   { id:7, label:'Automotive' }, 
   { id:8, label:'Industrial' }
 ]
-const OPTIONS ={loop:true,startIndex:0};
-const SLIDE_PER_VIEW = 3;
+const OPTIONS ={ loop:true, startIndex:0 }
+const SLIDE_PER_VIEW = 3
 const SLIDES = [
-  {name:'test 1'},
-  {name:'test 2'},
-  {name:'test 3'},
-  {name:'test 4'},
-  {name:'test 5'},
-  {name:'test 6'},
-  {name:'test 7'},
+  { name:'test 1' },
+  { name:'test 2' },
+  { name:'test 3' },
+  { name:'test 4' },
+  { name:'test 5' },
+  { name:'test 6' },
+  { name:'test 7' }
 ]
 const GRID_ITEMS = [
   {
@@ -72,7 +72,43 @@ const GRID_ITEMS = [
     summary:'ARCHITECTURE',
     title:'Modern Skyscraper Model',
     desc:'Detailed architectural visualization of a 40-story commercial building with intricate facade details.'
-  }
+  },
+  {
+    image:serviceItem2,
+    summary:'ARCHITECTURE',
+    title:'Modern Skyscraper Model',
+    desc:'Detailed architectural visualization of a 40-story commercial building with intricate facade details.'
+  },
+  {
+    image:serviceItem2,
+    summary:'ARCHITECTURE',
+    title:'Modern Skyscraper Model',
+    desc:'Detailed architectural visualization of a 40-story commercial building with intricate facade details.'
+  },
+  {
+    image:serviceItem2,
+    summary:'ARCHITECTURE',
+    title:'Modern Skyscraper Model',
+    desc:'Detailed architectural visualization of a 40-story commercial building with intricate facade details.'
+  },
+  {
+    image:serviceItem2,
+    summary:'ARCHITECTURE',
+    title:'Modern Skyscraper Model',
+    desc:'Detailed architectural visualization of a 40-story commercial building with intricate facade details.'
+  },
+  {
+    image:serviceItem2,
+    summary:'ARCHITECTURE',
+    title:'Modern Skyscraper Model',
+    desc:'Detailed architectural visualization of a 40-story commercial building with intricate facade details.'
+  },
+  {
+    image:serviceItem2,
+    summary:'ARCHITECTURE',
+    title:'Modern Skyscraper Model',
+    desc:'Detailed architectural visualization of a 40-story commercial building with intricate facade details.'
+  },
 ]
 function OutstandingProduct()
 {
@@ -82,7 +118,7 @@ function OutstandingProduct()
   {
     setCurrentCategoryId(id)
   }
-  const handleOpenImageSlider = ()=>
+  const handleOpenImageSlider = () =>
   {
     dispatch(setBackdrop(true))
   }
@@ -91,7 +127,7 @@ function OutstandingProduct()
       {/* HOME BANNER */}
       <PageBanner banner={BANNER} belongTo={'home'}/>
       {/* HOME MAIN CONTENT */}
-      <Box>
+      <Box textAlign={'center'}>
         <Container maxWidth='xl'>
           {/* ABOUT */}
           <Box className='d-flex justify-center flex-column items-center text-center mt-5'>
@@ -197,35 +233,40 @@ function OutstandingProduct()
           {/* GRID */}
           <Grid container spacing={2} mt={4}>
             {GRID_ITEMS.map((item, index) => (
-              <Grid size={3} className={cx('grid-item')}
-            sx={{ backgroundColor:'rgba(17,24,39,0.5)', height:'26rem', borderRadius:'1rem',overflow:'hidden',border:'1px solid rgba(255,255,255,0.1)',cursor:'pointer'}}>
-                <Box sx={{height:'60%', width:'100%', overflow:'hidden', position:'relative'}}>
+              <Grid size={3} className={cx('grid-item')} key={index}
+                sx={{ backgroundColor:'rgba(17,24,39,0.5)', height:'26rem', borderRadius:'1rem', overflow:'hidden', border:'1px solid rgba(255,255,255,0.1)', cursor:'pointer' }}>
+                <Box sx={{ height:'60%', width:'100%', overflow:'hidden', position:'relative' }}>
                   <img src={serviceItem2} className='w-100 h-100'/>
-                  <Box className={cx('see-detail')} sx={{transform:'translateX(-50%)'}}>
+                  <Box className={cx('see-detail')} sx={{ transform:'translateX(-50%)' }}>
                     <IconButton onClick={handleOpenImageSlider}
-                    sx={{backgroundColor:'var(--primary-color)', padding:'0.5rem', '&:hover':{backgroundColor:'var(--primary-color-hover)'}}}>
+                      sx={{ backgroundColor:'var(--primary-color)', padding:'0.5rem', '&:hover':{ backgroundColor:'var(--primary-color-hover)' } }}>
                       <Eye color='var(--text-white)'/>
                     </IconButton>
                   </Box>
                 </Box>
-                <Box sx={{height:'40%', color:'var(--text-white)', padding:'1rem'}} className='d-flex flex-column justify-around'>
-                  <Typography variant='h6' sx={{fontSize:{md:'var(--fs-lg)'}, fontWeight:700, color:'var(--primary-color)'}}>
+                <Box sx={{ height:'40%', color:'var(--text-white)', padding:'1rem' }} className='d-flex flex-column justify-around'>
+                  <Typography variant='h6' sx={{ fontSize:{ md:'var(--fs-lg)' }, fontWeight:700, color:'var(--primary-color)' }}>
                     ARCHITECTURE
                   </Typography>
-                  <Typography variant='h5' sx={{fontSize:{md: 'var(--desc-fs-md)'}, fontWeight:700}}>
+                  <Typography variant='h5' sx={{ fontSize:{ md: 'var(--desc-fs-md)' }, fontWeight:700 }}>
                   Modern Skyscraper Model
                   </Typography>
-                  <Typography variant='body1' sx={{fontSize:{md:'var(--fs-md)'}, fontWeight:600, color:'rgba(156,163,175, 1)'}} >
+                  <Typography variant='body1' sx={{ fontSize:{ md:'var(--fs-md)' }, fontWeight:600, color:'rgba(156,163,175, 1)' }} >
                   Detailed architectural visualization of a 40-story commercial building with intricate facade details.
                   </Typography>
                 </Box>
               </Grid>    
             ))}
           </Grid>
+          {/* VIEW ALL BUTTON */}
+          <Button variant="contained" className='hover-scale-101'
+            sx={{ marginTop:'5rem', fontWeight:700, fontSize:{ md:'var(--fs-lg)', background:'linear-gradient(to right,#f97316, #dc2626)' }, transition:'all 0.2s ease-in-out' }}>
+            View All Products
+          </Button>
         </Container>
       </Box>
       <BackdropCustom>
-        <EmblaCarousel slides={SLIDES} options={OPTIONS}  slidesPerView={SLIDE_PER_VIEW}/>
+        <EmblaCarousel slides={SLIDES} options={OPTIONS} slidesPerView={SLIDE_PER_VIEW}/>
       </BackdropCustom>
       {/* </Backdrop> */}
     </Box>
