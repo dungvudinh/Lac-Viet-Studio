@@ -99,7 +99,7 @@ const EmblaCarousel = (props) => {
           {slides.map((index) => (
             <div className="embla__slide" key={index}>
               <div className="embla__slide__content">
-                <img src='src/assets/Images/saban3.jpg' style={{ width:'100%', height:'100%', borderRadius:'1.8rem' }}/>
+                <img src='https://lacvietstudio.store/assets/serviceItem2-CZNgRIP-.jpg' style={{ width:'100%', height:'100%', borderRadius:'1.8rem' }}/>
               </div>
             </div>
           ))}
