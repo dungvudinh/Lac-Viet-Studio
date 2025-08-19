@@ -167,7 +167,7 @@ function Navbar({ belongTo }) {
         navBgColorRef.current = ''
       }
     }
-    if (belongTo === 'home')
+    if(belongTo === 'home' || belongTo === 'outstanding-product')
     {
       setNavBgColor('')
       window.addEventListener('scroll', detectScrollView)
@@ -262,7 +262,7 @@ function Navbar({ belongTo }) {
 
           {/* NAVBAR ACTION */}
           <Box sx={{ display:'flex', alignItems:'center', justifyContent:'space-between', ml:{ md:'1rem' } }}>
-            {(belongTo == 'home' || belongTo === 'profile-setting') 
+            {(belongTo == 'home' || belongTo === 'profile-setting' || belongTo === 'outstanding-product') 
               ?
               <Button variant="contained" color='primary' size='small' sx={{ fontSize:{ xs:'var(--fs-md)' } }}
                 onClick={() => navigate('/store')}>
