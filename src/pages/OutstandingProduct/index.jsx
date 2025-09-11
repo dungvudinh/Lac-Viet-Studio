@@ -3,11 +3,11 @@ import classNames from 'classnames/bind'
 import styles from './OutstandingProduct.module.scss'
 import { Box, Typography, Container, Stack, Grid2 as Grid, Chip, IconButton, Button } from '@mui/material'
 import PageBanner from '~/components/PageBanner'
-import { homeBanner1 } from '~/assets/Images/Banner'
+import { outstandingProductBanner } from '~/assets/Images/Banner'
 import { Zap, Users, Box as BoxIcon, Funnel, Eye } from 'lucide-react'
 import { SwiperSlide, Swiper } from 'swiper/react'
 import { Navigation, Pagination } from 'swiper/modules'
-import serviceItem2 from '~/assets/Images/serviceItem2.jpg'
+// import serviceItem2 from '~/assets/Images/serviceItem2.jpg'
 import EmblaCarousel from '~/components/EmblaCarousel'
 import BackdropCustom from '~/components/Backdrop'
 import { useDispatch } from 'react-redux'
@@ -19,7 +19,7 @@ const BANNER = {
     { title:'Learn more', type:'secondary' }
   ],
   items:[
-    { bgUrl:homeBanner1, title: 'TEST 1', desc:'Lorem ipsum dolor sit amet' } 
+    { bgUrl:outstandingProductBanner, title: 'TEST 1', desc:'Lorem ipsum dolor sit amet' } 
   ]
 }
 const OUTSTANDING_NUMBERS = [
@@ -28,14 +28,10 @@ const OUTSTANDING_NUMBERS = [
   { icon:BoxIcon, label: 'Categories', value: '15+' }
 ]
 const CATEGORIES = [
-  { id:1, label:'All' }, 
-  { id:2, label:'Architecture' }, 
-  { id:3, label:'3D Printing' }, 
-  { id:4, label:'Simulation' }, 
-  { id:5, label:'Gaming' }, 
-  { id:6, label:'Medical' }, 
-  { id:7, label:'Automotive' }, 
-  { id:8, label:'Industrial' }
+  { id:1, label:'Tất Cả' }, 
+  { id:2, label:'Mô Hình' }, 
+  { id:3, label:'Thiết Kế' }
+ 
 ]
 const OPTIONS ={ loop:true, startIndex:0 }
 const SLIDE_PER_VIEW = 3
@@ -50,65 +46,65 @@ const SLIDES = [
 ]
 const GRID_ITEMS = [
   {
-    image:serviceItem2,
+    image:'',
     summary:'ARCHITECTURE',
     title:'Modern Skyscraper Model',
     desc:'Detailed architectural visualization of a 40-story commercial building with intricate facade details.'
   },
   {
-    image:serviceItem2,
+    image:'',
     summary:'ARCHITECTURE',
     title:'Modern Skyscraper Model',
     desc:'Detailed architectural visualization of a 40-story commercial building with intricate facade details.'
   },
   {
-    image:serviceItem2,
+    image:'',
     summary:'ARCHITECTURE',
     title:'Modern Skyscraper Model',
     desc:'Detailed architectural visualization of a 40-story commercial building with intricate facade details.'
   },
   {
-    image:serviceItem2,
+    image:'',
     summary:'ARCHITECTURE',
     title:'Modern Skyscraper Model',
     desc:'Detailed architectural visualization of a 40-story commercial building with intricate facade details.'
   },
   {
-    image:serviceItem2,
+    image:'',
     summary:'ARCHITECTURE',
     title:'Modern Skyscraper Model',
     desc:'Detailed architectural visualization of a 40-story commercial building with intricate facade details.'
   },
   {
-    image:serviceItem2,
+    image:'',
     summary:'ARCHITECTURE',
     title:'Modern Skyscraper Model',
     desc:'Detailed architectural visualization of a 40-story commercial building with intricate facade details.'
   },
   {
-    image:serviceItem2,
+    image:'',
     summary:'ARCHITECTURE',
     title:'Modern Skyscraper Model',
     desc:'Detailed architectural visualization of a 40-story commercial building with intricate facade details.'
   },
   {
-    image:serviceItem2,
+    image:'',
     summary:'ARCHITECTURE',
     title:'Modern Skyscraper Model',
     desc:'Detailed architectural visualization of a 40-story commercial building with intricate facade details.'
   },
   {
-    image:serviceItem2,
+    image:'',
     summary:'ARCHITECTURE',
     title:'Modern Skyscraper Model',
     desc:'Detailed architectural visualization of a 40-story commercial building with intricate facade details.'
   },
   {
-    image:serviceItem2,
+    image:'',
     summary:'ARCHITECTURE',
     title:'Modern Skyscraper Model',
     desc:'Detailed architectural visualization of a 40-story commercial building with intricate facade details.'
-  },
+  }
 ]
 function OutstandingProduct()
 {
@@ -213,7 +209,7 @@ function OutstandingProduct()
           <Box className='mt-5 d-flex flex-row' >
             <Typography variant='body1' className='d-flex flex-row items-center' sx={{ fontWeight:600, marginRight:'1rem', minWidth:'100px' }}>
               <Funnel className='mr-2'/>
-                Filter by:
+                Lọc theo:
             </Typography>
             <Box className='flex-1' sx={{ width:'calc(100% - 100px)' }}>
               <Swiper className='mySwiper' 
@@ -236,7 +232,7 @@ function OutstandingProduct()
               <Grid size={3} className={cx('grid-item')} key={index}
                 sx={{ backgroundColor:'rgba(17,24,39,0.5)', height:'26rem', borderRadius:'1rem', overflow:'hidden', border:'1px solid rgba(255,255,255,0.1)', cursor:'pointer' }}>
                 <Box sx={{ height:'60%', width:'100%', overflow:'hidden', position:'relative' }}>
-                  <img src={serviceItem2} className='w-100 h-100'/>
+                  <img src={''} className='w-100 h-100'/>
                   <Box className={cx('see-detail')} sx={{ transform:'translateX(-50%)' }}>
                     <IconButton onClick={handleOpenImageSlider}
                       sx={{ backgroundColor:'var(--primary-color)', padding:'0.5rem', '&:hover':{ backgroundColor:'var(--primary-color-hover)' } }}>

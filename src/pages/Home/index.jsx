@@ -10,15 +10,12 @@ import LazyLoadImage from '~/components/LazyLoadImage'
 import LazyLoadBackgroundImage from '~/components/LazyLoadBackgroundImage'
 import news1 from '~/assets/Images/News/news1.jpeg'
 import news2 from '~/assets/Images/News/news2.jpeg'
-import { homeBanner1, homeBanner2, homeBanner3, homeBanner4, homeBanner5 } from '~/assets/Images/Banner'
+import { homeBanner } from '~/assets/Images/Banner'
 import saban1 from '~/assets/Images/saban1.jpg'
 import saban2 from '~/assets/Images/saban2.jpg'
 import saban3 from '~/assets/Images/saban3.jpg'
 import storeItem1 from '~/assets/Images/storeItem1.jpg'
 import storeItem2 from '~/assets/Images/preview.jpg'
-import serviceItem1 from '~/assets/Images/serviceItem1.jpg'
-import serviceItem2 from '~/assets/Images/serviceItem2.jpg'
-import partnerItem1 from '~/assets/Images/partnerItem1.png'
 
 const cx = classNames.bind(styles)
 const STORE_ITEMS =[
@@ -45,14 +42,14 @@ const SERVICE_ITEMS = [
     id:1, 
     title:'Dịch vụ thiết kế 3D', 
     desc:'Mô hình 3D có độ chính xác cao, phù hợp với mọi nhu cầu.', 
-    image:serviceItem1, 
+    image:'src/assets/Images/3dDesigningServiceBanner.jpg', 
     path:''
   }, 
   {
     id:2, 
     title:'Dịch vụ in 3D', 
     desc:'Bản in 3D sắc nét, chi tiết với chất lượng vượt trội.', 
-    image:serviceItem2, 
+    image:'src/assets/Images/3dPrintingServiceBanner.jpg', 
     path:''
   }
 ]
@@ -89,25 +86,21 @@ const NEWS_ITEMS = [
 ]
 
 const BANNER = {
-  buttons:[
-    { title:'Buy now', type:'primary' }, 
-    { title:'Learn more', type:'secondary' }
-  ],
+  // buttons:[
+  //   { title:'Buy now', type:'primary' }, 
+  //   { title:'Learn more', type:'secondary' }
+  // ],
   items:[
-    { bgUrl:homeBanner1, title: 'TEST 1', desc:'Lorem ipsum dolor sit amet' },
-    { bgUrl:homeBanner2, title:'TEST 2', desc:'Lorem ipsum dolor sit amet' }, 
-    { bgUrl:homeBanner3, title:'TEST 3', desc:'Lorem ipsum dolor sit amet' }, 
-    { bgUrl:homeBanner4, title:'TEST 4', desc:'Lorem ipsum dolor sit amet' }, 
-    { bgUrl:homeBanner5, title:'TEST 5', desc: 'Lorem ipsum dolor sit amet' }
+    { bgUrl:homeBanner, title: 'Lạc Việt Studio', desc:'Hiện thực hoá mọi ý tưởng' }
   ]
 }
-const BANNER_ITEMS = [
-  { id:1, img:homeBanner1 },
-  { id:2, img:homeBanner2 },
-  { id:3, img:homeBanner3 },
-  { id:4, img:homeBanner4 },
-  { id:5, img:homeBanner5 } 
-]
+// const BANNER_ITEMS = [
+//   { id:1, img:homeBanner1 },
+//   { id:2, img:homeBanner2 },
+//   { id:3, img:homeBanner3 },
+//   { id:4, img:homeBanner4 },
+//   // { id:5, img:homeBanner5 } 
+// ]
 
 const SABAN_ITEMS =[
   {
@@ -129,7 +122,7 @@ const SABAN_ITEMS =[
 const PARTNER_ITEMS = [
   {
     id:1,
-    image:partnerItem1
+    image:'~/assets/Images/partnerItem1.png'
   }
 ]
 
@@ -201,7 +194,7 @@ function Home() {
                   </Swiper>
                 </div> */}
                 {/* <picture> */}
-                <LazyLoadImage src={'https://cdn1.bambulab.com/home/quickLink/PC/3D-Printer.jpg'} alt={serviceItem.title} className={cx('service-item_bg')}/>
+                <LazyLoadImage src={serviceItem.image} alt={serviceItem.title} className={cx('service-item_bg')}/>
                 {/* <img src={'https://cdn1.bambulab.com/home/inspirations/pc/5.jpg'} className={cx('service-item_bg')}/> */}
                 {/* </picture> */}
                 <div className={cx('service-item_text')}>
@@ -228,7 +221,7 @@ function Home() {
         {/* SA BAN */}
         <Container sx={{ marginTop:{ md:'7rem', xs:'4rem' }, textAlign:'center' }} maxWidth='xl'>
           <Typography variant="h1" fontWeight="bold" textAlign="center" fontSize={{ md:'var(--title-fs-md)', xs:'var(--title-fs-sm)' }}marginBottom="0.5rem">
-              Mô Hình Sa Bàn
+              Dự Án Nổi Bật
           </Typography>
           <Typography variant="body1" textAlign="center" fontSize={{ md:'var(--desc-fs-md)', xs:'var(--desc-fs-xs)' }}>
                 Thiết kế mô hình sa bàn chi tiết, tái hiện chính xác các dự án xây dựng.

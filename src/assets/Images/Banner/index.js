@@ -1,5 +1,3 @@
-export { default as homeBanner1 } from './homeBanner1.jpg'
-export { default as homeBanner2 } from './homeBanner2.jpg'
-export { default as homeBanner3 } from './homeBanner3.jpg'
-export { default as homeBanner4 } from './homeBanner4.jpg'
-export { default as homeBanner5 } from './homeBanner5.jpg'
+export { default as homeBanner } from './homeBanner.png'
+
+export { default as outstandingProductBanner } from './outstandingProductBanner.png'

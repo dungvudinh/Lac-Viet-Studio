@@ -55,7 +55,7 @@
       
       &__info {
         width: 100%;
-        max-width: 55ch;
+        max-width: 120ch;
         padding: 0 3rem;
         
         @include xs {
@@ -87,6 +87,10 @@
         .title {
           @include fade-up;
           transition-delay: 0.2s;
+          background:linear-gradient(to right,#f97316, #dc2626 );
+          -webkit-background-clip: text;
+          background-clip: text;
+          -webkit-text-fill-color: transparent;
         }
 
         .overview {

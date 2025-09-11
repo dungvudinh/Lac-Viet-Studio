@@ -167,7 +167,7 @@ function Navbar({ belongTo }) {
         navBgColorRef.current = ''
       }
     }
-    if(belongTo === 'home' || belongTo === 'outstanding-product')
+    if (belongTo === 'home' || belongTo === 'outstanding-product')
     {
       setNavBgColor('')
       window.addEventListener('scroll', detectScrollView)
