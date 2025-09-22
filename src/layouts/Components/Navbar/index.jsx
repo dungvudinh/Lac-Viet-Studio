@@ -79,19 +79,19 @@ const NAV_ITEMS = [
   //   path:'', 
   //   belongTo:['home', 'profile-setting']
   // }, 
-  {
-    display:'Tin Tức',
-    name:'news',
-    path:'/news',
-    belongTo:['home', 'news', 'profile-setting']
-  },
-  {
-    display:'Sale Cuối Năm', 
-    name:'sale',
-    path:'/sale', 
-    belongTo:['store', 'product'], 
-    icon:({ width, height, className }) => (<FireIcon width={width} height={height} className={className}/>)
-  }, 
+  // {
+  //   display:'Tin Tức',
+  //   name:'news',
+  //   path:'/news',
+  //   belongTo:['home', 'news', 'profile-setting']
+  // },
+  // {
+  //   display:'Sale Cuối Năm', 
+  //   name:'sale',
+  //   path:'/sale', 
+  //   belongTo:['store', 'product'], 
+  //   icon:({ width, height, className }) => (<FireIcon width={width} height={height} className={className}/>)
+  // }, 
   {
     display:'Liên hệ', 
     name:'contact',
@@ -261,7 +261,7 @@ function Navbar({ belongTo }) {
           </FormControl>
 
           {/* NAVBAR ACTION */}
-          <Box sx={{ display:'flex', alignItems:'center', justifyContent:'space-between', ml:{ md:'1rem' } }}>
+          {/* <Box sx={{ display:'flex', alignItems:'center', justifyContent:'space-between', ml:{ md:'1rem' } }}>
             {(belongTo == 'home' || belongTo === 'profile-setting' || belongTo === 'outstanding-product') 
               ?
               <Button variant="contained" color='primary' size='small' sx={{ fontSize:{ xs:'var(--fs-md)' } }}
@@ -295,7 +295,7 @@ function Navbar({ belongTo }) {
             </Box>
 
             
-          </Box>
+          </Box> */}
         </Box>
       </Container>
       <Cart isCartOpen={isCartOpen} onCloseCart={() => setIsCartOpen(false)}/>

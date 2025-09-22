@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import styles from './Home.module.scss'
 import classNames from 'classnames/bind'
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -11,9 +11,9 @@ import LazyLoadBackgroundImage from '~/components/LazyLoadBackgroundImage'
 import news1 from '~/assets/Images/News/news1.jpeg'
 import news2 from '~/assets/Images/News/news2.jpeg'
 import { homeBanner } from '~/assets/Images/Banner'
-import saban1 from '~/assets/Images/saban1.jpg'
-import saban2 from '~/assets/Images/saban2.jpg'
-import saban3 from '~/assets/Images/saban3.jpg'
+import outstandingProject1 from '~/assets/Images/outstandingProject1.jpg'
+import outstandingProject2 from '~/assets/Images/outstandingProject2.jpg'
+import outstandingProject3 from '~/assets/Images/outstandingProject3.jpg'
 import storeItem1 from '~/assets/Images/storeItem1.jpg'
 import storeItem2 from '~/assets/Images/preview.jpg'
 
@@ -21,7 +21,7 @@ const cx = classNames.bind(styles)
 const STORE_ITEMS =[
   {
     id:1, 
-    title:'Lucky Box', 
+    title:'Nhựa in 3D', 
     desc: 'Lucky Box – Móc khóa bất ngờ, quà tặng may mắn!',
     image: storeItem1,  
     buyPath:'/', 
@@ -29,7 +29,7 @@ const STORE_ITEMS =[
   }, 
   {
     id:2, 
-    title:'Đồ Decor', 
+    title:'Phụ kiện in 3D', 
     desc: 'Tô điểm không gian của bạn, thêm phong cách', 
     image: storeItem2,
     buyPath:'/', 
@@ -102,20 +102,20 @@ const BANNER = {
 //   // { id:5, img:homeBanner5 } 
 // ]
 
-const SABAN_ITEMS =[
+const OUTSTANDING_PROJECTS =[
   {
-    title: 'Mô hình cao tầng', 
-    image: saban1, 
+    title: 'Bể thuỷ sinh', 
+    image: outstandingProject1, 
     path:'/'
   }, 
   {
-    title: 'Mô hình nhà máy', 
-    image: saban2, 
+    title: 'Mô hình thẩm mĩ viện', 
+    image: outstandingProject2, 
     path:'/'
   }, 
   {
-    title: 'Mô hình quy hoạch', 
-    image: saban3, 
+    title: 'Mô hình sa bàn Viettel Post', 
+    image: outstandingProject3, 
     path:'/'
   }
 ]
@@ -136,7 +136,7 @@ function Home() {
       <Box sx={{ paddingBottom:'4rem', marginTop:{ md:'7rem', xs:'4rem' }, textAlign:'center' }}>
         <Container maxWidth='xl'>
           <Typography varient='h1' fontWeight={700} fontSize={{ xs:'var(--title-fs-sm)', md:'var(--title-fs-md)' }}>
-              3D Store
+              Cửa hàng 3D
           </Typography>
           <Typography varient='h6' fontSize={{ xs:'var(--desc-fs-sm)', md:'var(--desc-fs-md)' }} >
               Khám phá về những sản phẩm tuyệt vời của chúng tôi
@@ -171,7 +171,7 @@ function Home() {
         {/* 3D SERVICE */}
         <Container sx={{ marginTop:{ md:'7rem', xs:'4rem' }, textAlign:'center' }} maxWidth='xl'>
           <Typography varient='h1' fontWeight={700} fontSize={{ xs:'var(--title-fs-sm)', md:'var(--title-fs-md)' }}>
-              3D Service
+              Dịch vụ 3D
           </Typography>
           <Typography varient='h6' fontSize={{ md:'var(--desc-fs-md)', xs:'var(--desc-fs-xs)' }} >
               cá nhân hoá sản phẩm theo nhu cầu của khách hàng
@@ -228,16 +228,16 @@ function Home() {
           </Typography>
           <Stack gap={{ xs:1, md:4 }} mt={'2rem'} direction={{ xs: 'column', md: 'row' }} >
             {
-              SABAN_ITEMS.map((sabanItem, index) => (
+              OUTSTANDING_PROJECTS.map((project, index) => (
                 <LazyLoadBackgroundImage key={index}
-                  src={'https://cdn1.bambulab.com/home/freshStart/pc/1.jpg'}
+                  src={project.image}
                   className={cx('architecture-model_item')}>
                   <div className={cx('architecture-model_item__text')}>
                     <Typography variant="h1" fontWeight="bold" textAlign="center" fontSize={{ md:'var(--title-fs-xm)', xs:'var(--title-fs-xs)' }}>
                     
-                      {sabanItem.title}
+                      {project.title}
                     </Typography>
-                    <Link to={sabanItem.path} underline="hover" fontSize={{ md:'var(--fs-lg)', xs:'var(--desc-fs-xs)' }} sx={{ cursor:'pointer' }}>
+                    <Link to={project.path} underline="hover" fontSize={{ md:'var(--fs-lg)', xs:'var(--desc-fs-xs)' }} sx={{ cursor:'pointer' }}>
                       {/* Learn more */}
                           Tìm hiểu thêm
                       <KeyboardArrowRight/>
@@ -251,14 +251,15 @@ function Home() {
             }
           </Stack>
         </Container>
-        <Box className={cx('slogan_bg')} marginTop={{ md:'7rem', xs:'4rem' }} sx={{ display:'flex', justifyContent:'center' }}>
-          <Typography varient='h6' fontSize={{ md:'var(--title-fs-md)', xs:'var(--title-fs-sm)' }} fontWeight={700} position={'relative'} zIndex={'10'} maxWidth={{ md:'60rem' }}>
+        <Box className={cx('slogan_bg')} marginTop={{ md:'7rem', xs:'4rem' }} sx={{ display:'flex', justifyContent:'center', alignItems:'center' }}>
+          <Typography varient='h6' className='color-gradient' fontSize={{ md:'var(--title-fs-md)', xs:'var(--title-fs-sm)' }} 
+          fontWeight={700} position={'relative'} zIndex={'10'} maxWidth={{ md:'60rem' }}>
               Biến Ý Tưởng Của Khách Hàng Thành Hiện Thực
           </Typography>
         </Box>
         {/* NEWS */}
-        <News/>
-        <Container sx={{ marginTop:{ md:'7rem', xs:'4rem' }, textAlign:'center' }} maxWidth='lg'>
+        {/* <News/> */}
+        {/* <Container sx={{ marginTop:{ md:'7rem', xs:'4rem' }, textAlign:'center' }} maxWidth='lg'>
           <Typography variant="h1" fontSize={{ md:'var(--title-fs-md)', xs:'var(--title-fs-sm)' }} fontWeight={700}>
                 Đối tác của chúng tôi
           </Typography>
@@ -270,7 +271,7 @@ function Home() {
             }
            
           </Stack>
-        </Container>
+        </Container> */}
       </Box>
     </Box>
   )
@@ -361,7 +362,7 @@ const News = () => {
                     {item.desc}
                   </Typography>
                   <Link color="primary" underline="hover" className="mt-2" href={item.link} sx={{ fontSize:'0.9rem' }}>
-                                      Learn more
+                      Learn more
                     <KeyboardArrowRight />
                   </Link>
                 </AccordionDetails>

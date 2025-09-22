@@ -10,21 +10,21 @@ import { FacebookIcon, InstagramIcon } from '~/assets/Icons'
 const cx = classNames.bind(styles)
 
 const PRODUCT_ITEMS = [
-  { title: '3D Store' },
-  { title: 'Service' }
+  { title: 'Cửa hàng 3D' },
+  { title: 'Dịch vụ 3D' }
 ]
 
 const COMPANY_ITEMS = [
-  { title: 'About Us' },
-  { title: 'News' }
+  { title: 'Liên hệ' },
+  // { title: 'News' }
 ]
 
 const PRIVACY_LINKS = [
-  { title: 'Privacy Policy' },
-  { title: 'Terms of Use' },
-  { title: 'Warranty' },
-  { title: 'Cookie Policy' },
-  { title: 'Cookie Settings' }
+  { title: 'Chính sách bảo mật' },
+  { title: 'Điều khoản sử dụng' },
+  { title: 'Bảo hành' },
+  // { title: 'Cookie Policy' },
+  // { title: 'Cookie Settings' }
 ]
 
 const STORE_MENU_ITEMS = {
@@ -37,7 +37,7 @@ const HomeFooter = () => {
   return (
     <Box bgcolor="#111" color="#fff" paddingTop="60px" padding="60px 30px 50px 30px">
       <Container maxWidth='lg' sx={{ padding:0 }}>
-        <Stack 
+        {/* <Stack 
           direction={{ xs: 'column', sm: 'row' }} 
           spacing={2} 
           justifyContent="space-between" 
@@ -71,7 +71,7 @@ const HomeFooter = () => {
                 By signing up, you agree to Bambu Lab's <span style={{ color: '#f77919' }}>Terms of Use</span> and <span style={{ color: '#f77919' }}>Privacy Policy</span>
             </Typography>      
           </Box>
-        </Stack>
+        </Stack> */}
         <Box pb="10px" borderTop="1px solid #616161" borderBottom="1px solid #616161">
           <Box sx={{ display: { xs: 'block', sm: 'none' } }}>
             <Accordion sx={{ 
@@ -96,7 +96,7 @@ const HomeFooter = () => {
                 expandIcon={<ExpandMore sx={{ color: '#fff' }} />}  
                 sx={{ padding:'0 !important' }}
               >
-                <Typography sx={{ fontSize:'1.4rem' }} varient={'h6'}>Product</Typography>
+                <Typography sx={{ fontSize:'1.4rem' }} varient={'h6'}>Sản phẩm</Typography>
               </AccordionSummary>
               <AccordionDetails>
                 {PRODUCT_ITEMS.map((item, index) => (
@@ -127,7 +127,7 @@ const HomeFooter = () => {
                 expandIcon={<ExpandMore sx={{ color: '#fff' }} />} 
                 sx={{ padding:'0 !important' }}
               >
-                <Typography sx={{ fontSize:'1.4rem' }}>Company</Typography>
+                <Typography sx={{ fontSize:'1.4rem' }}>Công ty</Typography>
               </AccordionSummary>
               <AccordionDetails>
                 {COMPANY_ITEMS.map((item, index) => (
@@ -139,13 +139,13 @@ const HomeFooter = () => {
 
           <Grid container mb={2} sx={{ display: { xs: 'none', sm: 'flex' } }} spacing={4}>
             <Grid xs={12} sm={6} md={2}>
-              <Typography varient='h6' sx={{ fontSize:'var(--fs-md)', padding:'0.4rem 0 0.6rem', fontWeight:600 }}>Product</Typography>
+              <Typography varient='h6' sx={{ fontSize:'var(--fs-md)', padding:'0.4rem 0 0.6rem', fontWeight:600 }}>Sản phẩm</Typography>
               {PRODUCT_ITEMS.map((item, index) => (
                 <Typography key={index} varient='body1' sx={{ fontSize:'var(--fs-md)', padding:'0.4rem 0 0.6rem' }}>{item.title}</Typography>
               ))}
             </Grid>
             <Grid xs={12} sm={6} md={2}>
-              <Typography varient='h6' sx={{ fontSize:'var(--fs-md)', padding:'0.4rem 0 0.6rem', fontWeight:600 }}>Company</Typography>
+              <Typography varient='h6' sx={{ fontSize:'var(--fs-md)', padding:'0.4rem 0 0.6rem', fontWeight:600 }}>Công ty</Typography>
               {COMPANY_ITEMS.map((item, index) => (
                 <Typography key={index} varient='body1' sx={{ fontSize:'var(--fs-md)', padding:'0.4rem 0 0.6rem' }}>{item.title}</Typography>
               ))}
